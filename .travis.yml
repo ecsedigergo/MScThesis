@@ -21,7 +21,7 @@ script:
 - sudo cp lua/language.dat.lua `kpsewhich language.dat.lua`
 - make test
 - cd ..
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then ./deploy.sh;
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then sudo ./deploy.sh;
   fi
 notifications:
   slack: ftsrg:qnSMPdAdgpSj9vVxcl2AB2qU
