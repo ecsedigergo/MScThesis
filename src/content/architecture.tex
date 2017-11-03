@@ -1,0 +1,40 @@
+%----------------------------------------------------------------------------
+\chapter{Architecture}
+%----------------------------------------------------------------------------
+In this section I summarize the details for each component.
+
+\section{Package details}
+Java implementation:
+
+Utils folder path: <root\_path>/utils/
+Utils project prefix: hu.bme.mit.inf.modes3.utils
+Utils path prefix: <utils\_folder\_path> + <utils\_project\_prefix>
+\begin{center}
+	\begin{tabular}{ | p{2 cm} | c | p{5cm} | }
+		\hline
+		Logical Component & Physical Location & Description \\ \hline
+		Utility classes for components & <utils\_path\_prefix>.common & Utility classes that can be used by every component. E.g. handling command-line arguments in Java.\\ \hline
+		Common configuration files & <utils\_path\_prefix>.conf & 
+		Common configuration files for the model railway track. E.g. files containing information about segment, turnout, locomotive IDs\\ \hline
+		Serial monitor & <utils\_path\_prefix>.serialmonitor &
+		Utility project to monitor the serial (USB) port from Java. \\ \hline	
+		SVG Transformer & <utils\_path\_prefix>.svgtransformer &
+		Utility project to transform SVG in Java, in order to map the Open CV coordinates for segments on the railway track. \\ \hline
+	\end{tabular}
+\end{center}
+
+\section{Component classes}
+\paragraph{Extensions: MapExtensions}
+
+\textbf{gson:} GsonLoader: Loads a defined type from the inputstream with its loadTypeFromInputStream method.
+
+\textbf{jopt:}
+ArgumntDescriptorWithoutParameter
+ArgumentDescriptorWithParameter
+ArgumentRegistry
+A registry which stores the different command-line arguments, that can have parameters {@link ArgumentAcceptingOptionSpec} or not.
+
+- Outer dependency : JOpt Simple 
+
+\section{Component Class Tests}
+
