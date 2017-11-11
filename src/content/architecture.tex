@@ -1,16 +1,19 @@
+
 %----------------------------------------------------------------------------
 \chapter{Architecture}
 %----------------------------------------------------------------------------
-In this section I summarize the details for each component.
 
-\section{Package details}
-Java implementation:
+
+\section{Java classes}
+\subsection{Project: hu.bme.mit.inf.modes3.utils}
 
 Utils folder path: <root\_path>/utils/
+
 Utils project prefix: hu.bme.mit.inf.modes3.utils
+
 Utils path prefix: <utils\_folder\_path> + <utils\_project\_prefix>
 \begin{center}
-	\begin{tabular}{ | p{2 cm} | c | p{5cm} | }
+	\begin{tabular}{ | m{3 cm } | m{ 6 cm} | m{5cm} | }
 		\hline
 		Logical Component & Physical Location & Description \\ \hline
 		Utility classes for components & <utils\_path\_prefix>.common & Utility classes that can be used by every component. E.g. handling command-line arguments in Java.\\ \hline
@@ -23,18 +26,52 @@ Utils path prefix: <utils\_folder\_path> + <utils\_project\_prefix>
 	\end{tabular}
 \end{center}
 
-\section{Component classes}
-\paragraph{Extensions: MapExtensions}
+\subsection{Implementation of component utils.common}
+Utility classes that can be used by every component. E.g. handling command-line arguments in Java.
 
-\textbf{gson:} GsonLoader: Loads a defined type from the inputstream with its loadTypeFromInputStream method.
+\paragraph{SubPackage Extensions}
+MapExtension class is used to combine two maps into one class.
 
-\textbf{jopt:}
-ArgumntDescriptorWithoutParameter
-ArgumentDescriptorWithParameter
-ArgumentRegistry
-A registry which stores the different command-line arguments, that can have parameters {@link ArgumentAcceptingOptionSpec} or not.
+\paragraph{SubPackage Gson} 
+The GsonLoader loads a defined type from the input stream with its loadTypeFromInputStream method to a gson format.
 
-- Outer dependency : JOpt Simple 
+\paragraph{SubPackage Jops}
+These classes are responsible for reading the control messages from the console, and handle the commands. Regarding that function we can configure arguments with or without parameters for the commands.
 
-\section{Component Class Tests}
+Consider the 3 classes in this package:
+\begin{itemize}
+	\item ArgumentRegistry: A registry which stores the different command-line arguments, that can have parameters {@link ArgumentAcceptingOptionSpec} or not. The argument parser is based on the JOpt simple library.
+	\item ArgumntDescriptorWithoutParameter: A descriptor class which stores the (command-line) argument's name, description, and type.
+	\item ArgumentDescriptorWithParameter: A descriptor class which stores the (command-line) argument's name, description, and type (e.g. String.class, Integer.class).
+\end{itemize}
+\subsection{Test of component utils.common}
+ArgumentRegistryTest:
 
+\subsection{Implementation of component utils.conf}
+Common configuration files for the model railway track.
+(\url{ https://www.eclipse.org/xtend/documentation/204\_activeannotations.html#data-annotation})
+
+Configuration classes:
+\begin{itemize}
+	\item TurnoutVicinity: Represents the vicinities of one Turnout, for straight, divergent and facing direction. 
+	\item LayoutConfiguration: This singleton class stores the segments and turnouts of the railway track. Matches each segment with their vicinity and IDs.
+	\item LocomotivesConfiguration: Loads the locomotives data from json, which are present in the system. Support methods to get id(s) or name(s) for one/each locomotive.
+\end{itemize}
+
+\subsection{Test of component utils.conf}
+LayoutConfigurationTest:
+
+LocomotivesConfigurationTest:
+
+
+\subsection{Implementation of component utils.serialmonitor}
+
+Utility project to monitor the serial (USB) port from Java. The SerialConnection is a wrapper class for SerialPort library (\url{https://github.com/scream3r/java-simple-serial-connector}), furthermore handles the connections for each port with the subscribed listeners. The SerialMonitor writes the command parameter to the specific ports which were configured.
+
+\subsection{Test of component utils.serialmonitor}
+
+\subsection{Implementation of component utils.svgtransformer}
+Utility project to transform SVG in Java, in order to map the Open CV coordinates for segments on the railway track. Uses batik SVG API (\url{https://xmlgraphics.apache.org/batik/using/dom-api.html}) for converting image for creating RailRoadModel instance.
+
+\subsection{Test of component utils.svgtransformer}
+%TODO How to test this convertion?
