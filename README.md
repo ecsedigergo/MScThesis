@@ -1,7 +1,17 @@
-thesis-template-latex
+MSc Thesis
 =====================
+[![Build status](https://travis-ci.org/ecsedigergo/MScThesis.svg?branch=master)](https://travis-ci.org/ecsedigergo/MScThesis)
 
-[![Build status](https://travis-ci.org/FTSRG/thesis-template-latex.svg?branch=master)](https://travis-ci.org/FTSRG/thesis-template-latex)
+
+
+
+
+
+
+
+
+Forked from: thesis-template-latex [github](https://github.com/FTSRG/thesis-template-latex)
+
 
 A [continuously maintained](https://github.com/FTSRG/thesis-template-latex/graphs/contributors) thesis template for LaTeX documents, forked from the [official thesis template](http://diplomaterv.vik.bme.hu/) of BME-VIK (Budapest University of Technology and Economics, Faculty of Electrical Engineering and Informatics). There is also a [Microsoft Word template](https://github.com/FTSRG/thesis-template-word) available.
 
