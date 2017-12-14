@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
-% !TeX program = xelatex
+% !TeX program = pdflatex
 
 %\documentclass[11pt,a4paper,oneside]{report}             % Single-side
 \documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
@@ -22,7 +22,7 @@
 \newcommand{\vikkonzulensCVezeteknev}{}
 \newcommand{\vikkonzulensCKeresztnev}{}
 
-\newcommand{\vikcim}{Tesztkörnyezet kialakítása vasúti demonstrátor számára} % Cím
+\newcommand{\vikcim}{Developing a test environment for a railway demonstrator} % Cím
 \newcommand{\viktanszek}{\bmemit} % Tanszék
 \newcommand{\vikdoktipus}{\msc} % Dokumentum típusa (\bsc vagy \msc)
 \newcommand{\vikmunkatipusat}{diplomaterv} % a "hallgató nyilatkozat" részhez: szakdolgozatot vagy diplomatervet
@@ -69,14 +69,14 @@
 %TODO import your own content
 \include{content/introduction}
 \include{content/architecture}
-%\include{content/latex-tools}
-%\include{content/thesis-format}
+\include{content/testdesign}
+\include{content/testevaluation}
 %\include{content/template-usage}
 
 
 % Acknowledgements
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\include{content/acknowledgement}
+%\include{content/acknowledgement}
 
 
 % List of Figures, Tables

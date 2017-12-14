@@ -1,0 +1,17 @@
+%----------------------------------------------------------------------------
+\chapter{Test design}
+%----------------------------------------------------------------------------
+\section{Test approaches}
+The railway demonstrator system is a multi-layered application, which models a safety critical railway system. In that manner we have to make sure that we detect all the failures during the design and development phase. For this purpose in the following section I will investigate the test opportunities for the MoDeS$^3$ system.
+
+\paragraph{V-model and testing levels}
+Nowdays one of the most popular software development methodology is the V-model (on figure \ref{fig:vModel}), which defines four stages during the development and four verification steps accordingly (shown with rectangles). In addition for making the development more effective for error-detection, there are three more steps for verifying our system (shown with ellipses). While the development starts with an abstract \textbf{requirement analysis} which declares the aim of our application, later on each step contains more detailed information. The second phase is about understanding the abstract user requirements and define the \textbf{system functional specification} by the developers. During this phase our verification is based on \textbf{Model-in-the-Loop (MiL) testing}. The third phase contains all the low-level design and specific information about the application. From these design decisions, the \textbf{implementation} should be quite straight-forward or even generated. To make sure that the code is working correctly it is tested using \textbf{Software-in-the-Loop (SiL)}. 
+As of now our application code is written and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are working well on their own. \textbf{Processor-in-the-Loop (PiL)} testing can be made here. Moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level criterias.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=150mm]{figures/modes3/v_model.png}
+	\caption{V-model}
+	\label{fig:vModel}
+\end{figure}
+
+\section{Test scenarios}
