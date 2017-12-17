@@ -11,6 +11,7 @@ addons:
     - texlive-luatex
     - texlive-science
     - texlive-xetex
+    - texlive-pictures pgf
 env:
   global:
   - GH_REF: github.com/ecsedigergo/MScThesis.git
