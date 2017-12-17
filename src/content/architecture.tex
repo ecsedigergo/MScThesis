@@ -183,7 +183,31 @@ In the MODES$^3$ safety critical project we want to avoid the collision of model
 
 \subsection{Messaging elements}
 Each software component share information about the railroad system through the messaging software element, which is based on protobuf messages and provides high-level designed API for this purpose. 
-\todo[inline]{introduce the topics and communication connections}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/CommunicationModel.png}
+	\caption{Communication between software components}
+	\label{fig:communicationModel}
+\end{figure}
+
+Separated topics are created for different information flow, and any component can subscribe for these topics. Basically on all topic the information reporting is change based, so all components sending an information message to the dedicated topic (like occupancy changed or change turnout). In opposite to that, there is a \textit{SendAllStatusCommand} and for that every component should send a status message.
+
+I will now list the specific MQTT topics and the connected software components to that, so basically what kind of information is flowing on them.
+
+\paragraph{Segment Occupancy topic}
+On this topic the \textbf{Occupancy Query} component sending information whether an occupancy state is changed on any segment. (Notice that a segment can also be a section ot a turnout too.) Most of the components are subscribed for this information topic so the \textbf{Touch board}, \textbf{DashBoard}, \textbf{Barrier} (only for the supervised segments), \textbf{Track Element Controller} and \textbf{Safety Logic}.
+
+\paragraph{Segment and Turnout Command topic}
+Basically the \textbf{Track Element Controller} process and accomplish these commands, and \textbf{Touch board}, \textbf{Dashboard} and \textbf{Safety Logic} components can give these instructions.
+
+\paragraph{Segment and Turnout Status topic}
+For every command the \textbf{Track Element Controller} will give a status message about the new state of the turnout or section. In this way the \textbf{Touch board}, \textbf{Dashboard} and \textbf{Safety Logic} elements will be informed about the latest and current state.
+
+\paragraph{CV topic}
+The camera notification is communicated on that topic, which is received by the \textbf{Safety Logic}.
+
+\paragraph{ALL topic}
+For this specific topic all the components in the system are subscribed, and information about train controlling and \textbf{Command Station} related messages are shared.
 
 \subsection{Complementary elements}
 \paragraph{Barrier} 
@@ -192,7 +216,7 @@ Sends open/close commands to the barrier over the network, depending on the occu
 Software component for converting gestures into special movements for changing the speed of a specific train.
 
 \section{Components by functional purpose}
-\todo[inline]{Maybe figure of the Sw-Hw sysml for each paragraph}
+%\todo[inline]{Maybe figure of the Sw-Hw sysml for each paragraph}
 \paragraph{Occupancy detection}\label{par:FunctionOccupancyDetection}
 In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by train on it. The actual detection is made by the\textbf{ DigiSens-8-S88} sensing element. The demonstration railway system have 4 sensing element, and they are connected to an\textbf{ Arduino} S88 port. This microcontroller computes a basic low-level calculation by \textbf{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy information (actual state of every track element) to the \textbf{Occupancy Query} via USB. The\textbf{ Occupancy Query} Java component on the \textbf{Rapsberry Pi} stores the previous occupancy state, and sends information to the \textit{Segment Occupancy} topic.
 

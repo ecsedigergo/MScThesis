@@ -6,7 +6,7 @@ The railway demonstrator system is a multi-layered application, which models a s
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=150mm]{figures/modes3/v_model.png}
+	\includegraphics[width=150mm]{figures/testDesign/v_model.png}
 	\caption{V-model}
 	\label{fig:vModel}
 \end{figure}
@@ -41,18 +41,41 @@ In addition not all the software component have been mentioned  on the \ref{tabl
 	\end{center}
 \end{table} 
 
-\todo[inline]{Figure of affected components of the layout (sysml with rectangles)}
 \paragraph{Integration test layout 1}
 Aim of this test case is the occupancy detection, which functional operation is described in \ref{section:OccupancyDetection} section. One track element is occupied if a train is moving or stopped on the element. In hardware point of view this detection is made by the DigiSens-8-S88 sensor, which is an off-the-shelf product, so we do not want to test it.  
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test1.png}
+	\caption{Integration test layout 1}
+	\label{fig:MoDeS3_Deployment-test1}
+\end{figure}
 
 \paragraph{Integration test layout 2}
 Aim of this test is to verify the software components, which is deployed to the BBB (described in \ref{par:FunctionTEC} section) and responsible for controlling the physical segments. All the 6 BBB have separate instance of \textbf{Track Element Controller}. This component gets and information through the network on command topics, when segment granting or turnout state must be changed. At this point the control differentiates into subcomponents weather a turnout or a section command have been received. Both branches use GPIO software component for giving impulse on the BBB cape pins. 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test2.png}
+	\caption{Integration test layout 2}
+	\label{fig:MoDeS3_Deployment-test2}
+\end{figure}
 
 \paragraph{Integration test layout 3}
 In this integration test a more complex strategy comes into picture. After we have verified the \textbf{Safety Logic} and the occupancy detection elements, we can investigate the \textbf{Safety Logic} decision based on the generated occupancy states. These signs can be injected into the \textbf{Arduino} hardware element or into the Section Occupancy Query directly.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test3.png}
+	\caption{Integration test layout 3}
+	\label{fig:MoDeS3_Deployment-test3}
+\end{figure}
 
 \paragraph{Integration test layout 4}
 The fourth integration test should verify the action after a \textbf{Safety Logic} decision. In details, we can inject a critical scenario into the \textbf{Safety Logic} component where a safety intervention needed, and check the GPIO component's file writing operation.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test4.png}
+	\caption{Integration test layout 4}
+	\label{fig:MoDeS3_Deployment-test4}
+\end{figure}
 
 \paragraph{System Test}
 In the system tests all component is involved, and only the injected scenario is different. 
