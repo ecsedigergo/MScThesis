@@ -2,7 +2,7 @@
 %----------------------------------------------------------------------------
 \chapter{Railway demonstrator system architecture}
 %----------------------------------------------------------------------------
-In the following chapter the railway demonstrator system will be described, which is shown in figure \ref{fig:overview}. This system's purpose is to simulate a real-life railway safety critical system, with basic functionalities. In order to satisfy this purpose the demonstrator is based on a model railway system stub with extensions of custom and off-the-shelf hardware, software components. 
+In the following chapter the railway demonstrator system will be described, which is shown in figure \ref{fig:overview}. This system's purpose is to simulate a real-life railway safety critical system, with basic functionalities and train collision detection. In order to satisfy this purpose the demonstrator is based on a model railway system stub with extended with custom and off-the-shelf hardware, software components. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/overview.jpg}
@@ -10,7 +10,7 @@ In the following chapter the railway demonstrator system will be described, whic
 	\label{fig:overview}
 \end{figure}
 \section{Railway system basic components}
-First of all I want to introduce the physical components and the basic process of the railway systems stub. There are 31 sections, with one blind track and 7 turnouts. The \ref{fig:layout} figure shows the layout of the railway elements with corresponding ids.
+First of all I want to introduce the physical components and the basic process of the railway systems stub. There are 31 sections, with one blind track and 7 turnouts. The \ref{fig:layout} figure shows the layout of the railway elements with corresponding segment ids. Over all a segment means either section or turnout.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layout2.png}
@@ -18,10 +18,10 @@ First of all I want to introduce the physical components and the basic process o
 	\label{fig:layout}
 \end{figure}
 \paragraph{Section} 
-First principal  element is a 15-20 cm long railway and connects to other 2 sections. Additionally each of them is connected to a command station, which gives them sufficient power source for moving the trains on them. In the figure \ref{fig:layout} these sections are identified by SXX strings, where XX is 2 unique digits and determines which bit shows this section's occupancy in the occupancy vector (see section \ref{section:OccupancyDetection} for more information). Each section lengths and responsible BeagleBone Black id are shown.
+First principal  element is a 15-20 cm long railway and connects to other 2 sections. Additionally each of them is connected to a command station, which gives them sufficient power source for moving the trains on them. In the figure \ref{fig:layout} these sections are identified by SXX strings, where XX is two unique digits. Furthermore these two digits determines which bit shows this section's occupancy in the occupancy vector later (see section \ref{section:OccupancyDetection} for more information). On figure for each section lengths and responsible BeagleBone Black id are shown.
 
 \paragraph{Turnout}
-Second principal element, which can differentiate 2 paths as it can be seen on figure \ref{fig:turnoutDir}. Consequently the train which is going through one turnout can reach different sections depending on the state of the turnout. In the previous figure \ref{fig:layout} each turnout is visible as grey dashed section areas with turnout ID, sense (its value shows, which bit identifies this turnout's occupancy in the occupancy vector) and \textit{\#segments} as number of supervised sections by the BeagleBone Black. (see section \ref{section:OccupancyDetection} for more information) Each turnout id starts with T and ends with a numeric (1..6). 
+Second principal element is the turnout, which can differentiate 2 paths as it can be seen on figure \ref{fig:turnoutDir}. The train which is going through a turnout can reach different sections depending on the state of the turnout. In the previous figure \ref{fig:layout} each turnout is visible as grey dashed section areas with turnout ID, sense (its value shows, which bit identifies this turnout's occupancy in the occupancy vector) and \textit{\#segments} as number of supervised sections by the BeagleBone Black. (see section \ref{section:OccupancyDetection} for more information about occupancy vector) Each turnout id starts with T and ends with a numeric (1..6). 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/turnout.png}
@@ -38,7 +38,7 @@ First approach is that 2 trains are passing through the same turnout, which mean
 	\caption{Turnout 1 collision scenario 1}
 	\label{fig:LayoutT1-scenario1}
 \end{figure}
-Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \textit{Train 1} is going to the section where \textit{Train 2} is staying. Notice that no matter in which direction the \textit{Train 2} is moving, it is a dangerous situation.
+Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \textit{Train 1} is going to the section where \textit{Train 2} is staying. Notice that no matter in which direction the \textit{Train 2} is moving or staying, it is a dangerous situation.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT1-scenario2.png}
@@ -49,11 +49,11 @@ Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \te
 \paragraph{Command Station}
 Supply power source for the sections which provides tension for the trains on the track.
 \paragraph{Controller}
-In connection with the \textit{Command Station} an XPressNet protocol \footnote{More details about XPressNet Protocol \url{http://www.lenzusa.com/1newsite1/Manuals/xpressnet.pdf}} based controller is attached to the system. This component's purpose is setting the direction and speed for each train on the track through the \textit{Command Station}
+In connection with the \textit{Command Station} an XPressNet protocol \footnote{More details about XPressNet Protocol \url{http://www.lenzusa.com/1newsite1/Manuals/xpressnet.pdf}} based controller is attached to the system. This component's purpose is setting the direction and speed for each train on the track through the \textit{Command Station}.
 
 \section{Hardware extensions}
 The basic hardware environment is not sufficient for controlling and analysing purposes, therefore additional hardware elements have been designed. These platforms are also custom made and also off-the-shelf products. 
-The \ref{appendix:HWPictures} appendix contains pictures about the hardware elements
+The \ref{appendix:HWPictures} appendix contains pictures about the hardware elements.
 \subsection{Data processing units}
 
 \begin{figure}[h]
@@ -63,26 +63,28 @@ The \ref{appendix:HWPictures} appendix contains pictures about the hardware elem
 	\label{fig:Modes3HWBDD}
 \end{figure}
 \paragraph{BeagleBone Black (BBB)}
-An industrial microcontroller platform, which provides 4GB 8-bit eMMC on-board flash storage and 2x PRU 32-bit microcontrollers, which could satisfy the function for parallel monitoring. There are 6 BBB on the track connected to the railway, used for controlling and enable/disable each section.
-% moved to the overall diagram%TODO add details about what is on the BBB
+An industrial microcontroller platform and it provides 4GB 8-bit eMMC on-board flash storage and 2x PRU 32-bit microcontrollers, which could satisfy the function for parallel monitoring. There are 6 BBB on the track connected to the railway, used for controlling and enable/disable each section.
+
 \paragraph{Rapsberry Pi 3}
 A Rapsberry Pi microcontroller is dedicated to handle most of the software components related to the Railway demonstrator system. It has twice as large computing capacity in RAM and CPU as BBB.
+
 \paragraph{Arduino}
 Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data through S88 protocol (see \ref{par:SegmentSensor} section for details about the component). This communication layer requires proper timing conditions which the Arduino platform can satisfy.
+
 \subsection{Custom hardware extensions}
 \paragraph{BeagleBone Black cape and expanders}\label{par:BBBcape}
-The BeagleBone Black components expect 5VDC power source instead of 12VDC from our power supply. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}.
+The BeagleBone Black components expect 5VDC power source instead of 12VDC from our power supply. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. For figures I have used Sysml plugin with MagicDraw. \cite{SysML}
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/BBBExpander.png}
-	\caption{Cape and expander for BBB}
+	\caption{Layout and current attachment of cape and expander}
 	\label{fig:capeSysml}
 \end{figure}
 
 Each cape have 8 general purpose expander slot, for which the pin layout is expressed in the following \ref{table:expander_pin_layout} table.
 
-\begin{table}
+\begin{table}[!h]
 	\caption{Pin layout}
 	\label{table:expander_pin_layout}
 	\begin{center}
@@ -99,10 +101,10 @@ Each cape have 8 general purpose expander slot, for which the pin layout is expr
 
 The upper row of each connector is dedicated for GPIO connections. Two of the GPIO pins connected to the application processor (labeled with G0..G15), and the remaining two GPIO pins are connected to the PRU unit (labeled P0..P15).
 
-With this setup, the PRU and the application processor can cooperate on hardware level. Also, if we want we could use the P0..P15 GPIOs from the application processor as well.
+With this setup, the PRU and the application processor can cooperate on hardware level. (Also, if we want we could use the P0..P15 GPIOs from the application processor as well.)
 
-\paragraph{Segment sensor}\label{paragraph:SegmentSensor}
- The DigiSens-8-S88 component is an off-the-shelf product, which can detect the occupancy for 8 sections.\footnote{More information about the product can be found here:\url{http://www.digitools.hu/termekek/erzekelok/digisens-8-s88}}.
+\paragraph{Segment sensor}\label{par:SegmentSensor}
+ The DigiSens-8-S88 component is an off-the-shelf product, which can detect the occupancy for 8 segments.\footnote{More information about the product can be found here:\url{http://www.digitools.hu/termekek/erzekelok/digisens-8-s88}}.
 
 \paragraph{Segment actuator}
 Segment Actuator expanders are designed to stop a train on the corresponding segment. The concept behind this expander based on the Lenz Asymmetrical DCC and ABC functionality of train-decoders. \footnote{The following descriptions are based on \url{https://tonystrains.com/lenz-asymmetrical-dcc-and-abc/} article.}
@@ -156,14 +158,13 @@ The MCU has 2 inputs and 2 outputs connected to the expander connector as shown 
 \end{figure}
 \subsection{Occupancy detection elements} \label{section:OccupancyDetection}
 \paragraph{Section Occupancy Query}
-Responsible for debouncing the 32bit long occupancy vector with proper timing conditions regarding S88 protocol and forward this 32bit to OccupancyQuery through usb connection. Computed data contains the occupancy information for each track element (section or turnout) per one bit.
+Responsible for debouncing the 32bit long occupancy vector with proper timing conditions regarding S88 protocol and forward this 32bit to \textit{Occupancy Query} through usb connection. Computed data contains the occupancy information for each track element (section or turnout) per one bit.
 \paragraph{Occupancy Query}
-In connection with the \textit{Section Occupancy Query} process the occupancy state for the whole track. Only if the state has changed, it sends occupancy change message to the mqtt topic with the track element id and new occupancy state.
+In connection with the \textit{Section Occupancy Query} process the occupancy state for the whole track. Only if the state has changed, it sends occupancy change message to the MQTT topic with the track element id and new occupancy state.
 
 \subsection{Track element control elements}
-Deployed to the BBB hardware element.
 \paragraph{GPIO}
-Handle the GPIO pin changes and commands for each extension point of the BBB cape (see \ref{paragraph:BBBcape} section for details about BBB cape and expanders).
+Handle the GPIO pin changes and commands for each extension point of the BBB cape (see \ref{par:BBBcape} section for details about BBB cape and expanders).
 \paragraph{Physical Segment Controller}
 For each segment there are two GPIO instance to serve the control mechanism of application and the PRU also, however there is no PRU control implemented.
 \paragraph{Physical Turnout Controller}
@@ -171,18 +172,19 @@ For each turnout controller, there are four GPIO pins: two for control the turno
 \paragraph{Track Element Controller}
 Implementation of the platform-specific actuator code of disabling and enabling sections and setting turnout directions for the BeagleBone Black embedded units.
 
-\subsection{Track control and inspection elements}
+\subsection{Track control and supervisor elements}
 \paragraph{XPressNet}
-Protocol for sending messages to the \textbf{Command Station component}, therefore we can extend to communication form for controlling the track. In the current layout there is a controller and web opportunity for controlling.
+Protocol for sending messages to the \textit{Command Station} component, therefore we can extend to communication form for controlling the track. In the current layout there is a controller and web-based opportunity for controlling.
 \paragraph{Dashboard}
 Model railway track dashboard implementation. In Addition this component is instantiated only once, and up for the whole time while the track is in use. Consequently we can reach one common dashboard from the web and it contains the actual occupancy and track element status.
 \paragraph{Touch board}
 Dashboard for the model railway track, with focus on touchable elements, that can be controlled.
 \paragraph{Safety Logic}
-In the MODES$^3$ safety critical project we want to avoid the collision of model trains, therefore the safety logic software component detects these critical scenarios by Viatra Query patterns and act the necessary action (for example disable a section).
+In the MODES$^3$ safety critical project we want to avoid the collision of model trains, therefore the safety logic software component detects these critical scenarios by Viatra Query \cite{Viatra} patterns and act the necessary action (for example disable a section).
+
 
 \subsection{Messaging elements}
-Each software component share information about the railroad system through the messaging software element, which is based on protobuf messages and provides high-level designed API for this purpose. 
+Each software component share information about the railroad system through the messaging software element, which is based on protobuf messages and provides high-level designed API with MQTT for this purpose. 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/CommunicationModel.png}
@@ -190,38 +192,38 @@ Each software component share information about the railroad system through the 
 	\label{fig:communicationModel}
 \end{figure}
 
-Separated topics are created for different information flow, and any component can subscribe for these topics. Basically on all topic the information reporting is change based, so all components sending an information message to the dedicated topic (like occupancy changed or change turnout). In opposite to that, there is a \textit{SendAllStatusCommand} and for that every component should send a status message.
+Separated topics are created for different information flow, and any component can subscribe for these topics. Basically on all topic, the information reporting is change based, so all components sending an information message to the dedicated topic when their state have changed (like occupancy changed or turnout changed). In opposite to that, there is a \textit{SendAllStatusCommand} and for that every component should send the actual status.
 
-I will now list the specific MQTT topics and the connected software components to that, so basically what kind of information is flowing on them.
+I will now list the specific MQTT topics and the connected software components to that, so basically what kind of information is flowing on them. (See software component connections on figure \ref{fig:communicationModel})
 
 \paragraph{Segment Occupancy topic}
-On this topic the \textbf{Occupancy Query} component sending information whether an occupancy state is changed on any segment. (Notice that a segment can also be a section ot a turnout too.) Most of the components are subscribed for this information topic so the \textbf{Touch board}, \textbf{DashBoard}, \textbf{Barrier} (only for the supervised segments), \textbf{Track Element Controller} and \textbf{Safety Logic}.
+On this topic the \textit{Occupancy Query} component sending information whether an occupancy state is changed on any segment. (Notice that a segment can also be a section ot a turnout too.) Most of the components are subscribed for this information topic so the \textit{Touch board}, \textit{DashBoard}, \textit{Barrier} (only for the supervised segments), \textit{Track Element Controller} and \textit{Safety Logic}.
 
-\paragraph{Segment and Turnout Command topic}
-Basically the \textbf{Track Element Controller} process and accomplish these commands, and \textbf{Touch board}, \textbf{Dashboard} and \textbf{Safety Logic} components can give these instructions.
+\paragraph{Segment and Turnout Command topic}\label{par:MQTTTopicCommand}
+Basically the \textit{Track Element Controller} process and accomplish these commands, and \textit{Touch board}, \textit{Dashboard} and \textit{Safety Logic} components can give these instructions.
 
-\paragraph{Segment and Turnout Status topic}
-For every command the \textbf{Track Element Controller} will give a status message about the new state of the turnout or section. In this way the \textbf{Touch board}, \textbf{Dashboard} and \textbf{Safety Logic} elements will be informed about the latest and current state.
+\paragraph{Segment and Turnout Status topic}\label{par:MQTTTopicStatus}
+For every command the \textit{Track Element Controller} will give a status acknowledgement message with the new state of the turnout or section. In this way the \textit{Touch board}, \textit{Dashboard} and \textit{Safety Logic} elements will be informed about the latest and current state.
 
 \paragraph{CV topic}
-The camera notification is communicated on that topic, which is received by the \textbf{Safety Logic}.
+The camera notification is communicated on that topic, which is received by the \textit{Safety Logic}.
 
 \paragraph{ALL topic}
-For this specific topic all the components in the system are subscribed, and information about train controlling and \textbf{Command Station} related messages are shared.
+For this specific topic all the components in the system are subscribed, and information about train controlling and \textit{Command Station} related messages are shared.
 
 \subsection{Complementary elements}
 \paragraph{Barrier} 
-Sends open/close commands to the barrier over the network, depending on the occupancy of certain segments.
+Sends open/close commands to the barrier over the network, depending on the occupancy of supervised segments.
 \paragraph{Leapmotion}
 Software component for converting gestures into special movements for changing the speed of a specific train.
 
 \section{Components by functional purpose}
 %\todo[inline]{Maybe figure of the Sw-Hw sysml for each paragraph}
 \paragraph{Occupancy detection}\label{par:FunctionOccupancyDetection}
-In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by train on it. The actual detection is made by the\textbf{ DigiSens-8-S88} sensing element. The demonstration railway system have 4 sensing element, and they are connected to an\textbf{ Arduino} S88 port. This microcontroller computes a basic low-level calculation by \textbf{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy information (actual state of every track element) to the \textbf{Occupancy Query} via USB. The\textbf{ Occupancy Query} Java component on the \textbf{Rapsberry Pi} stores the previous occupancy state, and sends information to the \textit{Segment Occupancy} topic.
+In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by train on it. The actual detection is made by the\textit{ DigiSens-8-S88} sensing element. The demonstration railway system have four sensing element, and they are connected to an\textit{ Arduino} S88 port. This microcontroller computes a basic low-level calculation by \textit{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy information (actual state of every track element) to the \textit{Occupancy Query} via USB. The\textit{ Occupancy Query} Java component on the \textit{Rapsberry Pi} stores the previous occupancy state, and sends information to the \textit{Segment Occupancy} topic.
 
 \paragraph{Track element controlling}\label{par:FunctionTEC}
-For safety critical purposes in any collision scenario it is a good manner to disable all track elements, which is affected in the critical scenario. To make this switch possible, we have to cut the electric circle between the segment and \textbf{Command Station}. The \textbf{Section Controller} hardware element have been developed for changing a section, consequently the \textbf{Turnout Controller} is responsible for changing a turnout. These hardware elements are attached to a \textbf{BBB cape}, which is designed for supplying extension ports for BBB. In software point of view, through GPIO pins (specific unix file writing), we can give impulses from the BBB to the section or turnout. Therefore a \textbf{GPIO manager} component is responsible for that in connection with the \textbf{Track Element Controller component}. Both of them are Java components and deployed to the BBB microcontrollers.
+For safety critical purposes in any collision scenario it is a good manner to disable all track elements, which is affected in the critical scenario. To make this switch possible, we have to cut the electric circle between the segment and \textit{Command Station}. The \textit{Section Controller} hardware element have been developed for changing a section, consequently the \textit{Turnout Controller} is responsible for changing a turnout. These hardware elements are attached to a \textit{BBB cape}, which is designed for supplying extension ports for BBB. In software point of view, through GPIO pins (specific file writing), we can give impulses from the BBB to the section or turnout. Therefore a \textit{GPIO manager} component is responsible for that in connection with the \textit{Track Element Controller component}. Both of them are Java components and deployed to the BBB microcontrollers.
 
 \paragraph{Safety critical verification}
-Because of the network communication, it is easy to connect a \textbf{safety logic} in the system. In addition a computer vision component is reading the position of the track and the trains. 
+Because of the network communication, it is easy to connect a \textit{safety logic} in the system. In addition a camera component is reading the position of the trains on the track. If the \textit{Safety Logic} detects an unsafe scenario from the occupancy detection or camera, it switches off the affected elements by a \textit{Track Element Controller} signal.
