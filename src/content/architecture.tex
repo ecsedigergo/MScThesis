@@ -2,7 +2,7 @@
 %----------------------------------------------------------------------------
 \chapter{Railway demonstrator system architecture}
 %----------------------------------------------------------------------------
-In the following chapter the railway demonstrator system will be described, which is shown in figure \ref{fig:overview}. This system's purpose is to simulate a real-life railway safety critical system, with basic functionalities and train collision detection. In order to satisfy this purpose the demonstrator is based on a model railway system stub with extended with custom and off-the-shelf hardware, software components. 
+In this chapter I want to describe the railway demonstrator system, which is shown in figure \ref{fig:overview}. This system's purpose is to simulate a real-life safety critical railway system, with basic functionalities and train collision detection. The demonstrator is based on a railway model stub and extended with custom and off-the-shelf hardware, software components. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/overview.jpg}
@@ -11,6 +11,7 @@ In the following chapter the railway demonstrator system will be described, whic
 \end{figure}
 \section{Railway system basic components}
 First of all I want to introduce the physical components and the basic process of the railway systems stub. There are 31 sections, with one blind track and 7 turnouts. The \ref{fig:layout} figure shows the layout of the railway elements with corresponding segment ids. Over all a segment means either section or turnout.
+\todo[inline]{Create more visible figure about layout}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layout2.png}
@@ -18,10 +19,10 @@ First of all I want to introduce the physical components and the basic process o
 	\label{fig:layout}
 \end{figure}
 \paragraph{Section} 
-First principal  element is a 15-20 cm long railway and connects to other 2 sections. Additionally each of them is connected to a command station, which gives them sufficient power source for moving the trains on them. In the figure \ref{fig:layout} these sections are identified by SXX strings, where XX is two unique digits. Furthermore these two digits determines which bit shows this section's occupancy in the occupancy vector later (see section \ref{section:OccupancyDetection} for more information). On figure for each section lengths and responsible BeagleBone Black id are shown.
+First principal  element is a 15-20 cm long railroad. Each section is connected to 2 other sections, and wired to a command station, which gives them sufficient power source for moving the trains on them. In the figure \ref{fig:layout} these sections are identified by \textit{SXX} strings, where \textit{XX} is two unique digits for this layout. Furthermore these numerals determines which bit shows this section's occupancy in the occupancy vector later (see section \ref{section:OccupancyDetection} for more information). On the \ref{fig:layout} figure for each section lengths and responsible BeagleBone Black ids are shown.
 
 \paragraph{Turnout}
-Second principal element is the turnout, which can differentiate 2 paths as it can be seen on figure \ref{fig:turnoutDir}. The train which is going through a turnout can reach different sections depending on the state of the turnout. In the previous figure \ref{fig:layout} each turnout is visible as grey dashed section areas with turnout ID, sense (its value shows, which bit identifies this turnout's occupancy in the occupancy vector) and \textit{\#segments} as number of supervised sections by the BeagleBone Black. (see section \ref{section:OccupancyDetection} for more information about occupancy vector) Each turnout id starts with T and ends with a numeric (1..6). 
+Second principal element is the turnout, which can differentiate 2 paths on the track as it can be seen on figure \ref{fig:turnoutDir}. The train which is going through a turnout can reach different sections depending on the state of the turnout. On the layout figure (\ref{fig:layout}) each of these elements are visible as gray dashed sections with the IDs. Each turnout ID starts with T and ends with a numeric (1..6). These IDs determines, which bit identifies the turnout's occupancy in the occupancy vector) and \textit{\#segments} as number of supervised sections by the BeagleBone Black (see section \ref{section:OccupancyDetection} for more information about occupancy vector).
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/turnout.png}
@@ -30,14 +31,16 @@ Second principal element is the turnout, which can differentiate 2 paths as it c
 \end{figure}
 
 \paragraph{Train} \label{par:trainScenarios}
-There are 2 model trains, which can move on the sections and turnouts. The safety critical paradigm is to avoid a train collision on the track, for which the basic scenarios are the following. 
-First approach is that 2 trains are passing through the same turnout, which means they are going to the same section therefore they will collide like on the \ref{fig:LayoutT1-scenario1} figure.
+There are 2 model trains, which can move on the sections and turnouts. The first safety critical paradigm is to avoid a train collision on the track, for which the basic scenarios are the following. 
+
+First approach is that 2 trains are passing through the same turnout, from the same direction on different paths. It means that they are approaching the same section of the turnout, so they will collide like on the \ref{fig:LayoutT1-scenario1} figure.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT1-scenario1.png}
 	\caption{Turnout 1 collision scenario 1}
 	\label{fig:LayoutT1-scenario1}
 \end{figure}
+
 Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \textit{Train 1} is going to the section where \textit{Train 2} is staying. Notice that no matter in which direction the \textit{Train 2} is moving or staying, it is a dangerous situation.
 \begin{figure}[!h]
 	\centering
@@ -48,32 +51,35 @@ Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \te
 
 \paragraph{Command Station}
 Supply power source for the sections which provides tension for the trains on the track.
+
 \paragraph{Controller}
 In connection with the \textit{Command Station} an XPressNet protocol \footnote{More details about XPressNet Protocol \url{http://www.lenzusa.com/1newsite1/Manuals/xpressnet.pdf}} based controller is attached to the system. This component's purpose is setting the direction and speed for each train on the track through the \textit{Command Station}.
 
 \section{Hardware extensions}
-The basic hardware environment is not sufficient for controlling and analysing purposes, therefore additional hardware elements have been designed. These platforms are also custom made and also off-the-shelf products. 
+The basic hardware environment is not sufficient for controlling and analyzing purposes, therefore additional hardware elements have been designed for that. These platforms are also custom made and also off-the-shelf products. 
+\todo[inline]{Check if these infos are belong to here}
+For modeling purposes I have used MagicDraw with Sysml plugin \cite{SysML}.
 The \ref{appendix:HWPictures} appendix contains pictures about the hardware elements.
 \subsection{Data processing units}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/Hardware.png}
 	\caption{Hardware block definition diagram}
 	\label{fig:Modes3HWBDD}
 \end{figure}
+
 \paragraph{BeagleBone Black (BBB)}
-An industrial microcontroller platform and it provides 4GB 8-bit eMMC on-board flash storage and 2x PRU 32-bit microcontrollers, which could satisfy the function for parallel monitoring. There are 6 BBB on the track connected to the railway, used for controlling and enable/disable each section.
+An industrial microcontroller platform and it provides 4GB 8-bit eMMC on-board flash storage and 2x PRU 32-bit microcontrollers, which could satisfy the function for parallel monitoring. There are 6 BBB on the track connected to the railway, used for controlling and enabling/disabling each section.
 
 \paragraph{Rapsberry Pi 3}
-A Rapsberry Pi microcontroller is dedicated to handle most of the software components related to the Railway demonstrator system. It has twice as large computing capacity in RAM and CPU as BBB.
+A Rapsberry Pi microcontroller is dedicated to handle most of the software components related to the Railway demonstrator system. It has twice as large computing capacity in RAM and also in CPU as BBB.
 
 \paragraph{Arduino}
-Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data through S88 protocol (see \ref{par:SegmentSensor} section for details about the component). This communication layer requires proper timing conditions which the Arduino platform can satisfy.
+Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data through S88 protocol (see \ref{par:SegmentSensor} section for details about this component). This communication layer requires proper timing conditions which the Arduino platform can satisfy.
 
 \subsection{Custom hardware extensions}
 \paragraph{BeagleBone Black cape and expanders}\label{par:BBBcape}
-The BeagleBone Black components expect 5VDC power source instead of 12VDC from our power supply. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. For figures I have used Sysml plugin with MagicDraw. \cite{SysML}
+The BeagleBone Black components expect 5VDC power source instead of 12VDC which our power station supplies. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. 
 
 \begin{figure}[!h]
 	\centering
@@ -88,8 +94,8 @@ Each cape have 8 general purpose expander slot, for which the pin layout is expr
 	\caption{Pin layout}
 	\label{table:expander_pin_layout}
 	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} to 0.3\textwidth { | X[c] | X[c] | X[c] | X[c] |}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabu} to 0.5\textwidth { | X[c] | X[c] | X[c] | X[c] |}
 			\hline
 			G3 & G2 & G1 & G0 \\
 			\hline
@@ -98,10 +104,11 @@ Each cape have 8 general purpose expander slot, for which the pin layout is expr
 		\end{tabu}
 	\end{center}
 \end{table} 
-
+\url{https://github.com/FTSRG/BME-MODES3/wiki/HW-Expander-design#gpio-basic-usage}
+\todo[inline]{Give proper details about G0-G15 pins, the table is not showing all of them like} 
 The upper row of each connector is dedicated for GPIO connections. Two of the GPIO pins connected to the application processor (labeled with G0..G15), and the remaining two GPIO pins are connected to the PRU unit (labeled P0..P15).
 
-With this setup, the PRU and the application processor can cooperate on hardware level. (Also, if we want we could use the P0..P15 GPIOs from the application processor as well.)
+With this setup, the PRU and the application processor can cooperate on hardware level.
 
 \paragraph{Segment sensor}\label{par:SegmentSensor}
  The DigiSens-8-S88 component is an off-the-shelf product, which can detect the occupancy for 8 segments.\footnote{More information about the product can be found here:\url{http://www.digitools.hu/termekek/erzekelok/digisens-8-s88}}.
