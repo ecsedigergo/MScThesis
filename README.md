@@ -17,8 +17,8 @@ A [continuously maintained](https://github.com/FTSRG/thesis-template-latex/graph
 
 The latest PDF outputs of the build:
 
-* [`[XeLaTeX HU]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-xelatex-hu.pdf) | [`[PDFLaTeX HU]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-pdflatex-hu.pdf) | [`[LuaLaTeX HU]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-lualatex-hu.pdf)
-* [`[XeLaTeX EN]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-xelatex-en.pdf) | [`[PDFLaTeX EN]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-pdflatex-en.pdf) | [`[LuaLaTeX EN]`](http://docs.inf.mit.bme.hu/thesis-template-latex/thesis-lualatex-en.pdf)
+* [`[XeLaTeX HU]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-xelatex-hu.pdf) | [`[PDFLaTeX HU]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-pdflatex-hu.pdf) | [`[LuaLaTeX HU]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-lualatex-hu.pdf)
+* [`[XeLaTeX EN]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-xelatex-en.pdf) | [`[PDFLaTeX EN]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-pdflatex-en.pdf) | [`[LuaLaTeX EN]`](https://github.com/ecsedigergo/MScThesis/blob/gh-pages/thesis-lualatex-en.pdf) 
 
 ## User's Guide
 
