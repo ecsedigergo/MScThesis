@@ -85,7 +85,7 @@ Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data thr
 \subsection{Custom hardware extensions}
 \paragraph{BeagleBone Black cape and expanders}\label{par:BBBcape}
 The BeagleBone Black components expect 5VDC power source instead of 12VDC which our power station supplies. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. 
-
+\todo[inline]{More suitable figure here for BBB expendable interfaces}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/BBBExpander.png}
@@ -93,7 +93,7 @@ The BeagleBone Black components expect 5VDC power source instead of 12VDC which 
 	\label{fig:capeSysml}
 \end{figure}
 
-Each cape have 8 general purpose expander slot, for which the pin layout is expressed in the following \ref{table:expander_pin_layout} table. \footnote{ }
+Each cape have 8 general purpose expander slot, for which the pin layout is expressed in the following \ref{table:expander_pin_layout} table.
 
 \begin{table}[!h]
 	\caption{Pin layout}
@@ -163,7 +163,7 @@ The MCU has 2 inputs and 2 outputs connected to the expander connector as shown 
 
 
 \section{Software components}
-
+\todo[inline]{update the figure with traindetector and delete physical controllers}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/MoDeS3_Deployment1.png}
@@ -177,24 +177,19 @@ Responsible for debouncing the 32bit long occupancy vector with proper timing co
 \paragraph{Occupancy Query}
 In connection with the \textit{Section Occupancy Query} process the occupancy state for the whole track. Only if the state has changed, it sends occupancy change message to the MQTT topic with the track element id and new occupancy state.
 
-\subsection{Track element control elements}
+\subsection{Track segment control elements}
 \paragraph{GPIO}
-Handle the GPIO pin changes and commands for each extension point of the BBB cape (see \ref{par:BBBcape} section for details about BBB cape and expanders).
-\paragraph{Physical Segment Controller}
-For each segment there are two GPIO instance to serve the control mechanism of application and the PRU also, however there is no PRU control implemented.
-\paragraph{Physical Turnout Controller}
-For each turnout controller, there are four GPIO pins: two for control the turnout itself (straight and divergent direction), and other two to get info about the current state.
+Handles the GPIO pin changes and commands for each extension point of the BBB cape (see \ref{par:BBBcape} section for details about BBB cape and expanders).
 \paragraph{Track Element Controller}
-Implementation of the platform-specific actuator code of disabling and enabling sections and setting turnout directions for the BeagleBone Black embedded units.
-\todo[inline]{some more info needed about physical elements. To which elements they are connected to, what is the responsibility for them}
+On each BeagleBone Black microcontroller there is a controller, which executes the turnout and segment operations for the supervised sections. To satisfy this functionality this controller forwards commands to the corresponding Physical Segment or Turnout Controllers, which communicates with GPIO managers. Consequently with this platform specific software, we are able to enable or disable sections and set turnout directions.
 \paragraph{Train Detector}
 Train detector and locomotive length measurer using infrared sensors.
 
 \subsection{Track control and supervisor elements}
 \paragraph{XPressNet}
-Protocol for sending messages to the \textit{Command Station} component, therefore we can extend to communication form for controlling the track. In the current layout there is a controller and web-based opportunity for controlling.
+Protocol for sending messages to the \textit{Command Station} component, therefore we can extend the communication form for controlling the track. In the current layout there is a controller and web-based opportunity for controlling.
 \paragraph{Dashboard}
-Model railway track dashboard implementation. In Addition this component is instantiated only once, and up for the whole time while the track is in use. Consequently we can reach one common dashboard from the web and it contains the actual occupancy and track element status.
+Model railway track dashboard implementation, where we can manipulate the track elements. In Addition this component is instantiated only once, and up for the whole time while the track is in use. Consequently we can reach one common dashboard from the web and it contains the actual occupancy and track element status.
 \paragraph{Touch board}
 Dashboard for the model railway track, with focus on touchable elements, that can be controlled.
 \paragraph{Safety Logic}
@@ -244,3 +239,38 @@ For safety critical purposes in any collision scenario it is a good manner to di
 
 \paragraph{Safety critical verification}
 Because of the network communication, it is easy to connect a \textit{safety logic} in the system. In addition a camera component is reading the position of the trains on the track. If the \textit{Safety Logic} detects an unsafe scenario from the occupancy detection or camera, it switches off the affected elements by a \textit{Track Element Controller} signal.
+
+\section{Requirements}
+In this section I want to collect the specific requirements for the above described elements, not considering market products.
+
+\paragraph{Custom hardware elements}
+\begin{enumerate}[label=REQ-MODES-1-\arabic*, leftmargin=*, format=\small]
+	\item The BeagleBone Black cape must supply 5VDC power source.
+	\item The BeagleBone Black expander must provide further options to attach hardware elements. The purpose is to access application processor and PRU unit pins of BeagleBone Black.
+	\item The Segment actuator must stop the train on given section immediately.
+	\item The Turnout actuator shall switch the corresponding turnout between divergent and straight states.
+	\item The Turnout actuator should sense the given turnout's actual state.
+\end{enumerate}
+
+\paragraph{Occupancy detection software elements}
+\begin{enumerate}[label=REQ-MODES-2-\arabic*, leftmargin=*, format=\small]
+	\item The Section Occupancy Query must collect the occupancy information together from all the segments on the track. 
+	\item The Occupancy Query software element must determine the occupancy state change for each segment.
+	\item The Occupancy Query software element must give a sign when an occupancy state changed for each segment.
+\end{enumerate}
+
+\paragraph{Track segment controller elements}
+\begin{enumerate}[label=REQ-MODES-3-\arabic*, leftmargin=*, format=\small]
+	\item The GPIO software element must change the GPIO pins between their states.
+	\item The Track Element Controller must be able enable and disable sections with a specific command.
+	\item The Track Element Controller must be able to change turnout directions in all states.
+	\item The Train Detector must identify the length and the speed of a specific train.
+\end{enumerate}
+
+\paragraph{Track control and supervisor elements}
+\begin{enumerate}[label=REQ-MODES-4-\arabic*, leftmargin=*, format=\small]
+	\item The Dashboard must observe the track element states throughout the whole life-cycle.
+	\item The Dashboard must be able to change all turnout states.
+	\item The Dashboard must be able to enable and disable all segments on the track.
+	\item The Safety Logic software must avoid safety critical scenarios on the track, like train collision. \todo[inline]{I should not use like here! Be more specific}
+\end{enumerate}
