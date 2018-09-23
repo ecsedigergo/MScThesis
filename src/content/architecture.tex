@@ -244,54 +244,81 @@ Because of the network communication, it is easy to connect a \textit{safety log
 In this section I want to collect the specific requirements for the above described elements, not considering market products.
 
 \paragraph{Custom hardware elements}
-\begin{enumerate}[label=REQ-MODES-1-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=REQ-BBB-\arabic*, leftmargin=*, format=\small]
 	\item The BeagleBone Black cape must supply 5VDC power source.
 	\item The BeagleBone Black expander must provide further options to attach hardware elements. The purpose is to access application processor and PRU unit pins of BeagleBone Black.
+\end{enumerate}
+
+\begin{enumerate}[label=REQ-SA-\arabic*, leftmargin=*, format=\small]
 	\item The Segment actuator must stop the train on given section.
+\end{enumerate}
+
+\begin{enumerate}[label=REQ-TA-\arabic*, leftmargin=*, format=\small]
 	\item The Turnout actuator shall switch the corresponding turnout between divergent and straight states.
 	\item The Turnout actuator should sense the given turnout's actual state.
 \end{enumerate}
 
 \paragraph{Occupancy detection software elements}
-\begin{enumerate}[label=REQ-MODES-2-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=REQ-SOQ-\arabic*, leftmargin=*, format=\small]
 	\item The Section Occupancy Query must collect the occupancy information together from all the segments on the track. 
+\end{enumerate}
+
+\begin{enumerate}[label=REQ-OCQ-\arabic*, leftmargin=*, format=\small]
 	\item The Occupancy Query software element must determine the occupancy state change for each segment.
 	\item The Occupancy Query software element must send a message when an occupancy state changed for each segment. This message should contain all the present section's occupancy states.
 \end{enumerate}
 
 \paragraph{Track segment controller elements}
-\begin{enumerate}[label=REQ-MODES-3-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=REQ-GPIO-\arabic*, leftmargin=*, format=\small]
 	\item The GPIO software element must change the GPIO pins between their states.
+\end{enumerate}
+
+\begin{enumerate}[label=REQ-TEC-\arabic*, leftmargin=*, format=\small]
 	\item The Track Element Controller must be able enable and disable sections with a specific command.
 	\item The Track Element Controller must be able to change turnout directions to all states (straight, divergent).
+\end{enumerate}
+
+\begin{enumerate}[label=REQ-TD-\arabic*, leftmargin=*, format=\small]
 	\item The Train Detector must identify the length and the speed of a specific train.
 \end{enumerate}
 
 \paragraph{Track control and supervisor elements}
-\begin{enumerate}[label=REQ-MODES-4-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=REQ-DB-\arabic*, leftmargin=*, format=\small]
 	\item The Dashboard must observe the track element states throughout the whole life-cycle.
 	\item The Dashboard must be able to change all turnout states.
 	\item The Dashboard must be able to enable and disable all segments on the track.
-	\item A train must not go on a disabled segment.
-	\item The Safety Logic software must avoid safety-critical scenarios on the track, like train collision. \todo[inline]{I should not use 'like' here! Be more specific}
 \end{enumerate}
 
-\section{Testable cases}
+\begin{enumerate}[label=REQ-SL-\arabic*, leftmargin=*, format=\small]
+	\item The Safety Logic software must avoid safety-critical scenarios on the track, like train collision. \todo[inline]{I should not use 'like' here! Be more specific}
+	\item The Safety Logic must ensure that a train must not go on a disabled segment.
+\end{enumerate}
+	
+\section{Testable conditions}
 
-\todo[inline]{Link the test cases to requirements!}
+\todo[inline]{Link the test conditions to requirements!}
 
 \paragraph{Custom hardware elements}
-\begin{enumerate}[label=TEST-MODES-1-\arabic*, leftmargin=*, format=\small]
-	\item Measure BeagleBone Black cape power output voltage.
+\begin{enumerate}[label=TEST-BBB-\arabic*, leftmargin=*, format=\small]
+	\item Measure BeagleBone Black cape power output voltage that it is matching with the required 5VDC.
 	\item \todo[inline]{How to test expander processor attachment?}
+\end{enumerate}
+
+\begin{enumerate}[label=TEST-SA-\arabic*, leftmargin=*, format=\small]
 	\item Check that when the segment actuator got stop signal, the train stopped on the corresponding section.
-	\item Retrieve the actual state for one Turnout.
+\end{enumerate}
+
+\begin{enumerate}[label=TEST-TA-\arabic*, leftmargin=*, format=\small]
 	\item Change one Turnout's state from divergent to straight and verify that the new state is in straight.
 	\item Change one Turnout's state from straight to divergent and check that the new state is in divergent.
 \end{enumerate}
 
+\begin{enumerate}[label=TEST-TD-\arabic*, leftmargin=*, format=\small]
+	\item Retrieve the actual state for one Turnout and check its correctness.
+\end{enumerate}
+
 \paragraph{Occupancy detection software elements}
-\begin{enumerate}[label=Test-MODES-2-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=Test-SOQ-\arabic*, leftmargin=*, format=\small]
 	\item Collect the occupancy informations on the track with the Section Occupancy Query software in the following scenarios:
 	\begin{enumerate}
 		\item 1 train is on the turnout T3
@@ -303,20 +330,28 @@ In this section I want to collect the specific requirements for the above descri
 	\end{enumerate}
 
 	\item Verify that the occupancy information is contains all segment occupancy informations.
+\end{enumerate}
+\begin{enumerate}[label=TEST-OCQ-\arabic*, leftmargin=*, format=\small]
 	\item Change one or more segment's state and verify that a new occupancy information is sent with all current segment's states.
 \end{enumerate}
 
 \paragraph{Track segment controller elements}
-\begin{enumerate}[label=Test-MODES-3-\arabic*, leftmargin=*, format=\small]
-	\item Change on GPIO pin to output and verify that the pin can be used for outgoing communication from the segment.
-	\item Change on GPIO pin to input and verify that the pin can be used for incoming communication from the segment.
+\begin{enumerate}[label=Test-GPIO-\arabic*, leftmargin=*, format=\small]
+	\item Change the GPIO pin to output and verify that the pin can be used for outgoing communication from the segment.
+	\item Change the GPIO pin to input and verify that the pin can be used for incoming communication from the segment.
+\end{enumerate}
+
+\begin{enumerate}[label=TEST-TEC-\arabic*, leftmargin=*, format=\small]
 	\item Verify that a disabled section not suppling power.
 \end{enumerate}
 
 \paragraph{Track control and supervisor elements}
-\begin{enumerate}[label=Test-MODES-4-\arabic*, leftmargin=*, format=\small]
+\begin{enumerate}[label=Test-DB-\arabic*, leftmargin=*, format=\small]
 	\item Verify that each Dashboard turnout (for all the 3 turnouts) state is changed after turnout state modification.
-	\item Verify that the Dashboard can enable and disable a segment.
+	\item Verify that the Dashboard can enable and disable a specific segment.
+\end{enumerate}
+
+\begin{enumerate}[label=Test-SL-\arabic*, leftmargin=*, format=\small]
 	\item Verify that for each safety-critical scenario the specific avoid action is decided by the Safety Logic. \todo[inline]{specific scenarios TBD.!}
 	\begin{table}[h]
 		\caption{Safety-critical scenarios and their avoid actions}
