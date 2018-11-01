@@ -11,7 +11,7 @@ In this chapter I want to describe the railway demonstrator system, which is sho
 \end{figure}
 
 \section{Railway system basic components}
-First of all I want to introduce the physical components and the basic process of the railway systems stub. There are 31 sections, with one blind track and 7 turnouts. The \ref{fig:layout} figure shows the layout of railway elements with corresponding segment ids. Over all a segment means either section or turnout.
+First of all I want to introduce the physical components and the basic process of the railway systems stub. There are 31 sections, with one blind track and 7 turnouts. The \ref{fig:layout} figure shows the layout of railway elements with the corresponding segment ids. Over all a segment means either section or turnout.
 \todo[inline]{Create more visible figure about layout}
 
 \begin{figure}[h]
@@ -54,7 +54,7 @@ Next possible scenario is shown in \ref{fig:LayoutT1-scenario2} figure, when \te
 	\label{fig:LayoutT1-scenario2}
 \end{figure}
 
-\paragraph{Command Station}
+\paragraph{Command Station} \label{basics:CS}
 Supply power source for the sections which provides tension for the trains on the track.
 
 \paragraph{Controller}
@@ -85,7 +85,8 @@ Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data thr
 \subsection{Custom hardware extensions}
 \paragraph{BeagleBone Black cape and expanders}\label{par:BBBcape}
 The BeagleBone Black components expect 5VDC power source instead of 12VDC which our power station supplies. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. 
-\todo[inline]{More suitable figure here for BBB expendable interfaces}
+\todo[inline]{More suitable figure here for BBB expendable interfaces. For example: \url{https://github.com/FTSRG/BME-MODES3/wiki/HW-BeagleBone-expander-assignments}}
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/BBBExpander.png}
@@ -230,7 +231,9 @@ Sends open/close commands to the barrier over the network, depending on the occu
 Software component for converting gestures into special movements for changing the speed of a specific train.
 
 \section{Safety-critical functionalities}
+
 \todo[inline]{Maybe figure of the Sw-Hw sysml for each paragraph}
+
 \paragraph{Occupancy detection}\label{par:FunctionOccupancyDetection}
 In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by train on it. The actual detection is made by the \textit{DigiSens-8-S88} sensing element. The demonstration railway system have four sensing element, and they are connected to an \textit{Arduino} S88 port. This microcontroller computes basic calculations by \textit{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy vector information (actual state of every track element) to the \textit{Occupancy Query} via USB. The\textit{ Occupancy Query} Java component on the \textit{Rapsberry Pi} stores the previous occupancy state, and sends information to the \textit{Segment Occupancy} topic.
 
@@ -241,64 +244,95 @@ For safety critical purposes in any collision scenario it is a good manner to di
 Because of the network communication, it is easy to connect a \textit{safety logic} in the system. In addition a camera component is reading the position of the trains on the track. If the \textit{Safety Logic} detects an unsafe scenario from the occupancy detection or camera, it switches off the affected elements by a \textit{Track Element Controller} signal.
 
 \section{Requirements}
-In this section I want to collect the specific requirements for the above described elements, not considering market products.
+In this section I want to collect the specific requirements for the above described elements in the system, not considering market products. I have categorized them into functional and component groups.
+
+\todo[inline]{Create sysml diagrams for better overview}
 
 \paragraph{Custom hardware elements}
 \begin{enumerate}[label=REQ-BBB-\arabic*, leftmargin=*, format=\small]
 	\item The BeagleBone Black cape must supply 5VDC power source.
-	\item The BeagleBone Black expander must provide further options to attach hardware elements. The purpose is to access application processor and PRU unit pins of BeagleBone Black.
+	\item The BeagleBone Black expander must provide further options to attach additional hardware elements. The purpose is to access application processor and PRU unit pins of BeagleBone Black with more elements.
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-SA-\arabic*, leftmargin=*, format=\small]
-	\item The Segment actuator must stop the train on given section.
+	\item The Segment actuator must stop the train on the given section with the built in \textit{Command Station} (see section \ref{basics:CS}).
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-TA-\arabic*, leftmargin=*, format=\small]
-	\item The Turnout actuator shall switch the corresponding turnout between divergent and straight states.
-	\item The Turnout actuator should sense the given turnout's actual state.
+	\item The Turnout actuator must switch the corresponding turnout between divergent and straight states.
+	\item The Turnout actuator must sense the given actual state of the turnout.
 \end{enumerate}
 
 \paragraph{Occupancy detection software elements}
 \begin{enumerate}[label=REQ-SOQ-\arabic*, leftmargin=*, format=\small]
-	\item The Section Occupancy Query must collect the occupancy information together from all the segments on the track. 
+	\item The Section Occupancy Query must collect the occupancy information together from all segments on the track.
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-OCQ-\arabic*, leftmargin=*, format=\small]
-	\item The Occupancy Query software element must determine the occupancy state change for each segment.
-	\item The Occupancy Query software element must send a message when an occupancy state changed for each segment. This message should contain all the present section's occupancy states.
+	\item The Occupancy Query software element must determine the occupancy state for each segment.
+	\item The Occupancy Query software element must send a message when an occupancy state changed for each segment. The component must send all the present section's occupancy states.
 \end{enumerate}
 
 \paragraph{Track segment controller elements}
 \begin{enumerate}[label=REQ-GPIO-\arabic*, leftmargin=*, format=\small]
-	\item The GPIO software element must change the GPIO pins between their states.
+	\item The GPIO software element must change the GPIO pins between their input and output states.
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-TEC-\arabic*, leftmargin=*, format=\small]
-	\item The Track Element Controller must be able enable and disable sections with a specific command.
-	\item The Track Element Controller must be able to change turnout directions to all states (straight, divergent).
+	\item The Track Element Controller must be able to enable and disable each section with a specific command.
+	\item The Track Element Controller must be able to change each turnout's direction to straight or divergent state.
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-TD-\arabic*, leftmargin=*, format=\small]
-	\item The Train Detector must identify the length and the speed of a specific train.
+	\item The Train Detector must identify the length and speed of a specific train.
 \end{enumerate}
 
 \paragraph{Track control and supervisor elements}
+
 \begin{enumerate}[label=REQ-DB-\arabic*, leftmargin=*, format=\small]
 	\item The Dashboard must observe the track element states throughout the whole life-cycle.
 	\item The Dashboard must be able to change all turnout states.
+	\item The Dashboard must be able to change each turnout state separately.
 	\item The Dashboard must be able to enable and disable all segments on the track.
+	\item The Dashboard must be able to enable and disable each segment on the track, separately.
 \end{enumerate}
 
+\todo[inline]{DB req can be compressed together?}
+
 \begin{enumerate}[label=REQ-SL-\arabic*, leftmargin=*, format=\small]
-	\item The Safety Logic software must avoid safety-critical scenarios on the track, like train collision. \todo[inline]{I should not use 'like' here! Be more specific}
+	\item The Safety Logic software must avoid safety-critical scenarios on the track. \todo[inline]{Explain safety-critical scenarious here?}
 	\item The Safety Logic must ensure that a train must not go on a disabled segment.
 \end{enumerate}
 	
-\section{Testable conditions}
+\section{Test approaches}
 
 \todo[inline]{Link the test conditions to requirements!}
 
+\subsection{Component level test plans}
+
+\paragraph{Purpose of component level testing}
+
+\paragraph{Test item and their functionality}
+
+\paragraph{Software risks issues}
+
+"There are some inherent software risks such as complexity; these need to be identified.
+
+Safety
+Multiple interfaces
+Impacts on Client
+Government regulations and rules"
+
+\paragraph{Features to be tested}
+
+\paragraph{Features not to be tested}
+
+\paragraph{Approach / Strategy}
+
+\paragraph{Item pass / fail criteria}
+
 \paragraph{Custom hardware elements}
+
 \begin{enumerate}[label=TEST-BBB-\arabic*, leftmargin=*, format=\small]
 	\item Measure BeagleBone Black cape power output voltage that it is matching with the required 5VDC.
 	\item \todo[inline]{How to test expander processor attachment?}
@@ -369,3 +403,5 @@ In this section I want to collect the specific requirements for the above descri
 		\end{center}
 	\end{table} 
 \end{enumerate}
+
+\subsection{Integration level test plans}
