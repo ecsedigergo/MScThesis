@@ -1,6 +1,6 @@
 
 %----------------------------------------------------------------------------
-\chapter{Railway demonstrator system architecture}
+\chapter{Railway demonstrator system architecture}\label{chapter:RailwaySystem}
 %----------------------------------------------------------------------------
 In this chapter I want to describe the railway demonstrator system, which is shown in figure \ref{fig:overview}. This system's purpose is to simulate a real-life safety critical railway system, with basic functionalities and train collision detection. The demonstrator is based on a railway model stub which is extended with custom and off-the-shelf hardware, software components. 
 \begin{figure}[h]
@@ -82,7 +82,7 @@ A Rapsberry Pi microcontroller is dedicated to handle most of the software compo
 \paragraph{Arduino}
 Dedicated hardware element for reading from the 6 DigiSens-8-S88 output data through S88 protocol (see \ref{par:SegmentSensor} section for details about this component). This communication layer requires proper timing conditions which the Arduino platform can satisfy.
 
-\subsection{Custom hardware extensions}
+\subsection{Custom hardware extensions}\label{section:CustomHW}
 \paragraph{BeagleBone Black cape and expanders}\label{par:BBBcape}
 The BeagleBone Black components expect 5VDC power source instead of 12VDC which our power station supplies. Because of that reason a so called cape have been created for each controller. Additionally the need for easy-to-use ports to attach additional circuits to the main board also have come up. The expanders could be used to extend the functionality of one BeagleBone unit, which is on the figure \ref{fig:capeSysml}. 
 \todo[inline]{More suitable figure here for BBB expendable interfaces. For example: \url{https://github.com/FTSRG/BME-MODES3/wiki/HW-BeagleBone-expander-assignments}}
@@ -163,7 +163,7 @@ The MCU has 2 inputs and 2 outputs connected to the expander connector as shown 
 \end{center}
 
 
-\section{Software components}
+\section{Software components}\label{section:CustomSW}
 \todo[inline]{update the figure with traindetector and delete physical controllers}
 \begin{figure}[h]
 	\centering
@@ -196,7 +196,7 @@ Dashboard for the model railway track, with focus on touchable elements, that ca
 \paragraph{Safety Logic}
 In the MODES$^3$ safety critical project we want to avoid the collision of model trains, therefore the safety logic software component detects these critical scenarios by Viatra Query \cite{Viatra} patterns and act the necessary action (for example disable a section).
 
-\subsection{Messaging elements}
+\subsection{Communication}
 Each software component share information about the railroad system through the messaging software element, which is based on protobuf messages and provides high-level designed API with MQTT for this purpose. 
 \begin{figure}[!h]
 	\centering
@@ -230,12 +230,12 @@ Sends open/close commands to the barrier over the network, depending on the occu
 \paragraph{Leapmotion}
 Software component for converting gestures into special movements for changing the speed of a specific train.
 
-\section{Safety-critical functionalities}
+\section{Safety-critical functionalities}\label{section:SC-Functionalities}
 
 \todo[inline]{Maybe figure of the Sw-Hw sysml for each paragraph}
 
 \paragraph{Occupancy detection}\label{par:FunctionOccupancyDetection}
-In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by train on it. The actual detection is made by the \textit{DigiSens-8-S88} sensing element. The demonstration railway system have four sensing element, and they are connected to an \textit{Arduino} S88 port. This microcontroller computes basic calculations by \textit{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy vector information (actual state of every track element) to the \textit{Occupancy Query} via USB. The\textit{ Occupancy Query} Java component on the \textit{Rapsberry Pi} stores the previous occupancy state, and sends information to the \textit{Segment Occupancy} topic.
+In order to know where are the trains on the track, we first must know which track elements (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption, which is used by a train on it. The actual detection is made by the \textit{DigiSens-8-S88} sensing element. The demonstration railway system have four sensing elements, and they are connected to an \textit{Arduino}'s S88 port. This microcontroller computes basic calculations by \textit{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy vector information (actual state of every track element) to the \textit{Occupancy Query} via USB connection. The \textit{ Occupancy Query} Java component on the \textit{Rapsberry Pi} stores the previous occupancy state, and sends a status information to the \textit{Segment Occupancy} topic about every change.
 
 \paragraph{Track element controlling}\label{par:FunctionTEC}
 For safety critical purposes in any collision scenario it is a good manner to disable all track elements, which is affected in the critical scenario. To make this switch possible, we have to cut the electric circle between the segment and \textit{Command Station}. The \textit{Section Controller} hardware element have been developed for changing a section,  the \textit{Turnout Controller} is responsible for changing a turnout. These hardware elements are attached to a \textit{BBB cape}, which is designed for supplying extension ports for BBB. In software point of view, through GPIO pins (specific file writing), we can give impulses from the BBB to the section or turnout. Therefore a \textit{GPIO manager} component is responsible for that in connection with the \textit{Track Element Controller component}. Both of them are Java components and deployed to the BBB microcontrollers.
@@ -243,12 +243,12 @@ For safety critical purposes in any collision scenario it is a good manner to di
 \paragraph{Safety critical verification}
 Because of the network communication, it is easy to connect a \textit{safety logic} in the system. In addition a camera component is reading the position of the trains on the track. If the \textit{Safety Logic} detects an unsafe scenario from the occupancy detection or camera, it switches off the affected elements by a \textit{Track Element Controller} signal.
 
-\section{Requirements}
+\section{Requirements}\label{section:REQ}
 In this section I want to collect the specific requirements for the above described elements in the system, not considering market products. I have categorized them into functional and component groups.
 
 \todo[inline]{Create sysml diagrams for better overview}
 
-\paragraph{Custom hardware elements}
+\paragraph{Hardware extensions}
 \begin{enumerate}[label=REQ-BBB-\arabic*, leftmargin=*, format=\small]
 	\item The BeagleBone Black cape must supply 5VDC power source.
 	\item The BeagleBone Black expander must provide further options to attach additional hardware elements. The purpose is to access application processor and PRU unit pins of BeagleBone Black with more elements.
@@ -265,143 +265,124 @@ In this section I want to collect the specific requirements for the above descri
 
 \paragraph{Occupancy detection software elements}
 \begin{enumerate}[label=REQ-SOQ-\arabic*, leftmargin=*, format=\small]
-	\item The Section Occupancy Query must collect the occupancy information together from all segments on the track.
+	\item The Section Occupancy Query must collect the occupancy information together from all segments on the track. \label{req:SOQ}
 \end{enumerate}
 
-\begin{enumerate}[label=REQ-OCQ-\arabic*, leftmargin=*, format=\small]
-	\item The Occupancy Query software element must determine the occupancy state for each segment.
-	\item The Occupancy Query software element must send a message when an occupancy state changed for each segment. The component must send all the present section's occupancy states.
+\begin{enumerate}[label=REQ-OCQ-\arabic*, leftmargin=*, format=\small] 
+	\item The Occupancy Query software element must determine whether a train is on the specific segment (results a free occupancy state) or not (results an occupied occupancy state) for each segment,  \label{req:OCQ-1}
+	\item The Occupancy Query software element must send a message when an occupancy state changed for any segment. This message must contain The component must send all the present section's occupancy states. \label{req:OCQ-2}
 \end{enumerate}
 
 \paragraph{Track segment controller elements}
-\begin{enumerate}[label=REQ-GPIO-\arabic*, leftmargin=*, format=\small]
-	\item The GPIO software element must change the GPIO pins between their input and output states.
+\begin{enumerate}[label=REQ-GPIO-\arabic*, leftmargin=*, format=\small] 
+	\item The GPIO software element must change the GPIO pins between their input and output states. \label{req:GPIO}
 \end{enumerate}
 
 \begin{enumerate}[label=REQ-TEC-\arabic*, leftmargin=*, format=\small]
-	\item The Track Element Controller must be able to enable and disable each section with a specific command.
-	\item The Track Element Controller must be able to change each turnout's direction to straight or divergent state.
+	\item The Track Element Controller must be able to enable and disable each section with a specific command. \label{req:TEC-1}
+	\item The Track Element Controller must be able to change each turnout's direction to straight or divergent state. \label{req:TEC-2}
 \end{enumerate}
 
+\todo[inline]{Looks like it can be deleted, because it is not in production, was just an experiment}
 \begin{enumerate}[label=REQ-TD-\arabic*, leftmargin=*, format=\small]
-	\item The Train Detector must identify the length and speed of a specific train.
+	\item The Train Detector must identify the length and speed of a specific train. \label{req:TD}
 \end{enumerate}
 
 \paragraph{Track control and supervisor elements}
 
 \begin{enumerate}[label=REQ-DB-\arabic*, leftmargin=*, format=\small]
-	\item The Dashboard must observe the track element states throughout the whole life-cycle.
-	\item The Dashboard must be able to change all turnout states.
-	\item The Dashboard must be able to change each turnout state separately.
-	\item The Dashboard must be able to enable and disable all segments on the track.
-	\item The Dashboard must be able to enable and disable each segment on the track, separately.
+	\item The Dashboard must observe the track element states throughout the whole life-cycle. \label{req:DB-1}
+	\item The Dashboard must be able to change all turnout states. \label{req:DB-2}
+	\item The Dashboard must be able to change each turnout state separately. \label{req:DB-3}
+	\item The Dashboard must be able to enable and disable all segments on the track. \label{req:DB-4}
+	\item The Dashboard must be able to enable and disable each segment on the track, separately. \label{req:DB-5}
 \end{enumerate}
 
 \todo[inline]{DB req can be compressed together?}
 
 \begin{enumerate}[label=REQ-SL-\arabic*, leftmargin=*, format=\small]
-	\item The Safety Logic software must avoid safety-critical scenarios on the track. \todo[inline]{Explain safety-critical scenarious here?}
-	\item The Safety Logic must ensure that a train must not go on a disabled segment.
+	\item The Safety Logic software must avoid safety-critical scenarios on the track. \label{req:SL-1}
+	\todo[inline]{Explain safety-critical scenarious here?}
+	\item The Safety Logic must ensure that a train must not go on a disabled segment. \label{req:SL-2}
+	\item The Safety Logic must ensure that a train must stop in the straight direction of the turnout, when the turnout is in divergent state. \label{req:SL-3}
+	\item The Safety Logic must ensure that a train must stop in the divergent direction of the turnout, when the turnout is in straight state. \label{req:SL-4}
 \end{enumerate}
 	
-\section{Test approaches}
 
-\todo[inline]{Link the test conditions to requirements!}
-
-\subsection{Component level test plans}
-
-\paragraph{Purpose of component level testing}
-
-\paragraph{Test item and their functionality}
-
-\paragraph{Software risks issues}
-
-"There are some inherent software risks such as complexity; these need to be identified.
-
-Safety
-Multiple interfaces
-Impacts on Client
-Government regulations and rules"
-
-\paragraph{Features to be tested}
-
-\paragraph{Features not to be tested}
-
-\paragraph{Approach / Strategy}
-
-\paragraph{Item pass / fail criteria}
-
-\paragraph{Custom hardware elements}
-
-\begin{enumerate}[label=TEST-BBB-\arabic*, leftmargin=*, format=\small]
-	\item Measure BeagleBone Black cape power output voltage that it is matching with the required 5VDC.
-	\item \todo[inline]{How to test expander processor attachment?}
-\end{enumerate}
-
-\begin{enumerate}[label=TEST-SA-\arabic*, leftmargin=*, format=\small]
-	\item Check that when the segment actuator got stop signal, the train stopped on the corresponding section.
-\end{enumerate}
-
-\begin{enumerate}[label=TEST-TA-\arabic*, leftmargin=*, format=\small]
-	\item Change one Turnout's state from divergent to straight and verify that the new state is in straight.
-	\item Change one Turnout's state from straight to divergent and check that the new state is in divergent.
-\end{enumerate}
-
-\begin{enumerate}[label=TEST-TD-\arabic*, leftmargin=*, format=\small]
-	\item Retrieve the actual state for one Turnout and check its correctness.
-\end{enumerate}
-
-\paragraph{Occupancy detection software elements}
-\begin{enumerate}[label=Test-SOQ-\arabic*, leftmargin=*, format=\small]
-	\item Collect the occupancy informations on the track with the Section Occupancy Query software in the following scenarios:
-	\begin{enumerate}
-		\item 1 train is on the turnout T3
-		\item 1 train is on the turnout T1
-		\item 1 train is on the segment S02
-		\item 1 train is on the segment S15
-		\item 1 train is on the segment S18
-		\item 1 train is on the segment S22
-	\end{enumerate}
-
-	\item Verify that the occupancy information is contains all segment occupancy informations.
-\end{enumerate}
-\begin{enumerate}[label=TEST-OCQ-\arabic*, leftmargin=*, format=\small]
-	\item Change one or more segment's state and verify that a new occupancy information is sent with all current segment's states.
-\end{enumerate}
-
-\paragraph{Track segment controller elements}
-\begin{enumerate}[label=Test-GPIO-\arabic*, leftmargin=*, format=\small]
-	\item Change the GPIO pin to output and verify that the pin can be used for outgoing communication from the segment.
-	\item Change the GPIO pin to input and verify that the pin can be used for incoming communication from the segment.
-\end{enumerate}
-
-\begin{enumerate}[label=TEST-TEC-\arabic*, leftmargin=*, format=\small]
-	\item Verify that a disabled section not suppling power.
-\end{enumerate}
-
-\paragraph{Track control and supervisor elements}
-\begin{enumerate}[label=Test-DB-\arabic*, leftmargin=*, format=\small]
-	\item Verify that each Dashboard turnout (for all the 3 turnouts) state is changed after turnout state modification.
-	\item Verify that the Dashboard can enable and disable a specific segment.
-\end{enumerate}
-
-\begin{enumerate}[label=Test-SL-\arabic*, leftmargin=*, format=\small]
-	\item Verify that for each safety-critical scenario the specific avoid action is decided by the Safety Logic. \todo[inline]{specific scenarios TBD.!}
-	\begin{table}[h]
-		\caption{Safety-critical scenarios and their avoid actions}
-		\label{table:Safety-critical_scenarios}
-		\begin{center}
-			\renewcommand{\arraystretch}{1.8}
-			\begin{tabu} 
-				to 0.9 \textwidth
-				{  c  c }
-				\toprule
-				Scenario          & Action                     \\ \midrule
-				Frontal collision & Stop both trains           \\
-				Rear collision    & Stop the train on the back \\ \bottomrule
-			\end{tabu}
-		\end{center}
-	\end{table} 
-\end{enumerate}
-
-\subsection{Integration level test plans}
+%\section{TBD : Component level test plans}
+%\todo[inline]{Link the test conditions to requirements!}
+%
+%\paragraph{Custom hardware elements}
+%
+%\begin{enumerate}[label=TEST-BBB-\arabic*, leftmargin=*, format=\small]
+%	\item Measure BeagleBone Black cape power output voltage that it is matching with the required 5VDC.
+%	\item \todo[inline]{How to test expander processor attachment?}
+%\end{enumerate}
+%
+%\begin{enumerate}[label=TEST-SA-\arabic*, leftmargin=*, format=\small]
+%	\item Check that when the segment actuator got stop signal, the train stopped on the corresponding section.
+%\end{enumerate}
+%
+%\begin{enumerate}[label=TEST-TA-\arabic*, leftmargin=*, format=\small]
+%	\item Change one Turnout's state from divergent to straight and verify that the new state is in straight.
+%	\item Change one Turnout's state from straight to divergent and check that the new state is in divergent.
+%\end{enumerate}
+%
+%\begin{enumerate}[label=TEST-TD-\arabic*, leftmargin=*, format=\small]
+%	\item Retrieve the actual state for one Turnout and check its correctness.
+%\end{enumerate}
+%
+%\paragraph{Occupancy detection software elements}
+%\begin{enumerate}[label=Test-SOQ-\arabic*, leftmargin=*, format=\small]
+%	\item Collect the occupancy informations on the track with the Section Occupancy Query software in the following scenarios:
+%	\begin{enumerate}
+%		\item 1 train is on the turnout T3
+%		\item 1 train is on the turnout T1
+%		\item 1 train is on the segment S02
+%		\item 1 train is on the segment S15
+%		\item 1 train is on the segment S18
+%		\item 1 train is on the segment S22
+%	\end{enumerate}
+%
+%	\item Verify that the occupancy information is contains all segment occupancy informations.
+%\end{enumerate}
+%\begin{enumerate}[label=TEST-OCQ-\arabic*, leftmargin=*, format=\small]
+%	\item Change one or more segment's state and verify that a new occupancy information is sent with all current segment's states.
+%\end{enumerate}
+%
+%\paragraph{Track segment controller elements}
+%\begin{enumerate}[label=Test-GPIO-\arabic*, leftmargin=*, format=\small]
+%	\item Change the GPIO pin to output and verify that the pin can be used for outgoing communication from the segment.
+%	\item Change the GPIO pin to input and verify that the pin can be used for incoming communication from the segment.
+%\end{enumerate}
+%
+%\begin{enumerate}[label=TEST-TEC-\arabic*, leftmargin=*, format=\small]
+%	\item Verify that a disabled section not suppling power.
+%\end{enumerate}
+%
+%\paragraph{Track control and supervisor elements}
+%\begin{enumerate}[label=Test-DB-\arabic*, leftmargin=*, format=\small]
+%	\item Verify that each Dashboard turnout (for all the 3 turnouts) state is changed after turnout state modification.
+%	\item Verify that the Dashboard can enable and disable a specific segment.
+%\end{enumerate}
+%
+%\begin{enumerate}[label=Test-SL-\arabic*, leftmargin=*, format=\small]
+%	\item Verify that for each safety-critical scenario the specific avoid action is decided by the Safety Logic. \todo[inline]{specific scenarios TBD.!}
+%	\begin{table}[h]
+%		\caption{Safety-critical scenarios and their avoid actions}
+%		\label{table:Safety-critical_scenarios}
+%		\begin{center}
+%			\renewcommand{\arraystretch}{1.8}
+%			\begin{tabu} 
+%				to 0.9 \textwidth
+%				{  c  c }
+%				\toprule
+%				Scenario          & Action                     \\ \midrule
+%				Frontal collision & Stop both trains           \\
+%				Rear collision    & Stop the train on the back \\ \bottomrule
+%			\end{tabu}
+%		\end{center}
+%	\end{table} 
+%\end{enumerate}
+%
+%\subsection{Integration level test plans}
