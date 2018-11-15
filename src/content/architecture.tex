@@ -270,10 +270,10 @@ In this section I want to collect the specific requirements for the above descri
 
 \begin{enumerate}[label=REQ-OCQ-\arabic*, leftmargin=*, format=\small] 
 	\item The Occupancy Query software element must determine whether a train is on the specific segment (results a free occupancy state) or not (results an occupied occupancy state) for each segment,  \label{req:OCQ-1}
-	\item The Occupancy Query software element must send a message when an occupancy state changed for any segment. This message must contain The component must send all the present section's occupancy states. \label{req:OCQ-2}
+	\item The Occupancy Query software element must send a message when an occupancy state changed for any segment. The component must send all the present section's occupancy states. \label{req:OCQ-2}
 \end{enumerate}
 
-\paragraph{Track segment controller elements}
+\paragraph{Track segment controller software elements}
 \begin{enumerate}[label=REQ-GPIO-\arabic*, leftmargin=*, format=\small] 
 	\item The GPIO software element must change the GPIO pins between their input and output states. \label{req:GPIO}
 \end{enumerate}
@@ -288,7 +288,7 @@ In this section I want to collect the specific requirements for the above descri
 	\item The Train Detector must identify the length and speed of a specific train. \label{req:TD}
 \end{enumerate}
 
-\paragraph{Track control and supervisor elements}
+\paragraph{Track control and supervisor software elements}
 
 \begin{enumerate}[label=REQ-DB-\arabic*, leftmargin=*, format=\small]
 	\item The Dashboard must observe the track element states throughout the whole life-cycle. \label{req:DB-1}
@@ -302,12 +302,13 @@ In this section I want to collect the specific requirements for the above descri
 
 \begin{enumerate}[label=REQ-SL-\arabic*, leftmargin=*, format=\small]
 	\item The Safety Logic software must avoid safety-critical scenarios on the track. \label{req:SL-1}
-	\todo[inline]{Explain safety-critical scenarious here?}
+	\todo[inline]{Explain safety-critical scenarios here or just make a link?}
 	\item The Safety Logic must ensure that a train must not go on a disabled segment. \label{req:SL-2}
 	\item The Safety Logic must ensure that a train must stop in the straight direction of the turnout, when the turnout is in divergent state. \label{req:SL-3}
 	\item The Safety Logic must ensure that a train must stop in the divergent direction of the turnout, when the turnout is in straight state. \label{req:SL-4}
 \end{enumerate}
 	
+
 
 %\section{TBD : Component level test plans}
 %\todo[inline]{Link the test conditions to requirements!}

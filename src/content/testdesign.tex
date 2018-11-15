@@ -183,32 +183,51 @@ At the end of the test execution for failed test cases and findings we can creat
 
 \subsection{Master Test Plan for Railway System project}\label{section:MTP}
 \paragraph{Scope:} Test plan's scope is to provide the necessary test framework for testing the railway system of MoDeS$^3$ team. This document identifies a way for planning, executing and maintaining tests in a multi-layered project.
-\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf products, custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. The standard product's testing and the hardware extension's verifications are not part of the Test Plan.
+\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf products, custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. The standard product's testing and the hardware extensions verifications are not part of the Test Plan. Furthermore not all the software component have been involved in this testing plan, because not safety critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. How the trains get speed and direction controls is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical. \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}.
 \paragraph{Risk register:}
 For a railway system the possible safety-critical aspects are detailed in \autoref{section:SC-Functionalities}.
-\todo[inline]{Create metrics for the risk table}
-\begin{table}[h]
-\caption{Project risks}
-\label{table:Risks-Safety-critical}
+\todo[inline]{Create metrics for the risk tables}
+\begin{table}[H]
+\caption{Product risks}
+\label{table:Product-risks}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{ X[l] X[l] }
+			{ X[0.1, c] X[l] X[l] X[0.2, l] }
 			\toprule
-			Risk ID                                                                                     & Mitigation activities                                                                 \\ \midrule
-			%			                                            \multicolumn{2}{c}{Occupancy detection}     &  \\
-			1 Wrong or no occupancy detected                                                            & Review of design and appropriate hardware and software elements .                     \\
-			%			                                         \multicolumn{2}{c}{Track element controlling}  &  \\
-			2 Not controllable turnout  or segment                                                      & Review of hardware and software components.                                            \\
-			%			                                       \multicolumn{2}{c}{Safety critical verification} &  \\
-			3 Wrong collision avoidance decision made                                                   & Review of design and safety algorithm. Extra test cases to cover additional scenarios. \\
-			4 Train collision                                                                           & Review of design and safety algorithm.                                                \\ \bottomrule
+			ID & Risk details                            & Mitigation activities                                                                  & Level \\ \midrule
+			                                                   \multicolumn{4}{c}{Occupancy detection}                                                    \\
+			1  & Wrong or no occupancy detected          & Review of design and appropriate hardware and software elements .                      &       \\
+			                                                \multicolumn{4}{c}{Track element controlling}                                                 \\
+			2  & Not controllable turnout  or segment    & Review of hardware and software components.                                            &       \\
+			                                              \multicolumn{4}{c}{Safety critical verification}                                                \\
+			3  & Wrong collision avoidance decision made & Review of design and safety algorithm. Extra test cases to cover additional scenarios. &       \\
+			4  & Train collision                         & Review of design and safety algorithm.                                                 &       \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
+\end{table}
+
+\begin{table}[H]
+	\caption{Project risks}
+	\label{table:project-risks}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{ X[0.1, c] X[l] X[l] X[0.2, l] }
+			\toprule
+			ID & Risk & Mitigation activities & Level \\ \midrule
+			1 & Busy students and estimation & For a student every semester is different and not always predictable how much time will the student have for the project. Therefore it must be consider during project estimation and planning accordingly.     &  \\ 
+			2 & New students and planning & This is a university project, so we must calculate with the often changing student and with the time for learning and for knowledge transfer.& \\
+			3 & Cutting-edge tools & Unpredictable cutting-edge technologies can make a huge rule during project planning. The compatibility of tools and their reliability can differ during few month also, which must be adapted during estimation. & \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table}
+
+
 \paragraph{Test strategy:} 
-We define \textit{test sub-processes} for the railway system project:
+We define test sub-processes for the railway system project:
 \begin{itemize}
 	\item Unit test
 	\item Integration test
@@ -238,9 +257,9 @@ The test design techniques, test completion criteria and test data must apply to
 
 
 \subsection{Unit Test Plan}
-\paragraph{Scope:} See the \autoref{section:MTP} for Master Test Plan. The aim for this Test Plan is to verify each software component's functionality independently.
+\paragraph{Scope:} The aim for this Test Plan is to verify each software component's functionality. This test plan is derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan). 
 \paragraph{Plan context:} Unit Test Plan context is the same as for Master Test Plan (see \autoref{section:MTP}), because all self developed software component must be tested in a standalone environment. 
-\paragraph{Risk register:}
+\paragraph{Risk register:} Same as Master Test Plan.
 \paragraph{Test strategy:} The deliverables are this test plan, the test specification for unit test and the test completion report. 
 During the test process and documentation the decision coverage and fault attack test design techniques are relevant.
 Each unit must reach a 80\%  requirement coverage. 
@@ -249,9 +268,27 @@ Each unit must reach a 80\%  requirement coverage.
 \todo[inline]{Risks? link the test deliverables, complete test design techniques, test activities?}
 
 \subsection{Integration Test Plan}
+\paragraph{Scope:} This test plan is stands for the integration level testing examination. This approach is one abstraction layer above from the unit tests, because it ensures the correct functionality between one or more components. This test plan is also derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan).
+\paragraph{Plan context:} In this plan we aim to test the system divided to several group, consequently the integration Test Plan's context is the same as for Master Test Plan (see \autoref{section:MTP}) and for Unit Test Plan.
+\paragraph{Risk register:} Same as Master Test Plan.
+\paragraph{Test strategy:} The deliverables are this test plan, the test specification for integration test and the test completion report. 
+\todo[inline]{What is the test completion criteria?}
+%During the test process and documentation the decision coverage and fault attack test design techniques are relevant.
+%Each unit must reach a 80\%  requirement coverage. 
+%\paragraph{Test activities and estimates:}
+
+\todo[inline]{Risks? link the test deliverables, complete test design techniques, test activities?}
 
 \subsection{System Test Plan}
-
+%Mainly the manual (hand-made) tests before a demo
+\paragraph{Scope:} The third test plan is designed to test the available functions at system level. This test plan is also derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan).
+\paragraph{Plan context:} This plan's focus is the railway system therefore the context is the same as for Master Test Plan (see \autoref{section:MTP}).
+\paragraph{Risk register:} Same as Master Test Plan.
+\paragraph{Test strategy:} The deliverables are this test plan, the test specification for system test and the test completion report.
+\todo[inline]{What is the test completion criteria?}
+%During the test process and documentation the decision coverage and fault attack test design techniques are relevant.
+%Each unit must reach a 80\%  requirement coverage. 
+%\paragraph{Test activities and estimates:}
 
 
 
@@ -263,10 +300,10 @@ Each unit must reach a 80\%  requirement coverage.
 \paragraph{Purpose:} The purpose of this test specification is to give a guideline for executing unit tests.
 \paragraph{References:} The railway system related requirements can be found in \autoref{section:REQ}.
 
-\subsubsection{Feature Sets} We can easily separate the system's functionalities into feature sets following the referenced system requirement's structure. The \autoref{table:Feature-Sets} are containing the feature sets.
-\begin{table}[!h]
+\subsubsection{Feature Sets} We can easily separate the system's functionalities into feature sets following the referenced system requirement's structure. The \autoref{table:Feature-Sets-Unit} are containing the feature sets.
+\begin{table}[H]
 \caption{Feature sets}
-\label{table:Feature-Sets}
+\label{table:Feature-Sets-Unit}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -288,7 +325,7 @@ Each unit must reach a 80\%  requirement coverage.
 \subsubsection{Test Conditions} In the following section I will describe the test conditions for each feature set. In this test plan, most of the feature sets are simple functions, consequently the test conditions also will describe the test coverage items.
 \paragraph{TO BE DELETED: Train detection (FS-1)}
 \todo[inline]{Verify speeds, length range}
-\begin{table}[!h]
+\begin{table}[H]
 \caption{Train detection test conditions}
 \label{table:TC-FS-1}
 	\begin{center}
@@ -308,7 +345,7 @@ Each unit must reach a 80\%  requirement coverage.
 
 \paragraph{GPIO handling (FS-2)}
 Considering the GPIO's functionality the following test conditions are test coverage items also (see \autoref{table:TC-FS-2}).
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{GPIO handling test condition}
 	\label{table:TC-FS-2}
 	\begin{center}
@@ -330,7 +367,7 @@ Considering the GPIO's functionality the following test conditions are test cove
 
 \paragraph{Occupancy detection (FS-3)}
 Because of the component's simplicity there are 2 test condition items and also considered as test coverage items (items are shown in \autoref{table:TC-FS-3}). The values are observed as the periodic occupancy detection result for one section.
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{Occupancy detection test condition and coverage items}
 	\label{table:TC-FS-3}
 	\begin{center}
@@ -349,7 +386,7 @@ Because of the component's simplicity there are 2 test condition items and also 
 
 \paragraph{Track element controller (FS-4)}
 A track element controller can handle segment and turnout section types also, consequently we distinguish these types with the possible states for the definition of test condition and coverage item. (Shown in \autoref{table:TC-FS-4}.)
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{Track element controller test condition and coverage items}
 	\label{table:TC-FS-4}
 	\begin{center}
@@ -369,7 +406,7 @@ A track element controller can handle segment and turnout section types also, co
 
 \paragraph{Safety Logic (FS-5)}
 The safety-critical aspects are shown in \autoref{table:TC-FS-5}, which should be prevented by the Safety Logic.
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{Safety Logic test condition}
 	\label{table:TC-FS-5}
 	\begin{center}
@@ -387,7 +424,7 @@ The safety-critical aspects are shown in \autoref{table:TC-FS-5}, which should b
 
 \paragraph{Dashboard (FS-6)}
 A full functional coverage is aimed for the Dashboard which can be defined by the following test condition and coverage items shown in \autoref{table:TC-FS-6}.
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{Dashboard test conditions}
 	\label{table:TC-FS-6}
 	\begin{center}
@@ -411,6 +448,7 @@ A full functional coverage is aimed for the Dashboard which can be defined by th
 
 
 \subsubsection{Test coverage items}
+\todo[inline]{Same for the other FSs.}
 \todo[inline]{diagrams for each test coverage item}
 \paragraph{Safety Logic: Train collision test coverage items (FS-5/1.0)}
 \begin{enumerate}[label=FS-5/1.0-\arabic*, leftmargin=*, format=\small]
@@ -426,7 +464,7 @@ A full functional coverage is aimed for the Dashboard which can be defined by th
 
 \subsubsection{Test cases}\label{section:UnitTestCases}
 In this section I will describe the test cases defined by test conditions and coverage items for each feature set.
-\paragraph{Gpio Handling (FS-2)} In order to work in production with GPIO component, the following configuration file must exists: sys/gpio/gpioPIN/export, sys/gpio/gpioPIN/value and sys/gpio/gpioPIN/edge. This need is also propagate to all test cases regarding GPIO handling, so files are created or mocked.
+\paragraph{Gpio Handling (FS-2) test cases} In order to work in production with GPIO component, the following configuration file must exists: sys/gpio/gpioPIN/export, sys/gpio/gpioPIN/value and sys/gpio/gpioPIN/edge. This need is also propagate to all test cases regarding GPIO handling, so files are created or mocked.
 \todo[inline]{priority}
 \begin{table}[H]
 	\caption{Test case 2-1}
@@ -445,7 +483,7 @@ In this section I will describe the test cases defined by test conditions and co
 	\end{center}
 \end{table} 
 
-\begin{table}[!h]
+\begin{table}[H]
 	\caption{Test case 2-2}
 	\label{table:TCase-FS2-2}
 	\begin{center}
@@ -530,7 +568,8 @@ In this section I will describe the test cases defined by test conditions and co
 	\end{center}
 \end{table} 
 
-\paragraph{Occupancy detection (FS-3)}
+\paragraph{Occupancy detection (FS-3) test cases} Occupancy detection components cannot be separated into subcomponents for testing purpose, because the communication between their parts is based on a serial port connection. There is no fake serial port  connection  available on the market for windows operating system so we must test them together with real hardware connection.
+
 \begin{table}[H]
 	\caption{Test case 3-1}
 	\label{table:TCase-FS3-1}
@@ -540,8 +579,8 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 3-1 & Purpose: to test detection of occupancy components, when the specific segment is free\newline Priority: above middle \newline Tracing: (FS-3/1.0)\\ \midrule
-			Precondition & S88 serial port connection  \\
+			Test case ID: 3-1 & Purpose: to test detection of segment occupancy through section occupancy query, when the specific segment is free\newline Priority: above middle \newline Tracing: (FS-3/1.0)\\ \midrule
+			Precondition & S88 serial port connection and available Arduino hardware element \\
 			Input & Unclosed circuit between the specific segment's hardware elements  \\
 			Expected result & Occupancy components have queried free occupancy state \\ \bottomrule
 		\end{tabu}
@@ -558,14 +597,15 @@ In this section I will describe the test cases defined by test conditions and co
 			{  X[0.4, c] X[c] }
 			\toprule
 			Test case ID: 3-1 & Purpose: to test detection of occupancy components, when the specific segment is occupied \newline Priority: above middle \newline Tracing: (FS-3/1.1)\\ \midrule
-			Precondition & S88 serial port connection  \\
+			Precondition & S88 serial port connection and available Arduino hardware element \\
 			Input & Closed circuit between the specific segment's hardware elements  \\
 			Expected result & Occupancy components have queried occupied occupancy state \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\paragraph{Track element controller (FS-4)}
+\paragraph{Track element controller (FS-4)  test cases} This component can further be divided into segment and turnout controller. In this test plan, it does not detailed into further test cases for the specific controllers, because all the functional responsibility can be tested separately for each of them in the concrete implementation.
+
 \begin{table}[H]
 	\caption{Test case 4-1}
 	\label{table:TCase-FS4-1}
@@ -634,7 +674,8 @@ In this section I will describe the test cases defined by test conditions and co
 	\end{center}
 \end{table}
 
-\paragraph{Safety logic (FS-5)}
+\paragraph{Safety logic (FS-5) test cases} The following test cases are System level safety logic related.
+
 \begin{table}[H]
 	\caption{Test case 5-1}
 	\label{table:TCase-FS5-1}
@@ -727,108 +768,157 @@ In this section I will describe the test cases defined by test conditions and co
 
 \noindent\subsubsection{Test Procedure Specification}
 In this unit scoped test plan, each feature set is derived from software components in the railway system. Regarding this property each test set can involve a group of test cases which are related for one feature set. A unit test must be a fast, isolated, repeatable, self-validating execution. Because of the that test set's ordering should not influence the test results. Consequently we can consider an order as the test cases ordered in the Test case definition section (described in \autoref{section:UnitTestCases}) and one test procedure can contain one test set. 
-\todo[inline]{Create tables for 5 test procedures, which lists the test cases grouped by components?}
+\todo[inline]{Create tables for 5 test procedures, which lists the test cases grouped by components?}  
+
+\subsection{Test Design Specification for Integration Test Plan}
+
+\paragraph{Purpose:} The purpose of this test specification is to give a guideline for setting up and executing integration tests. These tests will verify two or more component's behavior together assuming that they work properly separately.
+\paragraph{References:} The railway system related requirements can be found in \autoref{section:REQ}.
+
+\subsubsection{Feature Sets} 
+\begin{table}[!h]
+	\caption{Feature sets}
+	\label{table:Feature-Sets-integration}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 1.0 \textwidth
+			{  X[0.7,c] X[1.5, c] X[3.0, c] X[0.7,c] X[c] X[2.0,c] }
+			\toprule
+			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                          & Priority & Approach & Traceability                                                                                  \\ \midrule
+			ID    & Name                                  &                                                                                                                &          &          &                                                                                               \\ \midrule
+			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                    & TODO     &          & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                               \\
+			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating with network command messages & TODO     &          & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO}                                                \\
+			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages                & TODO     &          & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                               \\
+			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller for network command messages            & TODO     &          & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2} \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\subsubsection{Test Conditions and coverage items}
+\paragraph{Occupancy message (FSI-1)} Test conditions for FSI-1 feature set is the same as the corresponding unit test condition for Occupancy detection FS-3 unit test feature set(\autoref{table:TC-FS-3}).
+\paragraph{Track element controller instructions (FSI-2)} same as \autoref{table:TC-FS-4}
+\paragraph{Safety logic interaction (FS-3)} same as \autoref{table:TC-FS-3}
+\paragraph{Safety logic intervention (FS-4)} same as \autoref{table:TC-FS-5}
+
+\subsubsection{Test cases}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Test Status Report}
-\todo[inline]{fill out in connection with progress}
+\todo[inline]{Code coverage and test measures for GPIO Manager}  
 
 
 
-%
-%\section{Test scenarios for MoDeS$^3$}
-%In the following section I will investigate the test opportunities for the MoDeS$^3$ system.  The \ref{table:test_cases} table shows the software components for different test levels and layouts. In the table a check mark shows the possibility to test that component in that exact level/layout. For the other cases testing is irrelevant. I have defined four integration test layouts, and for each test layout a component is involved where a check mark is shown. All the software components, which is deployed to other hardware components have network communication, therefore the messenger software component is also involved in that test.
-%
-%\subsection{Unit test}
-%Those components in the system which have some logic or crucial functional responsibility, should have been verified separately also. Furthermore not all the software component have been mentioned on the \ref{table:test_cases} table, because not safety critical or purely hardware components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. How the trains get speed and direction controls is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical. \textit{Touchboard} and \textit{Dashboard} components are only visualizing the railway current states send commands to the system, so these are not relevant elements in terms of train collision.
-%
-%\begin{table}[h]
-%	\caption{Component test possibilities in test levels}
-%	\label{table:test_cases}
-%	\begin{center}
-%		\renewcommand{\arraystretch}{1.8}
-%		\begin{tabu} 
-%			to 0.9 \textwidth
-%			 {  m{4.5 cm}  c  X[c] X[c] X[c] X[c]  X[c]  }
-%			\toprule
-%			\centeredDoubleRow{2}{Component Name} & \centeredDoubleRow{2}{Component} &          \multicolumn{4}{c}{Integration}          & System     \\
-%			\cmidrule(rl){3-6} \cmidrule(l){7-7}  &                                  & layout 1   & layout 2   & layout 3   & layout 4   & layout 1   \\ \midrule
-%			Section Occupancy Query               & \checkmark                       & \checkmark &            & \checkmark &            & \checkmark \\
-%			Occupancy Query                       & \checkmark                       & \checkmark &            & \checkmark &            & \checkmark \\
-%			GPIO                                  & \checkmark                       &            & \checkmark &            & \checkmark & \checkmark \\
-%			Track Element Controller              & \checkmark                       &            & \checkmark &            & \checkmark & \checkmark \\
-%			Safety Logic                          & \checkmark                       &            &            & \checkmark & \checkmark & \checkmark \\
-%			Messenger                             &                                  & \checkmark &            & \checkmark & \checkmark & \checkmark \\ \bottomrule
-%		\end{tabu}
-%	\end{center}
-%\end{table} 
-%
-%\todo[inline]{Create one overall diagram for all the layouts}
-%
-%\subsection{Integration test}
-%\paragraph{Integration test layout 1}
-%Aim of this test case is to check the occupancy detection functionality, which was described in \ref{section:OccupancyDetection} section. One track element is occupied if a train is on that element (even moving or stopped). In hardware point of view this detection is made by the DigiSens-8-S88 off-the-shelf sensor product, so it is unnecessary to test it.
-%
-%On figure \ref{fig:MoDeS3_Deployment-test1} the affected software components are highlighted with yellow marks. We can remain with testing only the software elements in this integration test.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test1.png}
-%	\caption{Integration test layout 1}
-%	\label{fig:MoDeS3_Deployment-test1}
-%\end{figure}
-%
-%\paragraph{Integration test layout 2}
-%Aim of this test is to verify the software components, which is deployed to the \textit{BBB} and responsible for controlling the physical segments (see \ref{par:FunctionTEC} section for more description about this function). All the 6 \textit{BBB} have separate instance of \textbf{Track Element Controller} software function. This component gets an information through the network on command topics (shown in \ref{par:MQTTTopicCommand} section), when segment allowance or turnout state must be changed. At this point the control differentiates into subcomponents weather a turnout or a section command have been received. After command execution the \textit{Track Element Controller} sends the new status on the \textit{status topic} (see \ref{par:MQTTTopicStatus}). Both branches uses GPIO software component for giving impulse on the BBB cape pins.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test2.png}
-%	\caption{Integration test layout 2}
-%	\label{fig:MoDeS3_Deployment-test2}
-%\end{figure}
-%
-%\paragraph{Integration test layout 3}
-%In this integration test we want to verify the decisions of \textit{Safety Logic} component. After we have verified the \textit{Safety Logic} as a unit and the occupancy detection elements, we can investigate the \textit{Safety Logic} decision based on the generated occupancy states together. These signs can be injected into the \textit{Arduino} hardware element or into the Section Occupancy Query directly.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test3.png}
-%	\caption{Integration test layout 3}
-%	\label{fig:MoDeS3_Deployment-test3}
-%\end{figure}
-%
-%\paragraph{Integration test layout 4}
-%The fourth integration test should be a verification of an action after a \textit{Safety Logic} decision. In details, we can inject a critical scenario into the \textit{Safety Logic} component where a safety intervention needed and check the GPIO component's file writing operations.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test4.png}
-%	\caption{Integration test layout 4}
-%	\label{fig:MoDeS3_Deployment-test4}
-%\end{figure}
-%
-%\todo[inline]{Extend test cases}
-%
-%\subsection{System test}
-%In the system tests all components are involved and only the injected, specific scenario is different. 
-%I have already mentioned a few collision scenario in \ref{par:trainScenarios} section, and I just want to add three more scenarios with the double-turnout. First of them (see figure \ref{fig:LayoutT3-scenario1}) is a typical case, where the collision can be easily avoided with \textit{Train 1} waiting.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario1.png}
-%	\caption{Turnout 3 collision scenario 1}
-%	\label{fig:LayoutT3-scenario1}
-%\end{figure}
-%
-%The next possible collision could happen, when our two trains going exactly into each other after 2 sections.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario2.png}
-%	\caption{Turnout 3 collision scenario 2}
-%	\label{fig:LayoutT3-scenario2}
-%\end{figure}
-%\todo[inline]{Only With the bottom track its more understandable}
-%
-%The third scenario is similar with the first one, but if our T3 turnout is in a right direction (both turnout is in the straight direction), our trains are safe.
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario3.png}
-%	\caption{Turnout 3 collision scenario 3}
-%	\label{fig:LayoutT3-scenario3}
-%\end{figure}
+
+\section{Test scenarios for MoDeS$^3$}
+In the following section I will investigate the test opportunities for the MoDeS$^3$ system.  The \ref{table:test_cases} table shows the software components for different test levels and layouts. In the table a check mark shows the possibility to test that component in that exact level/layout. For the other cases testing is irrelevant. I have defined four integration test layouts, and for each test layout a component is involved where a check mark is shown. All the software components, which is deployed to other hardware components have network communication, therefore the messenger software component is also involved in that test.
+
+
+\begin{table}[h]
+	\caption{Component test possibilities in test levels}
+	\label{table:test_cases}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			 {  m{4.5 cm}  X[c] X[c] X[c] X[c] }
+			\toprule
+			\centeredDoubleRow{2}{Component Name} &          \multicolumn{4}{c}{Integration}          \\
+			\cmidrule(rl){2-5} \cmidrule(l){5-5}  & layout 1   & layout 2   & layout 3   & layout 4   \\ \midrule
+			Section Occupancy Query               & \checkmark &            & \checkmark &            \\
+			Occupancy Query                       & \checkmark &            & \checkmark &            \\
+			GPIO                                  &            & \checkmark &            & \checkmark \\
+			Track Element Controller              &            & \checkmark &            & \checkmark \\
+			Safety Logic                          &            &            & \checkmark & \checkmark \\
+			Messenger                             & \checkmark &            & \checkmark & \checkmark \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\todo[inline]{Create one overall diagram for all the layouts}
+
+\subsection{Integration test}
+\paragraph{Integration test layout 1}
+Aim of this test case is to check the occupancy detection functionality, which was described in \ref{section:OccupancyDetection} section. One track element is occupied if a train is on that element (even moving or stopped). In hardware point of view this detection is made by the DigiSens-8-S88 off-the-shelf sensor product, so it is unnecessary to test it.
+
+On figure \ref{fig:MoDeS3_Deployment-test1} the affected software components are highlighted with yellow marks. We can remain with testing only the software elements in this integration test.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test1.png}
+	\caption{Integration test layout 1}
+	\label{fig:MoDeS3_Deployment-test1}
+\end{figure}
+
+\paragraph{Integration test layout 2}
+Aim of this test is to verify the software components, which is deployed to the \textit{BBB} and responsible for controlling the physical segments (see \ref{par:FunctionTEC} section for more description about this function). All the 6 \textit{BBB} have separate instance of \textbf{Track Element Controller} software function. This component gets an information through the network on command topics (shown in \ref{par:MQTTTopicCommand} section), when segment allowance or turnout state must be changed. At this point the control differentiates into subcomponents weather a turnout or a section command have been received. After command execution the \textit{Track Element Controller} sends the new status on the \textit{status topic} (see \ref{par:MQTTTopicStatus}). Both branches uses GPIO software component for giving impulse on the BBB cape pins.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test2.png}
+	\caption{Integration test layout 2}
+	\label{fig:MoDeS3_Deployment-test2}
+\end{figure}
+
+\paragraph{Integration test layout 3}
+In this integration test we want to verify the decisions of \textit{Safety Logic} component. After we have verified the \textit{Safety Logic} as a unit and the occupancy detection elements, we can investigate the \textit{Safety Logic} decision based on the generated occupancy states together. These signs can be injected into the \textit{Arduino} hardware element or into the Section Occupancy Query directly.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test3.png}
+	\caption{Integration test layout 3}
+	\label{fig:MoDeS3_Deployment-test3}
+\end{figure}
+
+\paragraph{Integration test layout 4}
+The fourth integration test should be a verification of an action after a \textit{Safety Logic} decision. In details, we can inject a critical scenario into the \textit{Safety Logic} component where a safety intervention needed and check the GPIO component's file writing operations.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/testLayoutSYSML/MoDeS3_Deployment-test4.png}
+	\caption{Integration test layout 4}
+	\label{fig:MoDeS3_Deployment-test4}
+\end{figure}
+
+\todo[inline]{Extend test cases}
+
+
+
+
+\subsection{System test}
+In the system tests all components are involved and only the injected, specific scenario is different. 
+I have already mentioned a few collision scenario in \ref{par:trainScenarios} section, and I just want to add three more scenarios with the double-turnout. First of them (see figure \ref{fig:LayoutT3-scenario1}) is a typical case, where the collision can be easily avoided with \textit{Train 1} waiting.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario1.png}
+	\caption{Turnout 3 collision scenario 1}
+	\label{fig:LayoutT3-scenario1}
+\end{figure}
+
+The next possible collision could happen, when our two trains going exactly into each other after 2 sections.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario2.png}
+	\caption{Turnout 3 collision scenario 2}
+	\label{fig:LayoutT3-scenario2}
+\end{figure}
+\todo[inline]{Only With the bottom track its more understandable}
+
+The third scenario is similar with the first one, but if our T3 turnout is in a right direction (both turnout is in the straight direction), our trains are safe.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutT3-scenario3.png}
+	\caption{Turnout 3 collision scenario 3}
+	\label{fig:LayoutT3-scenario3}
+\end{figure}
