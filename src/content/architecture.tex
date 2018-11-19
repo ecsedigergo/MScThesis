@@ -224,6 +224,8 @@ The camera notification is communicated on that topic, which is received by the 
 \paragraph{ALL topic}
 For this specific topic all the components in the system are subscribed, and information about train controlling and \textit{Command Station} related messages are shared.
 
+\todo[inline]{describe command and state message types, because test cases mention them}
+
 \subsection{Complementary elements}
 \paragraph{Barrier} 
 Sends open/close commands to the barrier over the network, depending on the occupancy of supervised segments.
@@ -281,11 +283,6 @@ In this section I want to collect the specific requirements for the above descri
 \begin{enumerate}[label=REQ-TEC-\arabic*, leftmargin=*, format=\small]
 	\item The Track Element Controller must be able to enable and disable each section with a specific command. \label{req:TEC-1}
 	\item The Track Element Controller must be able to change each turnout's direction to straight or divergent state. \label{req:TEC-2}
-\end{enumerate}
-
-\todo[inline]{Looks like it can be deleted, because it is not in production, was just an experiment}
-\begin{enumerate}[label=REQ-TD-\arabic*, leftmargin=*, format=\small]
-	\item The Train Detector must identify the length and speed of a specific train. \label{req:TD}
 \end{enumerate}
 
 \paragraph{Track control and supervisor software elements}

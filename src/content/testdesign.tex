@@ -18,14 +18,11 @@ The MoDeS$^3$ is a multi-layered application with safety-critical functionalitie
 Nowadays one of the most popular software development methodology is the V-model \cite{Vmodel} (shown on figure \ref{fig:vModel}), which defines four stages during the development and four verification steps accordingly (shown with rectangles). In addition for making the development more effective for error-detection, there are four more steps defined for verifying our system \cite{TestLevels} (shown with ellipses). While the development starts with an abstract \textbf{requirement analysis}, which declares the aim of our application, later on each step contains more detailed information. The second phase is about understanding the abstract user requirements and define the \textbf{system functional specification} by the developers. During this phase our verification is based on \textbf{Model-in-the-Loop (MiL) testing}. The third phase contains all the low-level design and specific information about the application. From these design decisions, the \textbf{implementation} should be quite straight-forward or even generated. To make sure that the code is working correctly it is tested using \textbf{Software-in-the-Loop (SiL)}. 
 As of now our application code is written and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are working well on their own. \textbf{Processor-in-the-Loop (PiL)} testing can be made here. Moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level criterias.
 
-\subsection{Test techniques}
-\todo[inline]{give details}
-
+\todo[inline]{give details about the used test design techniques}
 
 \section{Test documentation}
-\todo[inline]{Mention here the ISO 29119-3 with figure.}
-First we should see what documents will be used in the MODES\^3 test documentation process. In the following section I will describe the used documentation from ISO 29119-3 standard. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those.
-
+First we should see what documents will be used in the MODES\^3 test documentation process. In the following section I will describe the used documents from ISO 29119-3 standard. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those.
+\todo[inline]{redraw figure}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/TestDoc.png}
@@ -169,6 +166,7 @@ At the end of the test execution for failed test cases and findings we can creat
 \paragraph{Standards:} The testing documentation will follow the ISO/IEC/IEEE standard 291119-3 "Test Documentation".
 
 \subsection{Test Strategy for MoDeS$^3$ projects}
+\todo[inline]{strategy todos: scope? risk management? github clarification, test sub-processes?}
 \paragraph{Scope:} The following test strategy is applicable for the railway system project. This strategy's aim is to support testing in the software development phases in component and system level also.
 \paragraph{Risk management:} For each specific test plan the risk management must be handled separately. The detailed format must be a traceable list or table. 
 \paragraph{Test selection prioritization:} The test cases and test procedures will follow a bottom-up strategy priorization aligned with safety-critical risk levels. Consequently a test element with lower dependencies and more independent functionality got higher priority then a complex test element, which rely on multiple sub components. 
@@ -176,18 +174,19 @@ At the end of the test execution for failed test cases and findings we can creat
 \paragraph{Test automation and tools:} All tools, which is used during the test process and documentation must be available for a university student (with education license or freely).
 \paragraph{Incident management:} All detected defects must be created as a github issue also.
 %\paragraph{Test sub-processes:} All test projects must provide the following test levels: unit test, integration test, system test.
-\todo[inline]{strategy todo: scope? risk management? github clarification, test sub-processes?}
+
 
 \subsection{Test Completion Report}
-\todo[inline]{fill out in connection with progress}
+\todo[inline]{fill out in connection with progress, Give status that GPIO tests implemented and system tests used by the team and make a conclusion of their usage }
 
 \subsection{Master Test Plan for Railway System project}\label{section:MTP}
+\todo[inline]{Verify Test envs? sub processes? risk man.? }
 \paragraph{Scope:} Test plan's scope is to provide the necessary test framework for testing the railway system of MoDeS$^3$ team. This document identifies a way for planning, executing and maintaining tests in a multi-layered project.
 \paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf products, custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. The standard product's testing and the hardware extensions verifications are not part of the Test Plan. Furthermore not all the software component have been involved in this testing plan, because not safety critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. How the trains get speed and direction controls is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical. \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}.
 \paragraph{Risk register:}
 For a railway system the possible safety-critical aspects are detailed in \autoref{section:SC-Functionalities}.
 \todo[inline]{Create metrics for the risk tables}
-\begin{table}[H]
+\begin{table}[!h]
 \caption{Product risks}
 \label{table:Product-risks}
 	\begin{center}
@@ -208,14 +207,14 @@ For a railway system the possible safety-critical aspects are detailed in \autor
 	\end{center}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[!h]
 	\caption{Project risks}
 	\label{table:project-risks}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{ X[0.1, c] X[l] X[l] X[0.2, l] }
+			{ X[0.1, c] X[0.5, l] X[l] X[0.1, l] }
 			\toprule
 			ID & Risk & Mitigation activities & Level \\ \midrule
 			1 & Busy students and estimation & For a student every semester is different and not always predictable how much time will the student have for the project. Therefore it must be consider during project estimation and planning accordingly.     &  \\ 
@@ -253,7 +252,7 @@ The test design techniques, test completion criteria and test data must apply to
 \paragraph{Test activities and estimates:} These are confirmed personally with university studies.
 \paragraph{Stuffing:} The actual team and roles are highly dependent in the MoDeS$^3$ team in every semester.
 \paragraph{Retesting and regression testing:} This is specified for each test sub-process.
-\todo[inline]{Verify Test envs? sub processes? risk man.? }
+
 
 
 \subsection{Unit Test Plan}
@@ -312,42 +311,22 @@ Each unit must reach a 80\%  requirement coverage.
 			\toprule
 			\multicolumn{2}{c}{Feature Set} & Scope                                                                                            & Priority & Approach & Traceability                                                                   \\ \midrule
 			ID   & Name                     &                                                                                                  &          &          &                                                                                \\ \midrule
-			FS-1 & TO BE DELETED: Train detection          & To test train measurement functionalities                                                        & TODO     &          & \ref{req:TD}                                                                   \\
-			FS-2 & GPIO handling            & To test GPIO pin handling                                                                        & TODO     &          & \ref{req:GPIO}                                                                 \\
-			FS-3 & Occupancy detection      & To test the occupancy related functionalities in the system including state and change detection & TODO     &          & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
-			FS-4 & Track element controller & To test segment's availability and turnout's direction setting                                   & TODO     &          & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
-			FS-5 & Safety Logic             & To test railway system's safety logic                                                            & TODO     &          & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
-			FS-6 & Dashboard                & To test Dashboard's capabilities                                                                 & TODO     &          & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
+			FS-1 & GPIO handling            & To test GPIO pin handling                                                                        & TODO     &          & \ref{req:GPIO}                                                                 \\
+			FS-2 & Occupancy detection      & To test the occupancy related functionalities in the system including state and change detection & TODO     &          & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
+			FS-3 & Track element controller & To test segment's availability and turnout's direction setting                                   & TODO     &          & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
+			FS-4 & Safety Logic             & To test railway system's safety logic                                                            & TODO     &          & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
+			FS-5 & Dashboard                & To test Dashboard's capabilities                                                                 & TODO     &          & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\subsubsection{Test Conditions} In the following section I will describe the test conditions for each feature set. In this test plan, most of the feature sets are simple functions, consequently the test conditions also will describe the test coverage items.
-\paragraph{TO BE DELETED: Train detection (FS-1)}
-\todo[inline]{Verify speeds, length range}
-\begin{table}[H]
-\caption{Train detection test conditions}
-\label{table:TC-FS-1}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[c] X[c] X[c] X[c] }
-			\toprule
-			Test condition & Measuring type & Value  & Comment                  \\ \midrule
-			FS-1/1.0       & Speed          & 0 km/h & Standing train           \\
-			FS-1/1.1       & Speed          & 1 km/h & Train with average speed \\
-			FS-1/1.2       & Speed          & 5 km/h & Train with max speed     \\
-			FS-1/2.0       & Length         & 15cm   & Average length           \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
+\subsubsection{Test Conditions} In the following section I will describe the test conditions for each feature set. In this test plan, most of the feature sets are simple functions, so the test conditions also will describe the test coverage items.
 
-\paragraph{GPIO handling (FS-2)}
-Considering the GPIO's functionality the following test conditions are test coverage items also (see \autoref{table:TC-FS-2}).
+\paragraph{GPIO handling (FS-1)}
+Considering the GPIO's functionality the following test conditions are test coverage items also (see \autoref{table:TC-FS-1}).
 \begin{table}[H]
 	\caption{GPIO handling test condition}
-	\label{table:TC-FS-2}
+	\label{table:TC-FS-1}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -355,21 +334,21 @@ Considering the GPIO's functionality the following test conditions are test cove
 			{  X[c] X[c] X[c] X[c] X[c] }
 			\toprule
 			Test condition & Direction                     & Phase                            & Configuration file           & Setting \\ \midrule
-			FS-2/1.0       & \centeredDoubleRow{3}{Input}  & Initialization                   & edge                         & BOTH    \\
-			FS-2/1.1       &                               & \centeredDoubleRow{2}{Operation} & \centeredDoubleRow{2}{value} & LOW     \\
-			FS-2/1.2       &                               &                                  &                              & HIGH    \\
-			FS-2/2.0       & \centeredDoubleRow{2}{Output} & Initialization                   & \centeredDoubleRow{3}{value} & LOW     \\
-			FS-2/2.1       &                               & \centeredDoubleRow{2}{Operation} &                              & LOW    \\
-			FS-2/2.2       &                               &                                  &                              & HIGH     \\ \bottomrule
+			FS-1/1.0       & \centeredDoubleRow{3}{Input}  & Initialization                   & edge                         & BOTH    \\
+			FS-1/1.1       &                               & \centeredDoubleRow{2}{Operation} & \centeredDoubleRow{2}{value} & LOW     \\
+			FS-1/1.2       &                               &                                  &                              & HIGH    \\
+			FS-1/2.0       & \centeredDoubleRow{2}{Output} & Initialization                   & \centeredDoubleRow{3}{value} & LOW     \\
+			FS-1/2.1       &                               & \centeredDoubleRow{2}{Operation} &                              & LOW    \\
+			FS-1/2.2       &                               &                                  &                              & HIGH     \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\paragraph{Occupancy detection (FS-3)}
-Because of the component's simplicity there are 2 test condition items and also considered as test coverage items (items are shown in \autoref{table:TC-FS-3}). The values are observed as the periodic occupancy detection result for one section.
+\paragraph{Occupancy detection (FS-2)}
+Because of the component's simplicity there are 2 test condition items and also considered as test coverage items (items are shown in \autoref{table:TC-FS-2}). The values are observed as the periodic occupancy detection result for one section.
 \begin{table}[H]
 	\caption{Occupancy detection test condition and coverage items}
-	\label{table:TC-FS-3}
+	\label{table:TC-FS-2}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -377,18 +356,18 @@ Because of the component's simplicity there are 2 test condition items and also 
 			{  X[c] X[c] X[c] }
 			\toprule
 			Test condition & Value    & Comment             \\ \midrule
-			FS-3/1.0       & Free     & Specific segment is free     \\
-			FS-3/1.1       & Occupied & Specific segment is occupied \\ \bottomrule
+			FS-2/1.0       & Free     & Specific segment is free     \\
+			FS-2/1.1       & Occupied & Specific segment is occupied \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
 
 
-\paragraph{Track element controller (FS-4)}
-A track element controller can handle segment and turnout section types also, consequently we distinguish these types with the possible states for the definition of test condition and coverage item. (Shown in \autoref{table:TC-FS-4}.)
+\paragraph{Track element controller (FS-3)}
+A track element controller can handle segment and turnout section types also, consequently we distinguish these types with the possible states for the definition of test condition and coverage item. (Shown in \autoref{table:TC-FS-3}.)
 \begin{table}[H]
 	\caption{Track element controller test condition and coverage items}
-	\label{table:TC-FS-4}
+	\label{table:TC-FS-3}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -396,19 +375,19 @@ A track element controller can handle segment and turnout section types also, co
 			{  X[c] X[c] X[c] }
 			\toprule
 			Test condition & Affected element               & Enabled     \\ \midrule
-			FS-4/1.0       & \centeredDoubleRow{2}{Segment} & Disabled   \\
-			FS-4/1.1       &                                & Occupied  \\
-			FS-4/2.0       & \centeredDoubleRow{2}{Turnout} & Straight  \\
-			FS-4/2.1       &                                & Divergent \\ \bottomrule
+			FS-3/1.0       & \centeredDoubleRow{2}{Segment} & Disabled   \\
+			FS-3/1.1       &                                & Occupied  \\
+			FS-3/2.0       & \centeredDoubleRow{2}{Turnout} & Straight  \\
+			FS-3/2.1       &                                & Divergent \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\paragraph{Safety Logic (FS-5)}
+\paragraph{Safety Logic (FS-4)}
 The safety-critical aspects are shown in \autoref{table:TC-FS-5}, which should be prevented by the Safety Logic.
 \begin{table}[H]
 	\caption{Safety Logic test condition}
-	\label{table:TC-FS-5}
+	\label{table:TC-FS-4}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -416,17 +395,17 @@ The safety-critical aspects are shown in \autoref{table:TC-FS-5}, which should b
 			{  X[c] X[c] X[c] }
 			\toprule
 			Test condition & Safety Level                  & Safety type     \\ \midrule
-			FS-5/1.0       & \centeredDoubleRow{2}{System} & Train collision \\
-			FS-5/2.0       &                               & Turnout derail  \\ \bottomrule
+			FS-4/1.0       & \centeredDoubleRow{2}{System} & Train collision \\
+			FS-4/2.0       &                               & Turnout derail  \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\paragraph{Dashboard (FS-6)}
-A full functional coverage is aimed for the Dashboard which can be defined by the following test condition and coverage items shown in \autoref{table:TC-FS-6}.
+\paragraph{Dashboard (FS-5)}
+A full functional coverage is aimed for the Dashboard which can be defined by the following test condition and coverage items shown in \autoref{table:TC-FS-5}.
 \begin{table}[H]
 	\caption{Dashboard test conditions}
-	\label{table:TC-FS-6}
+	\label{table:TC-FS-5}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
@@ -434,14 +413,14 @@ A full functional coverage is aimed for the Dashboard which can be defined by th
 			{  X[c] X[c] X[c] X[c] }
 			\toprule
 			Test condition & Scope                   & Section type                   & State     \\ \midrule
-			FS-6/1.0       & \centeredDoubleRow{4}{All}  & \centeredDoubleRow{2}{Turnout} & Straight  \\
-			FS-6/1.1       &                             &                                & Divergent \\
-			FS-6/1.2       &                             & \centeredDoubleRow{2}{Segment} & Enabled   \\
-			FS-6/1.3       &                             &                                & Disabled  \\
-			FS-6/2.0       & \centeredDoubleRow{4}{Each} & \centeredDoubleRow{2}{Turnout} & Straight  \\
-			FS-6/2.1       &                             &                                & Divergent \\
-			FS-6/2.2       &                             & \centeredDoubleRow{2}{Segment} & Enabled   \\
-			FS-6/2.3       &                             &                                & Disabled  \\ \bottomrule
+			FS-5/1.0       & \centeredDoubleRow{4}{All}  & \centeredDoubleRow{2}{Turnout} & Straight  \\
+			FS-5/1.1       &                             &                                & Divergent \\
+			FS-5/1.2       &                             & \centeredDoubleRow{2}{Segment} & Enabled   \\
+			FS-5/1.3       &                             &                                & Disabled  \\
+			FS-5/2.0       & \centeredDoubleRow{4}{Each} & \centeredDoubleRow{2}{Turnout} & Straight  \\
+			FS-5/2.1       &                             &                                & Divergent \\
+			FS-5/2.2       &                             & \centeredDoubleRow{2}{Segment} & Enabled   \\
+			FS-5/2.3       &                             &                                & Disabled  \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -449,13 +428,13 @@ A full functional coverage is aimed for the Dashboard which can be defined by th
 \subsubsection{Test coverage items}
 \todo[inline]{Same for the other FSs.}
 \todo[inline]{diagrams for each test coverage item}
-\paragraph{Safety Logic: Train collision test coverage items (FS-5/1.0)}
+\paragraph{Safety Logic: Train collision test coverage items (FS-4/1.0)}
 \begin{enumerate}[label=FS-5/1.0-\arabic*, leftmargin=*, format=\small]
 	\item 1 Train is moving to a segment where there is an other train
 	\item 1 Train is moving to a segment where the other train is 1 distance away on the path
 	\item 1 Train is moving to a segment where the other train is 2 distance away on the path
 \end{enumerate}
-\paragraph{Safety Logic: Turnout derail test coverage items (FS-5/2.0)}
+\paragraph{Safety Logic: Turnout derail test coverage items (FS-4/2.0)}
 \begin{enumerate}[label=FS-5/2.0-\arabic*, leftmargin=*, format=\small]
 	\item Train is moving through a turnout from top to divergent, while the turnout is in straight state
 	\item Train is moving through a turnout from top to straight, while the turnout is in divergent state
@@ -463,8 +442,112 @@ A full functional coverage is aimed for the Dashboard which can be defined by th
 
 \subsubsection{Test cases}\label{section:UnitTestCases}
 In this section I will describe the test cases defined by test conditions and coverage items for each feature set.
-\paragraph{Gpio Handling (FS-2) test cases} In order to work in production with GPIO component, the following configuration file must exists: sys/gpio/gpioPIN/export, sys/gpio/gpioPIN/value and sys/gpio/gpioPIN/edge. This need is also propagate to all test cases regarding GPIO handling, so files are created or mocked.
+\paragraph{Gpio Handling (FS-1) test cases} In order to work in production with GPIO component, the following configuration file must exists: sys/gpio/gpioPIN/export, sys/gpio/gpioPIN/value and sys/gpio/gpioPIN/edge. This need is also propagate to all test cases regarding GPIO handling, so files are created or mocked.
 \todo[inline]{priority}
+\begin{table}[H]
+	\caption{Test case 1-1}
+	\label{table:TCase-FS1-1}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-1 \newline Priority: am \newline Tracing: FS-1/1.0 & Purpose: to test the GPIO initialization in input direction       \\ \midrule
+			Precondition                                                       & The GPIO's necessary files are available                          \\
+			Input                                                              & Initialize the GPIO itself with input direction.                  \\
+			Expected result                                                    & The "both" string have been written to "edge" configuration file. \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\caption{Test case 1-2}
+	\label{table:TCase-FS1-2}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-2 \newline Priority: am \newline Tracing: FS-1/1.1 & Purpose: to test the GPIO pin change listener while direction is input, value is "0"  \\ \midrule
+			Precondition                                                       & The GPIO's necessary files are available                                              \\
+			Input                                                              & The value file have been written to "0" considered as LOW.                            \\
+			Expected result                                                    & GPIO noticed the change and read the "value" configuration file content as LOW level. \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\caption{Test case 1-3}
+	\label{table:TCase-FS1-3}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-3 \newline Priority: am \newline Tracing: FS-1/1.2 & Purpose: to test the GPIO pin change listener while direction is input, value is "1"   \\ \midrule
+			Precondition                                                       & The GPIO's necessary files are available                                               \\
+			Input                                                              & The value file have been written to "1" considered as HIGH.                            \\
+			Expected result                                                    & GPIO noticed the change and read the "value" configuration file content as HIGH level. \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\caption{Test case 1-4}
+	\label{table:TCase-FS1-4}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-4 \newline Priority: am \newline Tracing: FS-1/2.0 & Purpose: to test the GPIO initialization in output direction.   \\ \midrule
+			Precondition                                                       & The GPIO's necessary files are available                        \\
+			Input                                                              & Initialize the GPIO itself with output direction.               \\
+			Expected result                                                    & The "0" string have been written to "value" configuration file. \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\caption{Test case 1-5}
+	\label{table:TCase-FS1-5}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-5\newline Priority: am \newline Tracing: FS-1/2.1 & Purpose: to test the GPIO pin's level setting to LOW \\ \midrule
+			Precondition                                                      & The GPIO's necessary files are available             \\
+			Input                                                             & Set the GPIO's level to LOW.                         \\
+			Expected result                                                   & The "value" file has been modified with value "0"    \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\caption{Test case 1-6}
+	\label{table:TCase-FS1-6}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 1-6 \newline Priority: am \newline Tracing: FS-1/2.2 & Purpose: to test the GPIO pin's level setting to HIGH \\ \midrule
+			Precondition                                                       & The GPIO's necessary files are available              \\
+			Input                                                              & Set the GPIO's level to HIGH.                         \\
+			Expected result                                                    & The "value" file has been modified with value "1"     \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\paragraph{Occupancy detection (FS-3) test cases} Occupancy detection components cannot be separated into subcomponents for testing purpose, because the communication between their parts is based on a serial port connection. There is no fake serial port  connection  available on the market for windows operating system so we must test them together with real hardware connection.
+
 \begin{table}[H]
 	\caption{Test case 2-1}
 	\label{table:TCase-FS2-1}
@@ -474,10 +557,10 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 2-1 \newline Priority: am \newline Tracing: FS-2/1.0 & Purpose: to test the GPIO initialization in input direction       \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available                          \\
-			Input                                                              & Initialize the GPIO itself with input direction.                  \\
-			Expected result                                                    & The "both" string have been written to "edge" configuration file. \\ \bottomrule
+			Test case ID: 2-1 & Purpose: to test detection of segment occupancy through section occupancy query, when the specific segment is free\newline Priority: above middle \newline Tracing: (FS-2/1.0)\\ \midrule
+			Precondition & S88 serial port connection and available Arduino hardware element \\
+			Input & Unclosed circuit between the specific segment's hardware elements  \\
+			Expected result & Occupancy components have queried free occupancy state \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -491,83 +574,15 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 2-2 \newline Priority: am \newline Tracing: FS-2/1.1 & Purpose: to test the GPIO pin change listener while direction is input, value is "0"  \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available                                              \\
-			Input                                                              & The value file have been written to "0" considered as LOW.                            \\
-			Expected result                                                    & GPIO noticed the change and read the "value" configuration file content as LOW level. \\ \bottomrule
+			Test case ID: 2-1 & Purpose: to test detection of occupancy components, when the specific segment is occupied \newline Priority: above middle \newline Tracing: (FS-2/1.1)\\ \midrule
+			Precondition & S88 serial port connection and available Arduino hardware element \\
+			Input & Closed circuit between the specific segment's hardware elements  \\
+			Expected result & Occupancy components have queried occupied occupancy state \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\begin{table}[H]
-	\caption{Test case 2-3}
-	\label{table:TCase-FS2-3}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Test case ID: 2-3 \newline Priority: am \newline Tracing: FS-2/1.2 & Purpose: to test the GPIO pin change listener while direction is input, value is "1"   \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available                                               \\
-			Input                                                              & The value file have been written to "1" considered as HIGH.                            \\
-			Expected result                                                    & GPIO noticed the change and read the "value" configuration file content as HIGH level. \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
-
-\begin{table}[H]
-	\caption{Test case 2-4}
-	\label{table:TCase-FS2-4}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Test case ID: 2-4 \newline Priority: am \newline Tracing: FS-2/2.0 & Purpose: to test the GPIO initialization in output direction.   \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available                        \\
-			Input                                                              & Initialize the GPIO itself with output direction.               \\
-			Expected result                                                    & The "0" string have been written to "value" configuration file. \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
-
-\begin{table}[H]
-	\caption{Test case 2-5}
-	\label{table:TCase-FS2-5}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Test case ID: 2-5\newline Priority: am \newline Tracing: FS-2/2.1 & Purpose: to test the GPIO pin's level setting to LOW \\ \midrule
-			Precondition                                                      & The GPIO's necessary files are available             \\
-			Input                                                             & Set the GPIO's level to LOW.                         \\
-			Expected result                                                   & The "value" file has been modified with value "0"    \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
-
-\begin{table}[H]
-	\caption{Test case 2-6}
-	\label{table:TCase-FS2-6}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Test case ID: 2-6 \newline Priority: am \newline Tracing: FS-2/2.2 & Purpose: to test the GPIO pin's level setting to HIGH \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available              \\
-			Input                                                              & Set the GPIO's level to HIGH.                         \\
-			Expected result                                                    & The "value" file has been modified with value "1"     \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
-
-\paragraph{Occupancy detection (FS-3) test cases} Occupancy detection components cannot be separated into subcomponents for testing purpose, because the communication between their parts is based on a serial port connection. There is no fake serial port  connection  available on the market for windows operating system so we must test them together with real hardware connection.
+\paragraph{Track element controller (FS-3)  test cases} This component can further be divided into segment and turnout controller. In this test plan, it does not detailed into further test cases for the specific controllers, because all the functional responsibility can be tested separately for each of them in the concrete implementation.
 
 \begin{table}[H]
 	\caption{Test case 3-1}
@@ -578,13 +593,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 3-1 & Purpose: to test detection of segment occupancy through section occupancy query, when the specific segment is free\newline Priority: above middle \newline Tracing: (FS-3/1.0)\\ \midrule
-			Precondition & S88 serial port connection and available Arduino hardware element \\
-			Input & Unclosed circuit between the specific segment's hardware elements  \\
-			Expected result & Occupancy components have queried free occupancy state \\ \bottomrule
+			Test case ID: 3-1 & Purpose: to test the track element controller's segment state setting as enabled \newline Priority: above middle \newline Tracing: (FS-3/1.0)\\ \midrule
+			Precondition & Observable GPIO components \\
+			Input & Call the track element controller set segment state function with enabled parameter  \\
+			Expected result & All GPIO's levels are in "HIGH" state, which are related to the specific segment \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
+\end{table}
 
 \begin{table}[H]
 	\caption{Test case 3-2}
@@ -595,15 +610,49 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 3-1 & Purpose: to test detection of occupancy components, when the specific segment is occupied \newline Priority: above middle \newline Tracing: (FS-3/1.1)\\ \midrule
-			Precondition & S88 serial port connection and available Arduino hardware element \\
-			Input & Closed circuit between the specific segment's hardware elements  \\
-			Expected result & Occupancy components have queried occupied occupancy state \\ \bottomrule
+			Test case ID: 3-2 & Purpose: to test the track element controller's segment state setting as disabled\newline Priority: above middle \newline Tracing: (FS-3/1.1)\\ \midrule
+			Precondition & Observable GPIO components \\
+			Input & Call the track element controller set segment state function with disabled parameter  \\
+			Expected result & All GPIO's levels are in "LOW" state, which are related to the specific segment \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
-\paragraph{Track element controller (FS-4)  test cases} This component can further be divided into segment and turnout controller. In this test plan, it does not detailed into further test cases for the specific controllers, because all the functional responsibility can be tested separately for each of them in the concrete implementation.
+\begin{table}[H]
+	\caption{Test case 3-3}
+	\label{table:TCase-FS3-3}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 3-3 & Purpose: to test the track element controller's turnout changing to straight state\newline Priority: above middle \newline Tracing: (FS-3/2.0)\\ \midrule
+			Precondition & Observable GPIO components \\
+			Input & Call the track element controller set turnout state function with straight parameter  \\
+			Expected result & The GPIO, which is controlling the straight branch, sending an impulse sign (inverting the current level twice with a specific time shift) \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\caption{Test case 3-4}
+	\label{table:TCase-FS3-4}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 3-4 & Purpose: to test the track element controller's turnout changing to divergent state\newline Priority: above middle \newline Tracing: (FS-3/2.1)\\ \midrule
+			Precondition & Observable GPIO components \\
+			Input & Call the track element controller set turnout state function with divergent parameter  \\
+			Expected result & The GPIO, which is controlling the divergent branch, sending an impulse sign (inverting the current level twice with a specific time shift) \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table}
+
+\paragraph{Safety logic (FS-4) test cases} The following test cases are System level safety logic related.
 
 \begin{table}[H]
 	\caption{Test case 4-1}
@@ -614,13 +663,14 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 4-1 & Purpose: to test the track element controller's segment state setting as enabled \newline Priority: above middle \newline Tracing: (FS-4/1.0)\\ \midrule
-			Precondition & Observable GPIO components \\
-			Input & Call the track element controller set segment state function with enabled parameter  \\
-			Expected result & All GPIO's levels are in "HIGH" state, which are related to the specific segment \\ \bottomrule
+			Test case ID: 4-1 & Purpose: to test the safety logic awareness, when a train is moving on a path where the next section in the direction already occupied by a train \newline Priority: high \newline Tracing: (FS-4/1.0)\\ \midrule
+			Precondition & None  \\
+			Input & Insert a train to a specific segment and move an other train to the adjacent segment\\
+			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table}
+\end{table} 
+
 
 \begin{table}[H]
 	\caption{Test case 4-2}
@@ -631,10 +681,10 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 4-2 & Purpose: to test the track element controller's segment state setting as disabled\newline Priority: above middle \newline Tracing: (FS-4/1.1)\\ \midrule
-			Precondition & Observable GPIO components \\
-			Input & Call the track element controller set segment state function with disabled parameter  \\
-			Expected result & All GPIO's levels are in "LOW" state, which are related to the specific segment \\ \bottomrule
+			Test case ID: 4-2 & Purpose: to test the safety logic awareness, when a train is moving and in the 2nd section in the path is already occupied by a train \newline Priority: high \newline Tracing: (FS-4/1.0-1)\\ \midrule
+			Precondition & None  \\
+			Input & Insert a train to a specific segment and move an other train there from a 2 distance away segment\\
+			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -648,13 +698,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 4-3 & Purpose: to test the track element controller's turnout changing to straight state\newline Priority: above middle \newline Tracing: (FS-4/2.0)\\ \midrule
-			Precondition & Observable GPIO components \\
-			Input & Call the track element controller set turnout state function with straight parameter  \\
-			Expected result & The GPIO, which is controlling the straight branch, sending an impulse sign (inverting the current level twice with a specific time shift) \\ \bottomrule
+			Test case ID: 4-2 & Purpose: to test the safety logic awareness, when a train is moving and in the 3rd section in the path is already occupied by a train \newline Priority: high \newline Tracing: (FS-4/1.0-2)\\ \midrule
+			Precondition & None  \\
+			Input & Insert a train to a specific segment and move an other train there from a 3 distance away segment\\
+			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table}
+\end{table} 
 
 \begin{table}[H]
 	\caption{Test case 4-4}
@@ -665,16 +715,34 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 4-4 & Purpose: to test the track element controller's turnout changing to divergent state\newline Priority: above middle \newline Tracing: (FS-4/2.1)\\ \midrule
-			Precondition & Observable GPIO components \\
-			Input & Call the track element controller set turnout state function with divergent parameter  \\
-			Expected result & The GPIO, which is controlling the divergent branch, sending an impulse sign (inverting the current level twice with a specific time shift) \\ \bottomrule
+			Test case ID: 4-4 & Purpose: to test the safety logic awareness, when a train is going through a turnout from top to straight, but the turnout is in divergent state \newline Priority: high \newline Tracing: (FS-4/2.0-1)\\ \midrule
+			Precondition & Set the specific turnout into divergent state  \\
+			Input & Set a train to go through the specific turnout from top branch to straight branch \\
+			Expected result & Safety Logic sent a turnout disable command with the id of the specific turnout \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table}
+\end{table} 
 
-\paragraph{Safety logic (FS-5) test cases} The following test cases are System level safety logic related.
 
+
+\begin{table}[H]
+	\caption{Test case 4-5}
+	\label{table:TCase-FS4-5}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{  X[0.4, c] X[c] }
+			\toprule
+			Test case ID: 4-5 & Purpose: to test the safety logic awareness, when a train is going through a turnout from top to divergent, but the turnout is in straight state \newline Priority: high \newline Tracing: (FS-4/2.0-2)\\ \midrule
+			Precondition & Set the specific turnout into straight state  \\
+			Input & Set a train to go through the specific turnout from top branch to divergent branch \\
+			Expected result & Safety Logic sent a turnout disable command with the id of the specific turnout \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table} 
+
+\paragraph{Dashboard (FS-5) test cases} text
 \begin{table}[H]
 	\caption{Test case 5-1}
 	\label{table:TCase-FS5-1}
@@ -684,14 +752,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 5-1 & Purpose: to test the safety logic awareness, when a train is moving on a path where the next section in the direction already occupied by a train \newline Priority: high \newline Tracing: (FS-5/1.0)\\ \midrule
-			Precondition & None  \\
-			Input & Insert a train to a specific segment and move an other train to the adjacent segment\\
-			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
+			Integration test case ID: 5-1 \newline Priority: am \newline Tracing: FS-5/1.0 & Purpose: to test the dashboard set all turnout to straight functionality                     \\ \midrule
+			Precondition                                                                   & All turnout must be in divergent state                                                       \\
+			Input                                                                          & Simulate a button press to the change all turnout direction function                         \\
+			Expected result                                                                & Message have been prepared to send with straight and a turnout id parameter for all turnouts \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
-
+\end{table}
 
 \begin{table}[H]
 	\caption{Test case 5-2}
@@ -702,13 +769,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 5-2 & Purpose: to test the safety logic awareness, when a train is moving and in the 2nd section in the path is already occupied by a train \newline Priority: high \newline Tracing: (FS-5/1.0-1)\\ \midrule
-			Precondition & None  \\
-			Input & Insert a train to a specific segment and move an other train there from a 2 distance away segment\\
-			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
+			Integration test case ID: 5-2 \newline Priority: am \newline Tracing: FS-5/1.1 & Purpose: to test the dashboard set all turnout to divergent functionality                     \\ \midrule
+			Precondition                                                                   & All turnout must be in straight state                                                         \\
+			Input                                                                          & Simulate a button press to the change all turnout direction function                          \\
+			Expected result                                                                & Message have been prepared to send with divergent and a turnout id parameter for all turnouts \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
+\end{table}
 
 \begin{table}[H]
 	\caption{Test case 5-3}
@@ -719,13 +786,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 5-2 & Purpose: to test the safety logic awareness, when a train is moving and in the 3rd section in the path is already occupied by a train \newline Priority: high \newline Tracing: (FS-5/1.0-2)\\ \midrule
-			Precondition & None  \\
-			Input & Insert a train to a specific segment and move an other train there from a 3 distance away segment\\
-			Expected result & Safety Logic sent a segment disable command with the id of the specific segment \\ \bottomrule
+			Integration test case ID: 5-3 \newline Priority: am \newline Tracing: FS-5/1.2 & Purpose: to test the dashboard set all segment to enabled functionality                      \\ \midrule
+			Precondition                                                                   &                                                                                              \\
+			Input                                                                          & Simulate a button press to the set all segments to enabled state function                         \\
+			Expected result                                                                & Segment command message have been prepared to send with enable parameter for all segments \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
+\end{table}
 
 \begin{table}[H]
 	\caption{Test case 5-4}
@@ -736,14 +803,13 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 5-4 & Purpose: to test the safety logic awareness, when a train is going through a turnout from top to straight, but the turnout is in divergent state \newline Priority: high \newline Tracing: (FS-5/2.0-1)\\ \midrule
-			Precondition & Set the specific turnout into divergent state  \\
-			Input & Set a train to go through the specific turnout from top branch to straight branch \\
-			Expected result & Safety Logic sent a turnout disable command with the id of the specific turnout \\ \bottomrule
+			Integration test case ID: 5-4 \newline Priority: am \newline Tracing: FS-5/1.2 & Purpose: to test the dashboard set all segment to disabled functionality                      \\ \midrule
+			Precondition                                                                   &                                                                                              \\
+			Input                                                                          & Simulate a button press to the set all segments to disabled state function                         \\
+			Expected result                                                                & Segment command message have been prepared to send with disable parameter for all segments \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
-
+\end{table}
 
 
 \begin{table}[H]
@@ -755,94 +821,7 @@ In this section I will describe the test cases defined by test conditions and co
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Test case ID: 5-5 & Purpose: to test the safety logic awareness, when a train is going through a turnout from top to divergent, but the turnout is in straight state \newline Priority: high \newline Tracing: (FS-5/2.0-2)\\ \midrule
-			Precondition & Set the specific turnout into straight state  \\
-			Input & Set a train to go through the specific turnout from top branch to divergent branch \\
-			Expected result & Safety Logic sent a turnout disable command with the id of the specific turnout \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table} 
-
-\paragraph{Dashboard (FS-6) test cases} text
-\begin{table}[H]
-	\caption{Test case 6-1}
-	\label{table:TCase-FS6-1}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Integration test case ID: 6-1 \newline Priority: am \newline Tracing: FS-6/1.0 & Purpose: to test the dashboard set all turnout to straight functionality                     \\ \midrule
-			Precondition                                                                   & All turnout must be in divergent state                                                       \\
-			Input                                                                          & Simulate a button press to the change all turnout direction function                         \\
-			Expected result                                                                & Message have been prepared to send with straight and a turnout id parameter for all turnouts \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table}
-
-\begin{table}[H]
-	\caption{Test case 6-2}
-	\label{table:TCase-FS6-2}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Integration test case ID: 6-2 \newline Priority: am \newline Tracing: FS-6/1.1 & Purpose: to test the dashboard set all turnout to divergent functionality                     \\ \midrule
-			Precondition                                                                   & All turnout must be in straight state                                                         \\
-			Input                                                                          & Simulate a button press to the change all turnout direction function                          \\
-			Expected result                                                                & Message have been prepared to send with divergent and a turnout id parameter for all turnouts \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table}
-
-\begin{table}[H]
-	\caption{Test case 6-3}
-	\label{table:TCase-FS6-3}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Integration test case ID: 6-3 \newline Priority: am \newline Tracing: FS-6/1.2 & Purpose: to test the dashboard set all segment to enabled functionality                      \\ \midrule
-			Precondition                                                                   &                                                                                              \\
-			Input                                                                          & Simulate a button press to the set all segments to enabled state function                         \\
-			Expected result                                                                & Segment command message have been prepared to send with enable parameter for all segments \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table}
-
-\begin{table}[H]
-	\caption{Test case 6-4}
-	\label{table:TCase-FS6-4}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Integration test case ID: 6-4 \newline Priority: am \newline Tracing: FS-6/1.2 & Purpose: to test the dashboard set all segment to disabled functionality                      \\ \midrule
-			Precondition                                                                   &                                                                                              \\
-			Input                                                                          & Simulate a button press to the set all segments to disabled state function                         \\
-			Expected result                                                                & Segment command message have been prepared to send with disable parameter for all segments \\ \bottomrule
-		\end{tabu}
-	\end{center}
-\end{table}
-
-
-\begin{table}[H]
-	\caption{Test case 6-5}
-	\label{table:TCase-FS6-5}
-	\begin{center}
-		\renewcommand{\arraystretch}{1.8}
-		\begin{tabu} 
-			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
-			\toprule
-			Integration test case ID: 6-5 \newline Priority: am \newline Tracing: FS-6/2.0 & Purpose: to test the dashboard set turnout to straight functionality  \\ \midrule
+			Integration test case ID: 5-5 \newline Priority: am \newline Tracing: FS-5/2.0 & Purpose: to test the dashboard set turnout to straight functionality  \\ \midrule
 			Precondition                                                                   & A specific turnout must be in divergent state None                                                                                                     \\
 			Input                                                                          & Simulate a button press to the specific turnout                                \\
 			Expected result                                                                & Turnout command message have been prepared to send with straight and with turnout id parameter \\ \bottomrule
@@ -851,15 +830,15 @@ In this section I will describe the test cases defined by test conditions and co
 \end{table}
 
 \begin{table}[H]
-	\caption{Test case 6-6}
-	\label{table:TCase-FS6-6}
+	\caption{Test case 5-6}
+	\label{table:TCase-FS5-6}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Integration test case ID: 6-6 \newline Priority: am \newline Tracing: FS-6/2.1 & Purpose: to test the dashboard set turnout to divergent functionality  \\ \midrule
+			Integration test case ID: 5-6 \newline Priority: am \newline Tracing: FS-5/2.1 & Purpose: to test the dashboard set turnout to divergent functionality  \\ \midrule
 			Precondition                                                                   & A specific turnout must be in straight state None                                                                                                     \\
 			Input                                                                          & Simulate a button press to the specific turnout                                \\
 			Expected result                                                                & Turnout command message have been prepared to send with divergent and with turnout id parameter \\ \bottomrule
@@ -868,15 +847,15 @@ In this section I will describe the test cases defined by test conditions and co
 \end{table}
 
 \begin{table}[H]
-	\caption{Test case 6-7}
-	\label{table:TCase-FS6-7}
+	\caption{Test case 5-7}
+	\label{table:TCase-FS5-7}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Integration test case ID: 6-7 \newline Priority: am \newline Tracing: FS-6/2.2 & Purpose: to test the dashboard functionality of enable a specific segment               \\ \midrule
+			Integration test case ID: 5-7 \newline Priority: am \newline Tracing: FS-5/2.2 & Purpose: to test the dashboard functionality of enable a specific segment               \\ \midrule
 			Precondition                                                                   & None                                                                           \\
 			Input                                                                          & Simulate a button press to the specific segment                                \\
 			Expected result                                                                & Segment command message have been prepared to send with enable and segment id parameter \\ \bottomrule
@@ -885,15 +864,15 @@ In this section I will describe the test cases defined by test conditions and co
 \end{table}
 
 \begin{table}[H]
-	\caption{Test case 6-8}
-	\label{table:TCase-FS6-8}
+	\caption{Test case 5-8}
+	\label{table:TCase-FS5-8}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
 			{  X[0.4, c] X[c] }
 			\toprule
-			Integration test case ID: 6-8 \newline Priority: am \newline Tracing: FS-6/2.3 & Purpose: to test the dashboard functionality of disable a specific segment               \\ \midrule
+			Integration test case ID: 5-8 \newline Priority: am \newline Tracing: FS-5/2.3 & Purpose: to test the dashboard functionality of disable a specific segment               \\ \midrule
 			Precondition                                                                   & None                                                                           \\
 			Input                                                                          & Simulate a button press to the specific segment                                \\
 			Expected result                                                                & Segment command message have been prepared to send with disable and segment id parameter \\ \bottomrule
@@ -1102,9 +1081,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets it 
 \paragraph{Safety logic verification (FSS-2)} The system level safety logic verification the test conditions are the same it was previously shown for unit tests in \autoref{table:TC-FS-5}. To summarize that, the conditions can be divided into turnout derail and train collision scenarios. 
 
 \subsubsection{Test cases}
-\paragraph{Track element verification (FSS-1)}
-
-\paragraph{Track element availability verification}
+\paragraph{Track element availability verification (FSS-1)} text for sorting tables
 \begin{table}[H]
 	\caption{System test case 1-1}
 	\label{table:TCase-FSS1-1}
@@ -1157,7 +1134,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets it 
 \end{table}
 
 
-\paragraph{Safety logic verification (FSS-2)}
+\paragraph{Safety logic verification (FSS-2)} text for sorting tables
 \begin{table}[H]
 	\caption{System test case 2-1}
 	\label{table:TCase-FSS2-1}
@@ -1193,8 +1170,8 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets it 
 \end{table}
 
 \subsubsection{Test procedure} 
-1) STC 1-1, 1-2, 1-3
-2) STC 2-1, 2-2
+%1) STC 1-1, 1-2, 1-3
+%2) STC 2-1, 2-2
 \paragraph{System test procedure for FSS-1} The following procedure is focusing on verifying the track element controller functionalities. 
 \begin{enumerate}
 	\item Objective: FSS-1
