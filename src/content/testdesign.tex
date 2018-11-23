@@ -5,9 +5,9 @@
 
 \todo[inline]{Extend this section with other used test design techniques}
 
-The MoDeS$^3$ is a multi-layered application with safety-critical functionalities. As a complex system with many off-the-self and custom made components, it is crucial to have a well-designed testing strategy. For this purpose in the following phases I will examine the possible and most suitable test approaches.
+The MoDeS$^3$ is a multi-layered, safety-critical application, which consist of off-the-self and custom made components also. As a complex system it is crucial to have a well-designed testing process and documentation which helps determine any problem in the system. For this purpose in the following chapter I will examine the possible and most suitable test approaches with a detailed test documentation.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm]{figures/testDesign/V_model.png}
 	\caption{V-model}
@@ -15,14 +15,15 @@ The MoDeS$^3$ is a multi-layered application with safety-critical functionalitie
 \end{figure}
 
 \subsection{V-model and testing levels}
-Nowadays one of the most popular software development methodology is the V-model \cite{Vmodel} (shown on figure \ref{fig:vModel}), which defines four stages during the development and four verification steps accordingly (shown with rectangles). In addition for making the development more effective for error-detection, there are four more steps defined for verifying our system \cite{TestLevels} (shown with ellipses). While the development starts with an abstract \textbf{requirement analysis}, which declares the aim of our application, later on each step contains more detailed information. The second phase is about understanding the abstract user requirements and define the \textbf{system functional specification} by the developers. During this phase our verification is based on \textbf{Model-in-the-Loop (MiL) testing}. The third phase contains all the low-level design and specific information about the application. From these design decisions, the \textbf{implementation} should be quite straight-forward or even generated. To make sure that the code is working correctly it is tested using \textbf{Software-in-the-Loop (SiL)}. 
-As of now our application code is written and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are working well on their own. \textbf{Processor-in-the-Loop (PiL)} testing can be made here. Moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level criterias.
+Nowadays one of the most popular software development methodology is the V-model \cite{Vmodel} (shown on figure \ref{fig:vModel}), which defines four stages during the development and four verification steps accordingly (each step is shown with rectangles on the figure). In addition for making the development more effective for error-detection, there are four more steps defined for verifying our system's correctness, called test levels \cite{TestLevels} (shown with ellipses). While the development starts with an abstract \textbf{requirement analysis}, which declares the aim of our application, later on each step contains more detailed information. The second phase is about understanding the abstract user requirements and define the system's \textbf{functional specification} by the developers. During this phase our verification is based on \textbf{Model-in-the-Loop (MiL) testing}. The third phase contains all the low-level design and specific information about the application. From these design decisions, the \textbf{implementation} should be quite straight-forward or even it can be generated. During the \textbf{Software-in-the-Loop (SiL) testing}, the implementation will be verified for a subset of functionalities, which is depending on the system's purpose and requirements.
+As of now our implementation is done and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are serving their exact purposes. \textbf{Processor-in-the-Loop (PiL)} testing ensures that the computing processor at the bottom of the V-model works as expected. Then moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level requirements.
 
 \todo[inline]{give details about the used test design techniques}
 
 \section{Test documentation}
-First we should see what documents will be used in the MODES\^3 test documentation process. In the following section I will describe the used documents from ISO 29119-3 standard. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those.
-\todo[inline]{redraw figure}
+During the test design phases of the MoDeS$^3$ I will follow a subset of the ISO 291119 standard \cite{IEEE13}.
+First I will describe the documents in general, which will be later used in the MoDeS$^3$ test documentation process in section \autoref{TestDoc:MODES}. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those. In the following sections, I will subtract the documentations into 3 phases, called Organizational, Test Management and Dynamic Test Documentation. 
+\todo[inline]{redraw figure to something similar}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/TestDoc.png}
@@ -31,13 +32,13 @@ First we should see what documents will be used in the MODES\^3 test documentati
 \end{figure}
 
 \subsection{Organizational test documentation}
-These documents should be distributed organizational-wise and should be the same for every project. In according to this, the organization will be now the MoDeS$^3$ team and the only project will be the above detailed railway system.
+These general documents must be distributed organizational-wise and must be the same for every project within the organization. In according to this, during the test documentation the organization will be the MoDeS$^3$ team and the only project will be the above detailed railway system.
 
 \paragraph{Test Policy}
-In general a Test Policy must contain the test principles and objectives for the organization It clarifies what should be tested in that development phase, but not how testing must be implemented. Furthermore it must define the provisions to be used for establishing, improving, maintaining and reviewing the test Policy.
+Throughout the test development a Test Policy must contain the test principles and objectives for the whole organization. It clarifies what should be tested during development, but not how testing must be implemented. Furthermore it must define the provisions to be used for establishing, improving, maintaining and reviewing the test Policy.
 
 \paragraph{Test Strategy}
-A Test Strategy must define a proper guideline on how testing should be performed for all projects in the organization. In our case one Test Strategy is sufficient, but for an organization which develop projects in different technical areas can have a Test Strategy for each area. In latter case, the organization can define separate Test sub-processes. 
+A Test Strategy must define a proper guideline on how testing should be performed for all projects in the organization. In our case one Test Strategy is sufficient, but for an organization which have projects in different technical areas, can have a Test Strategy for each area. In latter case, the organization can define separate Test sub-processes to satisfy any special need for an area or project.
 
 \todo[inline]{Do I need more details about test sub-processes?}
 
@@ -59,19 +60,19 @@ A Test Strategy must define a proper guideline on how testing should be performe
 %\end{enumerate}
 
 \subsection{Test Management Documentation}
-The Test Management Documentation is focusing on one project's planning and test evaluation with Test Plan, Test Status Report and Test Completion Report guidelines.
+The Test Management Documentation is focusing on one project's planning and test evaluation. This group of documentation provides guidelines for Test Plan, Test Status Report and Test Completion Report.
 
 \paragraph{Test Plan}
-This document collects the test plan and test management processes including the re-planning decisions. A Test Plan can be applied to multiple projects or to a single project, where each Test Plan is dedicated for each test sub-process (Like system test plan, integration software test plan, sub-system test plan, or unit software test plan). In a complex structure it is advices to have a mapping tree showing the relations of the created Test Plans.
+The collection of the test planning and test management documents is the Test Plan. It's scope be mapped to multiple projects, a single project or to sub-projects, where each Test Plan is dedicated for a sub-process (For example system test plan, integration software test plan, sub-system test plan, or unit software test plan). In a complex design structure it is advised to have a mapping tree document, which shows the relations between these Test Plans.
 
 \paragraph{Test Status Report}
-This is produced to summarize the progress of an ongoing test process in a given reporting period. For example in an agile project it can be created for every iteration, but it is not necessarily a written document.
+A report from the currently ongoing test process in a given reporting period is the Test Status Report. For example in an agile project it can be delivered at the end of the iteration. Although it is not necessarily a written document.
 
 \paragraph{Test Completion Report}
-This can be provided for every test sub-process or for the whole project and contains a summary of the testing which was performed.
+As a summary of our test execution, a Test Completion Report can be provided for every test sub-process or for the whole project itself.
 
 \subsection{Dynamic Test Documentation}
-During the dynamic test process the following documents are provided:
+During the Dynamic Test Documentation phase the following documents are prepared:
 \begin{itemize}
 	\item Test Specification with sub-documents of:
 	\begin{itemize}
@@ -91,23 +92,22 @@ During the dynamic test process the following documents are provided:
 		\item Incident Report
 	\end{itemize}
 \end{itemize}
-\todo[inline]{Figure with test docs hierarchy can be added here}
+\todo[inline]{Figure of test docs hierarchy can be added here}
 
-I will give a brief summary for each documentation approach.
+In the following sections, I will give a brief summary for each documentation.
 
 \paragraph{Test Design Specification} \label{TestDoc:TDS}
 The features and test conditions (derived from test basis) are collected in the Test Design Specification with the specific test cases and test procedures. These detailed test cases will be executed during testing process. 
 
-Here we can create logical groups called \textit{feature sets} for those features which can be tested independently.  A \textit{test condition} is aligned for each feature set and can be independently verified by a test case and can reference a requirement (or a group of them). Take care of test condition's traceability and priority.
+Here we can create groups called \textit{feature sets} for those features which are connected together, then we can handle them independently.  A \textit{test condition} is aligned for each feature set and can be verified by a test case. Technically a test condition means a concrete state or representation of a feature. In addition on or more requirement can be referenced by a test case. In addition, to develop a more maintainable test document we must take care for the references from test cases to each requirement.
 
 \paragraph{Test Case Specification}
-For one or more feature set, the Test Case Specification describes a set of test cases with the corresponding test coverage items.
+One or more feature set with the defined test conditions and coverage items, constitutes a Test Case Specification.
 
-A set of test conditions performed with a specific test design technique creates a \textit{test coverage item}, which can be summarized in a list (showing test coverage items, test conditions and feature sets with proper priorities). From each test coverage item a \textit{Test case} can be derived, which determines the correct implementation of a test item. Regarding the possible number of test cases it can be collected into a list, table or database. 
-Each test case should have a proper definition of dependencies. These are collected in \autoref{table:TestDoc:TestCases}.
+\textit{Test coverage items} are obtained from a set of test conditions and specific test design technique. These items can be summarized in a list (describing test coverage items, test conditions and feature sets with proper priorities). From each test coverage item a \textit{Test case} can be derived, which verifies the correct implementation of a function. Regarding the possible number of test cases it can be collected into a list, table or database. Each test case should have a proper definition of dependencies. These are collected in \autoref{table:TestDoc:TestCases}.
 
 \begin{table}[h]
-	\caption{Details of each test case}
+	\caption{Details of a test case}
 	\label{table:TestDoc:TestCases}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
@@ -115,65 +115,66 @@ Each test case should have a proper definition of dependencies. These are collec
 			to 0.9 \textwidth
 			{  X[c]  X[c] }
 			\toprule
-			Aspect                          & Description                                                                                                                                               \\ \midrule
-			Priority                        & Higher priority test cases should be examined earlier then lower priorities                                                                               \\
-			Traceability                    & Each test case can be traceable from each requirement through test coverage items                                                                         \\
-			Preconditions                   & Describes special states that must exists to execute the test case (Can be other test cases also)                                                         \\
-			Inputs                          & A specific action which sets the test item into a state, where the actual and expected results can be compared                                            \\
-			Expected results                & Specifies the expected output and behavior (with tolerances) of the test item which was in the precondition state and was modified with the proper inputs \\
-			Actual results and test results & A description of test item outputs and the comparison to expected results                                                                                 \\ \bottomrule
+			Aspect                     & Description                                                                                                                                               \\ \midrule
+			Priority                   & Defines the execution order and importance between test cases. Higher priority test cases should be examined earlier then lower priorities                \\
+			Traceability               & Reference the parent test coverage, condition item and the feature requirement                                                                            \\
+			Preconditions              & Describes special states that must exists to execute the test case (Can be other test cases also)                                                         \\
+			Inputs                     & A specific action which sets the test item into a state, where the actual and expected results can be compared                                            \\
+			Expected result            & Specifies the expected output and behavior (with tolerances) of the test item which was in the precondition state and was modified with the proper inputs \\
+			Actual result, test result & A description of test item outputs and a comparison between actual and expected results                                                                   \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
 \paragraph{Test Procedure Specification}
-Describes the precondition setup and test cases execution in the proper order, with possible post evaluation activities.
+Describes the precondition setup and test cases execution in the proper order with possible post evaluation activities.
 
-\textit{Test sets} can be collected for those test cases, which have the same purpose regarding test item, precondition, test basis or even by the identified risk. Typically this will reflect to one or more feature sets. For each \textit{Test set} the proper execution order is defined in the \textit{Test procedure} according to test case dependencies, preconditions, postconditions and other environment requirements.
+Those test cases, which have the same purpose in the test item's property (for example precondition, test basis or even in the identified risk) can be collected into a \textit{Test set}. Typically this will reflect to one or more feature sets. For each \textit{Test set} the proper execution order is defined in the \textit{Test procedure} considering test case dependencies, preconditions, postconditions and other environment requirements.
 
 \paragraph{Test Data Requirements}
-Defines the required properties of test data, which is used during test procedure execution. It can be collected into a list detailed test data requirements, making it maintainable and trackable. 
+Defines the required properties of the test data, which is used during test procedure execution. These requirements can be summarized with a list. In addition, this detailed test data requirements makes it more maintainable and traceable. 
 
 \paragraph{Test Data Readiness Report} 
-Gives a list of Test Data Requirements if they are satisfied or not with a proper authorization.
+Gives a list of Test Data Requirements determining whether they are satisfied or not.
 
 \paragraph{Test Environment Requirements}
-Describes the required test environment properties, setting the test items into the desired test environment to be able to execute test procedures. These requirements can also be grouped by environment types like hardware, middleware, software, tools or security.
+Describes the required test environment properties, which are setting the test items into the expected test environment. These requirements can also be grouped by environment types like hardware, middleware, software, tools or security and may vary for each test case.
 
 \paragraph{Test Environment Readiness Report}
-Describes the fulfillment of Test Environment Requirements.
+Lists the fulfillment of Test Environment Requirements.
 
 \paragraph{Actual Results}
-After executing the selected test procedures, each test case's actual result (output state or behavior) should be recorded. It may require full recording of the process with an automated tool also.
+After executing the selected test procedures, each test case's actual result (output state or behavior after the input actions) should be recorded. It may require full recording of the process with an automated tool also.
 
 \paragraph{Test Result}
-Determines if the actual result is correspond to the expected results with the specified deviation or not. It is usually recorded as passed or failed, along with the actual results.
+Determines if the actual results are corresponding to the expected results with the specified deviation or not. It is usually recorded as passed or failed, along with the actual results.
 
 \paragraph{Test Execution Log}
-Detailed documentation of one or more test procedure's execution. Can be described in a list or table with measured times and event of the test execution.
+Detailed documentation of one or more test procedure's execution. Can be represented in a list or table with measuring times and events of the test execution.
 
 \paragraph{Test Incident Reporting}
-At the end of the test execution for failed test cases and findings we can create dedicated Incident Reports. These reports could contain the incident description itself with severity, date and possible risk information.
+If there is any deviation between the actual and expected results after each test procedure execution, we should create a dedicated Incident Report detailing the problems. These reports could contain a description of the problem with severity, date and possible risk information.
 
 
-\section{Test Documentation for MoDeS$^3$ project}
-\todo[inline]{Wat about: test process, organization test evaluation, test improvement sections?}
+\section{Test Documentation for MoDeS$^3$ project}\label{TestDoc:MODES}
+\todo[inline]{What about: test process (do we want to mention the ISO 29119-2 test processes?), organization test evaluation, test improvement sections?}
 
 \subsection{Test Policy for MoDeS$^3$ organization}
-\paragraph{Scope:} This Test Policy will be followed by the MoDeS$^3$ team in the Department of Measurement and Information Systems, which will provide us a testing framework for the railway system project.
-\paragraph{Introduction:} The railway system project have started several years back, and from time to time the team faced smaller and bigger problems with the implementation. Approximately a lot of them could be prevented with a details test documentations and process. To avoid these situations in the future I will now introduce a test documentation approach.
+\paragraph{Scope:} This Test Policy will be followed by the MoDeS$^3$ team in the Department of Measurement and Information Systems.
+\paragraph{Introduction:} The railway system project have started several years back, and from time to time the team faced smaller and bigger problems with the implemented product. Presumably a high percentage of them could be prevented with a detailed test documentation and process. To avoid these situations in the future I will now introduce a test documentation approach.
 \paragraph{Objectives of testing:} The objective of testing is to measure and improve the software quality and to avoid safety-critical failures in the system.
-\paragraph{Standards:} The testing documentation will follow the ISO/IEC/IEEE standard 291119-3 "Test Documentation".
+\paragraph{Standards:} This test documentation will follow the ISO/IEC/IEEE standard 291119-3 "Test Documentation" part \cite{IEEE13}.
 
 \subsection{Test Strategy for MoDeS$^3$ projects}
-\todo[inline]{strategy todos: scope? risk management? github clarification, test sub-processes?}
-\paragraph{Scope:} The following test strategy is applicable for the railway system project. This strategy's aim is to support testing in the software development phases in component and system level also.
+\todo[inline]{strategy todos: scope? risk management? github clarification}
+\todo[inline]{risk management must be handled separately for each test plan??}
+\paragraph{Scope:} The following test strategy is applicable for the railway system project. This strategy's aim is to support testing in the software development phases in component, integration and system level also.
 \paragraph{Risk management:} For each specific test plan the risk management must be handled separately. The detailed format must be a traceable list or table. 
-\paragraph{Test selection prioritization:} The test cases and test procedures will follow a bottom-up strategy priorization aligned with safety-critical risk levels. Consequently a test element with lower dependencies and more independent functionality got higher priority then a complex test element, which rely on multiple sub components. 
+\paragraph{Test selection prioritization:} The test cases and test procedures will follow a bottom-up strategy order aligned with safety-critical risk levels. Consequently a test element with lower dependencies and more independent functionality (also more hardware related) got higher priority then a complex test element, which rely on multiple sub components.
 \paragraph{Test document and reporting:} The test process and documentation must be well-separated and clear that a new team member can easily understand the structure.
-\paragraph{Test automation and tools:} All tools, which is used during the test process and documentation must be available for a university student (with education license or freely).
+\paragraph{Test automation and tools:} All tools, which is used during the test process and documentation must be available for a university student (meaning education license or freeware).
 \paragraph{Incident management:} All detected defects must be created as a github issue also.
-%\paragraph{Test sub-processes:} All test projects must provide the following test levels: unit test, integration test, system test.
+\paragraph{Test sub-processes:} All test projects must provide the following test levels: unit test plan, integration test plan, system test plan.
 
 
 \subsection{Test Completion Report}
@@ -181,11 +182,11 @@ At the end of the test execution for failed test cases and findings we can creat
 
 \subsection{Master Test Plan for Railway System project}\label{section:MTP}
 \todo[inline]{Verify Test envs? sub processes? risk man.? }
-\paragraph{Scope:} Test plan's scope is to provide the necessary test framework for testing the railway system of MoDeS$^3$ team. This document identifies a way for planning, executing and maintaining tests in a multi-layered project.
-\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf products, custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. The standard product's testing and the hardware extensions verifications are not part of the Test Plan. Furthermore not all the software component have been involved in this testing plan, because not safety critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. How the trains get speed and direction controls is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical. \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}.
+\paragraph{Scope:} Test plan's scope is to provide the necessary test framework for executing tests for the railway system of MoDeS$^3$ team. This document identifies a way for planning, executing and maintaining tests in a multi-layered project.
+\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf products, custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. Other product testing and the custom hardware extension verifications are not part of this Test Documentation. Furthermore not all the software component have been involved in this testing plan, because not safety critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. How the trains get speed and direction controls is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical (Note that an other components are capable to detect train positions on the railway). \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}, so we will skip that also right now.
 \paragraph{Risk register:}
-For a railway system the possible safety-critical aspects are detailed in \autoref{section:SC-Functionalities}.
-\todo[inline]{Create metrics for the risk tables}
+For a railway system, the possible safety-critical aspects are detailed in \autoref{section:SC-Functionalities}. On the following 2 tables the possible product (\autoref{table:Product-risks}) and project risks (\autoref{table:Project-risks}) are described.
+\todo[inline]{Define metrics for the risk tables}
 \begin{table}[!h]
 \caption{Product risks}
 \label{table:Product-risks}
@@ -193,37 +194,36 @@ For a railway system the possible safety-critical aspects are detailed in \autor
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{ X[0.1, c] X[l] X[l] X[0.2, l] }
+			{ X[0.1, c] X[0.5, l] X[l] X[0.4, l] }
 			\toprule
-			ID & Risk details                            & Mitigation activities                                                                  & Level \\ \midrule
-			                                                   \multicolumn{4}{c}{Occupancy detection}                                                    \\
-			1  & Wrong or no occupancy detected          & Review of design and appropriate hardware and software elements .                      &       \\
-			                                                \multicolumn{4}{c}{Track element controlling}                                                 \\
-			2  & Not controllable turnout  or segment    & Review of hardware and software components.                                            &       \\
-			                                              \multicolumn{4}{c}{Safety critical verification}                                                \\
-			3  & Wrong collision avoidance decision made & Review of design and safety algorithm. Extra test cases to cover additional scenarios. &       \\
-			4  & Train collision                         & Review of design and safety algorithm.                                                 &       \\ \bottomrule
+			ID & Risk details                            & Mitigation activities                                                                  & Level        \\ \midrule
+			                                                      \multicolumn{4}{c}{Occupancy detection}                                                        \\
+			1  & Wrong or no occupancy detected          & Review of appropriate hardware and software elements considering network connection    & High         \\
+			                                                   \multicolumn{4}{c}{Track element controlling}                                                     \\
+			2  & Not controllable turnout or segment     & Review of hardware and software components considering standard railway elements also. & Above middle \\
+			                                                  \multicolumn{4}{c}{Safety critical verification}                                                   \\
+			3  & Wrong collision avoidance decision made & Review of design and safety algorithm. Extra test cases to cover additional scenarios & High         \\
+			4  & Train collision                         & Review of design and safety algorithm.                                                 & High         \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
 
 \begin{table}[!h]
 	\caption{Project risks}
-	\label{table:project-risks}
+	\label{table:Project-risks}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{ X[0.1, c] X[0.5, l] X[l] X[0.1, l] }
+			{ X[0.1, c] X[0.5, l] X[l] X[0.4, l] }
 			\toprule
 			ID & Risk & Mitigation activities & Level \\ \midrule
 			1 & Busy students and estimation & For a student every semester is different and not always predictable how much time will the student have for the project. Therefore it must be consider during project estimation and planning accordingly.     &  \\ 
-			2 & New students and planning & This is a university project, so we must calculate with the often changing student and with the time for learning and for knowledge transfer.& \\
+			2 & New students and planning & This is a university project, so we must calculate with the often changing student and knowledge transfer about the existing system.& \\
 			3 & Cutting-edge tools & Unpredictable cutting-edge technologies can make a huge rule during project planning. The compatibility of tools and their reliability can differ during few month also, which must be adapted during estimation. & \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
-
 
 \paragraph{Test strategy:} 
 We define test sub-processes for the railway system project:
