@@ -1,3 +1,5 @@
+% !TeX spellcheck = hu_HU
+
 \pagenumbering{roman}
 \setcounter{page}{1}
 
@@ -8,9 +10,10 @@
 %----------------------------------------------------------------------------
 \chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
 
-Egy hardver és szoftver elemekből is álló összetett alkalmazás fejlesztése során a meghibásodások számos komponensből eredhetnek, valamint a többrétegűség miatt teljesen különböző jellegű hiba okok lehetségesek. Az éles rendszerben lévő hibák megjelenése nem elfogadható egy biztonságkritikus például vasúti rendszer esetén. A fejlesztés során minden elkészült rétegen lévő tesztelési technikával javíthatjuk az alkalmazásunk biztonságát és hibatűrését.
+Egy hardver és szoftver elemekből álló összetett alkalmazás esetén a meghibásodások számos komponensből eredhetnek, ráadásul egy ilyen többrétegű rendszerben a hiba okának feltárása és hibás működés elhárítása is komoly feladat. A biztonságkritikus rendszerekben mindenképpen meg kell előzni a végzetes, akár emberi életekbe kerülő hibák előfordulását. Az ilyen komplex rendszerek tesztelését érdemes részletesen megtervezni és dokumentálni a céljainknak megfelelően.
 
-Munkám során a Méréstechnika és Információs Rendszerek Tanszéken folyamatosan fejlesztett modellvasútakat használó vasúti demonstrátort vettem alapul mint biztonságkritikus kiberfizikai rendszer. Az egyéni hardver és szoftver elemeket is tartalmazó demonstrátor alapvetően a modellalapú tervezés és ellenőrzés bemutatására szolgál. Ahogy a magas szintű modellekből generált kódok, úgy az alacsony szintű hardver közeli programok is egyaránt a rendszer részei. Ennek tekintetében a különböző fejlesztési módszerekhez akár teljesen eltérő tesztelési stratégiákat kell alkalmaznunk, hogy megbizonyosodjunk a teljes rendszerünk hibamentes és biztonságos működéséről. A demonstrátor jelenlegi használata során előforduló jelenség az egyes egységek közös működése során fellépő nem várt hiba, mely akár a modell vonatok összeütközéséhez is vezethet, mely a szimulált valós életben elfogadhatatlan esemény lenne. Ennek javítása érdekében megvizsgáltam, hogyan érdemes szisztematikusan megtervezni és végrehajtani a tesztelési lehetőségeket és célokat mind komponens, mind integrációs (egyes komponensek együttműködése)  és rendszer (minden komponens felügyelt működése) szinten is.
+Munkám során a Méréstechnika és Információs Rendszerek Tanszéken folyamatosan fejlesztett modellvasutakra épülő demonstrátort vettem alapul mint többrétegű biztonságkritikus kiberfizikai rendszert. Az eddigi teszt megvalósítások a keretrendszer gyors fejlődése miatt hamar elavultak és nehezen karbantarthatók lettek.  A különböző fejlesztési módszerekhez és eszközökhöz akár teljesen eltérő tesztelési stratégiákat kell alkalmaznunk, hogy megbizonyosodjunk minden réteg hibamentes és biztonságos működéséről. Az ideális tesztelési stratégia kialakításához meg kell ismernünk a tesztelendő rendszer architektúráját és felhasznált technológiákat, hogy meg tudjuk határozni azokat a pontokat ahol érdemes teszteket a rendszerbe illeszteni.
+\todo[inline]{include goals and achivements}
 
 \vfill
 \selectenglish
@@ -21,7 +24,7 @@ Munkám során a Méréstechnika és Információs Rendszerek Tanszéken folyama
 %----------------------------------------------------------------------------
 \chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
 
-In a complex system, where hardware and software elements have strong connection, a system failure can propagate from different layer and from different component. These failures are impermissible in a safety critical system, like in a railway system. Through all the development phases we can add verification steps to improve the whole system failure rate.
+In a complex system, where hardware and software  elements met and interact with each other, a system failure can propagate from different components and even from different components. These failures are unacceptable in a safety critical system, like in a railway system. Through all the development phases we can add verification steps to improve the whole system failure rate.
 
 My thesis work is based on a railway demonstrator system developed by the students of Measurement and Information Systems department, which simulates a safety critical railway track. Aim of the system is to demonstrate the model driven and verification techniques through the development life cycle. To satisfy this purpose custom made and off-the-shelf products have been added in hardware and software level also. For different development techniques there must be different verification approaches to be sure that our safety critical system will be stable and highly reliable. The current state of the demonstrator satisfy this approach, therefore I have investigated and designed test approaches for improving the demonstrator reliability in component, integration and system level.
 
