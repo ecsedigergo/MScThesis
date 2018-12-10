@@ -3,8 +3,6 @@
 %----------------------------------------------------------------------------
 \section{Test design techniques}
 
-\todo[inline]{Extend this section with other used test design techniques}
-
 The MoDeS$^3$ is a multi-layered, safety-critical application, which consist of off-the-self and custom made components also. As a complex system it is crucial to have a well-designed testing process and documentation which helps determine any problem in the system. For this purpose in the following chapter I will examine the possible and most suitable test approaches with a detailed test documentation.
 
 \begin{figure}[!h]
@@ -19,6 +17,10 @@ Nowadays one of the most popular software development methodology is the V-model
 As of now our implementation is done and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are serving their exact purposes. \textbf{Processor-in-the-Loop (PiL)} testing ensures that the computing processor at the bottom of the V-model works as expected. Then moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level requirements.
 
 \todo[inline]{give details about the used test design techniques}
+\subsection{Specification based testing techniques}
+\paragraph{Use Case Testing}
+\paragraph{Equivalence Class Partitioning}
+\paragraph{Decision Table Testing}
 
 \section{Test documentation}
 During the test design phases of the MoDeS$^3$ I will follow a subset of the ISO 291119 standard \cite{IEEE13}.
