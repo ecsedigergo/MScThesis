@@ -1,5 +1,5 @@
 %----------------------------------------------------------------------------
-\chapter{Test Documentation for MoDeS$^3$ project}\label{TestDoc:MODES}
+\chapter{Test Planning for MoDeS$^3$ project}\label{TestDoc:MODES}
 %----------------------------------------------------------------------------
 
 \section{Test Policy for MoDeS$^3$ organization}
@@ -19,12 +19,9 @@
 \paragraph{Incident management:} All detected defects must be created as a github issue. \footnote{MoDeS$^3$ github page is available at the following page: \url{https://github.com/FTSRG/BME-MODES3}}
 \paragraph{Test sub-processes:} All test projects must provide the following test levels: unit test plan, integration test plan, system test plan.
 
-\section{Test Completion Report}
-\todo[inline]{do i need it right there? test status is more suitable in this thesis}
-
 \section{Master Test Plan for Railway System project}\label{section:MTP}
 \paragraph{Scope:} Test plan's scope is to provide the necessary test framework for executing tests for the demonstrator railway system of MoDeS$^3$ team. This document identifies a way for planning, executing and maintaining tests in a multi-layered project.
-\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf and custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. Other product testing and the custom hardware extension verifications are not part of this Test Documentation. Furthermore not all the software component have been involved in this testing plan, because not safety critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. An additional way to set the speed and directions of the trains is not safety critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety critical (Note that an other components are capable to detect train positions on the railway). \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}, so we will skip that also in this test plan.
+\paragraph{Plan context:} The railway system architecture (detailed in \autoref{chapter:RailwaySystem}) consist of off-the-shelf and custom hardware and software elements. According to this, the \textit{test items} are only the custom software elements, which were made by the MoDeS$^3$ team. Details about test items can be found in \autoref{section:CustomSW}. Other product testing and the custom hardware extension verifications are not part of this Test Documentation. Furthermore not all the software component have been involved in this testing plan, because not safety-critical components have been skipped. \textit{Barrier} is irrelevant regarding the train-collision detection. An additional way to set the speed and directions of the trains is not safety-critical either, so \textit{LeapMotion} and \textit{XPressNet} components are not safety-critical (Note that an other components are capable to detect train positions on the railway). \textit{Touchboard} is a component which have a reduced functionality considered to \textit{Dashboard}, so we will skip that also in this test plan.
 \paragraph{Risk register:} On the following 2 tables the possible product (\autoref{table:Product-risks}) and project risks (\autoref{table:Project-risks}) are described. The following assessment will cover the risk management for all the test sub-plans in the MoDeS$^3$ project.
 
 \begin{table}[!h]
@@ -80,7 +77,7 @@ In addition for all sub-processes the following documents must be delivered:
 	\item Test log
 	\item Test sub-process completion or status report
 \end{itemize}
-The test design techniques, test completion criteria and test data must be applied accordingly for every test sub-process. We use the following test environments in general:
+The test design techniques, test completion criteria and test data must be applied accordingly for every test sub-process. We use the following test environments in general for every test sub-process:
 \begin{itemize}
 	\item Eclipse Photon where applicable
 	\item Visual Studio Code where applicable
@@ -97,30 +94,19 @@ The test design techniques, test completion criteria and test data must be appli
 \paragraph{Scope:} The aim for this Test Plan is to verify each software component's functionality in the system. This plan is derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan). 
 \paragraph{Plan context:} Unit Test Plan context is the same as for Master Test Plan (see \autoref{section:MTP}), because all self developed software component must be tested in a standalone environment also. 
 \paragraph{Risk register:} Same as Master Test Plan.
-\paragraph{Test strategy:} The deliverables are this test plan, the test specification for unit test and the test status report. Each unit must reach a 80\%  requirement coverage. 
-%\paragraph{Test activities and estimates:}
-\todo[inline]{During the test process and documentation the decision coverage and fault attack test design techniques are relevant. ? }
-
-\todo[inline]{Complete test design techniques, test activities?}
+\paragraph{Test strategy:} The deliverables are this test plan, the unit test specification and the test status report. For every software component the code coverage measurement must reach at least 80\%. This means that for each component the implemented unit tests must execute greater or equal then 80\% of the component's code.
 
 \subsection{Integration Test Plan}\label{ssection:ITP}
-\paragraph{Scope:} This test plan is stands for the integration level testing examination. This approach is one abstraction layer, above from the unit tests. Therefore the following test cases verifies the correct functionalities between one or more components. This test plan is also derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan).
+\paragraph{Scope:} This test plan is stands for the integration level testing examination. This approach is one abstraction layer above from the unit tests, because the following test cases verifies the correct functionalities between one or more components. This test plan is also derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan).
 \paragraph{Plan context:} In this plan we aim to test the system divided into several groups, consequently the Integration Test Plan's context is the same as for Master Test Plan (see \autoref{section:MTP}) and for Unit Test Plan.
 \paragraph{Risk register:} Same as Master Test Plan.
-\paragraph{Test strategy:} The deliverables are this test plan, the test specification for integration test and the test status report. 
-\todo[inline]{What should be the test completion criteria and test activities?}
-%\paragraph{Test activities and estimates:}
-
-\todo[inline]{complete test design techniques, test activities?}
+\paragraph{Test strategy:} The deliverables are this test plan, the integration test specification and the test status report. It is required to cover every existing connection between 2 components with at least 1 parameter of a message type. (Component communication is described in \autoref{fig:communicationModel}.)
 
 \subsection{System Test Plan}\label{ssection:STP}
-%Mainly the manual (hand-made) tests before a demo
 \paragraph{Scope:} The third test plan is designed to test the demonstrator functions at system level. These tests are verifies the system's commonly demonstrated features. This test plan is also derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan). 
 \paragraph{Plan context:} This plan's focus is the whole railway system, therefore the context is the same as for Master Test Plan (see \autoref{section:MTP}).
 \paragraph{Risk register:} Same as Master Test Plan.
-\paragraph{Test strategy:} The deliverables are this test plan, the test specification for system test and the test status report. All test cases must be passed before each system demonstration.
-%\paragraph{Test activities and estimates:}
-
+\paragraph{Test strategy:} The deliverables are this test plan, the system test specification and the test status report. The test cases must cover the safety-critical functionalities (see details in \autoref{section:SC-Functionalities}) of the demonstrator system and greater than 50\% of the system requirements (described in \autoref{section:REQ}) for every component.
 
 \section{Test Design Specification for Unit Test Plan}
 
@@ -135,15 +121,15 @@ The test design techniques, test completion criteria and test data must be appli
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 1.0 \textwidth
-			{  X[0.7,c] X[2.0, c] X[3.0, c] X[0.5,c] X[2.0, c] X[2.0, c] }
+			{  X[0.7, c] X[2.0, c] X[3.0, c] X[0.5,c] X[2.0, c] X[2.0, c] }
 			\toprule
-			\multicolumn{2}{c}{Feature Set} & Scope                                                                                             & Priority & Approach                       & Traceability                                                                   \\ \midrule
-			ID   & Name                     &                                                                                                   &          &                                &                                                                                \\ \midrule
-			FS-1 & GPIO handling            & To test GPIO pin handling                                                                         & Am       & Equivalence Class Partitioning & \ref{req:GPIO-1}, \ref{req:GPIO-2}                                             \\
-			FS-2 & Occupancy detection      & To test the occupancy related functionalities in the system, including state and change detection & H        & Decision Table Testing         & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
-			FS-3 & Track element controller & To test segment availability and turnout direction setting                                        & Am       & Equivalence Class Partitioning & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
-			FS-4 & Safety Logic             & To test railway system's safety logic                                                             & H        & Use Case Testing               & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
-			FS-5 & Dashboard                & To test Dashboard capabilities                                                                    & L        & Use Case Testing               & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
+			\multicolumn{2}{c}{Feature Set} & Scope                                                                                             & Priority & Approach               & Traceability                                                                   \\ \midrule
+			ID   & Name                     &                                                                                                   &          &                        &                                                                                \\ \midrule
+			FS-1 & GPIO handling            & To test GPIO pin handling                                                                         & Am       & Use Case Testing       & \ref{req:GPIO-1}, \ref{req:GPIO-2}                                             \\
+			FS-2 & Occupancy detection      & To test the occupancy related functionalities in the system, including state and change detection & H        & Decision Table Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
+			FS-3 & Track element controller & To test segment availability and turnout direction setting                                        & Am       & Use Case Testing       & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
+			FS-4 & Safety Logic             & To test railway system's safety logic                                                             & H        & Use Case Testing       & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
+			FS-5 & Dashboard                & To test Dashboard capabilities                                                                    & L        & Use Case Testing       & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -151,7 +137,7 @@ The test design techniques, test completion criteria and test data must be appli
 \subsection{Test Conditions} In the following section I will describe the test conditions for each feature set. Most of the feature sets in the Unit Test Plan are simple low level functions so the test conditions also will describe the test coverage items.
 
 \paragraph{GPIO handling (FS-1)}
-Considering the GPIO's functionality the following test conditions are test coverage items also (see \autoref{table:TC-FS-1}).
+Considering the GPIO's functionality the following test conditions are test coverage items also. With the usage of use case based design approach, the GPIO can be used for input and output communication. The proper setup and operation cases are detailed in  \autoref{table:TC-FS-1}.
 \begin{table}[H]
 	\caption{GPIO handling test condition and coverage items}
 	\label{table:TC-FS-1}
@@ -163,7 +149,7 @@ Considering the GPIO's functionality the following test conditions are test cove
 			\toprule
 			Test condition & Direction                     & Phase                            & Configuration file           & Setting \\ \midrule
 			FS-1/1.0       & \centeredDoubleRow{3}{Input}  & Initialization                   & edge                         & both    \\
-			FS-1/1.1       &                               & \centeredDoubleRow{2}{Operation} & \centeredDoubleRow{2}{value} & low    \\
+			FS-1/1.1       &                               & \centeredDoubleRow{2}{Operation} & \centeredDoubleRow{2}{value} & low     \\
 			FS-1/1.2       &                               &                                  &                              & high    \\
 			FS-1/2.0       & \centeredDoubleRow{2}{Output} & Initialization                   & \centeredDoubleRow{3}{value} & low     \\
 			FS-1/2.1       &                               & \centeredDoubleRow{2}{Operation} &                              & low     \\
@@ -173,7 +159,7 @@ Considering the GPIO's functionality the following test conditions are test cove
 \end{table} 
 
 \paragraph{Occupancy detection (FS-2)}
-The 2 test condition items are also considered as test coverage items, which are shown in \autoref{table:TC-FS-2}). The values are observed as the periodic occupancy detection result for one section.
+The 2 test condition items are also considered as test coverage items, which are shown in \autoref{table:TC-FS-2}). The detection is made periodically in the demonstrator system life-cycle and the decision can be that the section is either free or occupied.
 \begin{table}[H]
 	\caption{Occupancy detection test condition and coverage items}
 	\label{table:TC-FS-2}
@@ -192,7 +178,7 @@ The 2 test condition items are also considered as test coverage items, which are
 
 
 \paragraph{Track element controller (FS-3)}
-A track element controller can handle segment and turnout specific statements also, consequently we must distinguish our test condition and coverage items for these segment types. The merged test condition and coverage items are shown in \autoref{table:TC-FS-3}.
+A track element controller can handle segment and turnout specific statements also, consequently we must distinguish our test condition and coverage items for these segment types. The merged test condition and coverage items are shown in \autoref{table:TC-FS-3}. The specific use cases for a segment, that it can be enabled or disabled by the controller whether a train can drive on it or not. Consequently the use case for the turnout to change its state between straight and divergent.
 \begin{table}[H]
 	\caption{Track element controller test condition and coverage items}
 	\label{table:TC-FS-3}
@@ -255,13 +241,12 @@ A full use case coverage is aimed for the Dashboard which can be defined by the 
 
 \subsection{Test coverage items}
 
-\todo[inline]{Do I have to mention that these are the same for the other FSs?}
 \todo[inline]{create diagrams for each test coverage item}
 \paragraph{Safety Logic: Train collision test coverage items (FS-4/1.0)}
 \begin{enumerate}[label=FS-5/1.0-\arabic*, leftmargin=*, format=\small]
 	\item 1 Train is moving to a segment where there is an other train
-	\item 1 Train is moving to a segment where the other train is 1 distance away on the path
-	\item 1 Train is moving to a segment where the other train is 2 distance away on the path
+	\item 1 Train is moving to a segment where the other train is in 1 distance away on any the path
+	\item 1 Train is moving to a segment where the other train is in 2 distance away on any the path
 \end{enumerate}
 \paragraph{Safety Logic: Turnout derail test coverage items (FS-4/2.0)}
 \begin{enumerate}[label=FS-5/2.0-\arabic*, leftmargin=*, format=\small]
@@ -270,7 +255,7 @@ A full use case coverage is aimed for the Dashboard which can be defined by the 
 \end{enumerate}
 
 \subsection{Test cases}\label{section:UnitTestCases}
-In this section I will describe the test cases defined by test conditions and coverage items for each feature set. In addition for all the feature sets just one test case will be mentioned and all the other test cases can be found in the \ref{appendix:UnitTC} appendix.
+In this section I will describe the test cases defined by test conditions and coverage items for each feature set. In addition for all the feature sets just one test case will be mentioned and additional test cases can be found in the \ref{appendix:UnitTC} appendix.
 \paragraph{Gpio Handling (FS-1) test cases} In order to work in production with GPIO component, the following configuration file must exists: sys/gpio/gpioPIN/export, sys/gpio/gpioPIN/value and sys/gpio/gpioPIN/edge. This need is also propagate to all test cases regarding GPIO handling, so files must be accessible or mocked. 
 \begin{table}[H]
 	\caption{Test case 1-1}
@@ -279,17 +264,17 @@ In this section I will describe the test cases defined by test conditions and co
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			Test case ID: 1-1 \newline Priority: am \newline Tracing: FS-1/1.0 & Purpose: to test the GPIO initialization in input direction.       \\ \midrule
-			Precondition                                                       & The GPIO's necessary files are available.                          \\
-			Input                                                              & Initialize the GPIO itself with input direction.                  \\
-			Expected result                                                    & The "both" string have been written to "edge" configuration file. \\ \bottomrule
+			Test case ID: 1-1 & Purpose: to test the GPIO initialization in input direction. \newline Priority: am \newline Tracing: FS-1/1.0 \\ \midrule
+			Precondition      & The GPIO's necessary files are available.                                                                     \\
+			Input             & Initialize the GPIO itself with input direction.                                                              \\
+			Expected result   & The "both" string have been written to "edge" configuration file.                                             \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
 
-\paragraph{Occupancy detection (FS-2) test cases} Occupancy detection components cannot be easily separated into subcomponents for testing purpose, because the communication between their parts is based on a serial port connection. There is no fake serial port connection  available on the market for windows operating system, so we must test them together with real hardware connection or modify our implementation.
+\paragraph{Occupancy detection (FS-2) test cases} Occupancy detection components cannot be easily separated into subcomponents for testing purpose, because the communication between their parts is based on a serial port connection. There is no fake serial port connection available on the market for windows operating system, so we must test them together with real hardware connection or modify our implementation.
 
 \begin{table}[H]
 	\caption{Test case 2-1}
@@ -298,7 +283,7 @@ In this section I will describe the test cases defined by test conditions and co
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
 			Test case ID: 2-1 & Purpose: to test the detection of segment occupancy (the train power consumption) through section occupancy query, when the specific segment is free\newline Priority: above middle \newline Tracing: (FS-2/1.0) \\ \midrule
 			Precondition      & S88 serial port connection and available Arduino hardware element                                                                                                                                                \\
@@ -308,7 +293,7 @@ In this section I will describe the test cases defined by test conditions and co
 	\end{center}
 \end{table} 
 
-\paragraph{Track element controller (FS-3)  test cases} This component can further be divided into segment and turnout controllers. In this test plan, it does not detailed into further test cases for the specific controllers, because all the functional responsibility can be tested separately for each of them.
+\paragraph{Track element controller (FS-3)  test cases} This component can further be divided into segment and turnout controllers like on hardware level. Although in this test plan, it does not detailed into further test cases for the specific controllers, because in software point of view, there is no need to distinguish them.
 
 \begin{table}[H]
 	\caption{Test case 3-1}
@@ -317,7 +302,7 @@ In this section I will describe the test cases defined by test conditions and co
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
 			Test case ID: 3-1 & Purpose: to test the track element controller's segment state setting as enabled \newline Priority: above middle \newline Tracing: (FS-3/1.0) \\ \midrule
 			Precondition      & Observable GPIO components                                                                                                                    \\
@@ -327,7 +312,7 @@ In this section I will describe the test cases defined by test conditions and co
 	\end{center}
 \end{table}
 
-\paragraph{Safety logic (FS-4) test cases} The following test cases are related to System level safety logic feature set.
+\paragraph{Safety logic (FS-4) test cases} The following test cases are related to system level safety logic feature set.
 \todo[inline]{extend it with figures?}
 \begin{table}[H]
 	\caption{Test case 4-1}
@@ -336,7 +321,7 @@ In this section I will describe the test cases defined by test conditions and co
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
 			Test case ID: 4-1 & Purpose: to test the safety logic awareness, when a train is moving on a path where the next section in the direction already occupied by an other train \newline Priority: high \newline Tracing: (FS-4/1.0) \\ \midrule
 			Precondition      & None                                                                                                                                                                                                          \\
@@ -354,22 +339,20 @@ In this section I will describe the test cases defined by test conditions and co
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			Integration test case ID: 5-1 \newline Priority: am \newline Tracing: FS-5/1.0 & Purpose: to test the dashboard's set all turnout to straight functionality                   \\ \midrule
-			Precondition                                                                   & All turnout must be in divergent state                                                       \\
-			Input                                                                          & Simulate a button press to the change all turnout direction function                         \\
-			Expected result                                                                & Message have been prepared to send with straight and a turnout id parameter for all turnouts \\ \bottomrule
+			Test case ID: 5-1 & Purpose: to test the dashboard's set all turnout to straight functionality  \newline Priority: am \newline Tracing: FS-5/1.0 \\ \midrule
+			Precondition      & All turnout must be in divergent state                                                                                       \\
+			Input             & Simulate a button press to the change all turnout direction function                                                         \\
+			Expected result   & Message have been prepared to send with straight and a turnout id parameter for all turnouts                                 \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
 
-
 \subsection{Test Procedure Specification}
-In this Unit Test Plan, each feature set is derived from a custom software component in the demonstrator railway system. Regarding this property each test set can involve a group of test cases which are related for that feature set. A unit test must be a fast, isolated, repeatable, self-validated execution, therefore test set's ordering should not influence the test results. Consequently we can execute them independently and parallel but we can also give an order as the test cases ordered in the Test case definition section (described in \autoref{section:UnitTestCases}) and one test procedure can contain one test set. 
+In this Unit Test Plan, each feature set is derived from a custom software component in the demonstrator railway system. Regarding this property each test set can involve a group of test cases which are related for that feature set. A unit test must be a fast, isolated, repeatable, self-validated execution, therefore test set's ordering should not influence the test results. Consequently we can execute them independently and parallel but we can also give an order, for example as the test cases ordered in the Test case definition section (described in \autoref{section:UnitTestCases}) and one test procedure can contain one test set. 
 
 \todo[inline]{Create tables for 5 test procedures, which lists the test cases grouped by components -> table with columns: test case name | actual results | test result?}
-
 
 \section{Test Design Specification for Integration Test Plan}
 
@@ -420,12 +403,12 @@ The following enumeration is showing a mapping between the integration and unit 
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			Integration test case ID: 1-1 \newline Priority: am \newline Tracing: FS-2/1.0 & Purpose: to test the detection of segment occupancy when a segment is free and to verify the propagated network occupancy message \\ \midrule
-			Precondition                                                                   & There must be an MQTT server connection available and an connected with serial port                                               \\
-			Input                                                                          & Unclosed circuit between the specific segment's hardware elements                                                                 \\
-			Expected result                                                                & A new segment occupancy message must be send to the network with free segment state  and the specific segment id                          \\ \bottomrule
+			Integration test case ID: 1-1 & Purpose: to test the detection of segment occupancy when a segment is free and to verify the propagated network occupancy message \newline Priority: am \newline Tracing: FS-2/1.0 \\ \midrule
+			Precondition                  & There must be an MQTT server connection available and an connected with serial port                                                                                                \\
+			Input                         & Unclosed circuit between the specific segment's hardware elements                                                                                                                  \\
+			Expected result               & A new segment occupancy message must be send to the network with free segment state  and the specific segment id                                                                   \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -440,12 +423,12 @@ The following enumeration is showing a mapping between the integration and unit 
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			Integration test case ID: 2-1 \newline Priority: am \newline Tracing: FS-3/1.0 & Purpose: to test the track element controller, that it enables its supervised segment's state                                   \\ \midrule
-			Precondition                                                                   & There must be an MQTT server connection available                                                                               \\
-			Input                                                                          & Send a SegmentCommand message with enabled state and a segment id which is supervised by the track element controller component \\
-			Expected result                                                                & All related GPIO (pru and app) has the writer with value "1" and targetFile "value"                                             \\ \bottomrule
+			Integration test case ID: 2-1 & Purpose: to test the track element controller, that it enables its supervised segment's state \newline Priority: am \newline Tracing: FS-3/1.0 \\ \midrule
+			Precondition                  & There must be an MQTT server connection available                                                                                              \\
+			Input                         & Send a SegmentCommand message with enabled state and a segment id which is supervised by the track element controller component                \\
+			Expected result               & All related GPIO (pru and app) has the writer with value "1" and targetFile "value"                                                            \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -510,9 +493,9 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			System test case ID: 1-1 \newline Priority: am \newline Tracing: FS-6/1.0 & Purpose: to test all turnout controllability                                    \\ \midrule
+			System test case ID: 1-1 & Purpose: to test all turnout controllability     \newline Priority: am \newline Tracing: FS-6/1.0                                \\ \midrule
 			Precondition                                                              & None                                                                            \\
 			Input                                                                     & Send a switch turnout command to all turnouts twice                                \\
 			Expected result                                                           & All turnout state have been changed to straight from divergent and the other way \\ \bottomrule
@@ -530,12 +513,12 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 
 			to 0.9 \textwidth
-			{  X[0.4, c] X[c] }
+			{  X[0.3, l] X[l] }
 			\toprule
-			System test case ID: 2-1 \newline Priority: am \newline Tracing: FS-6/1.2??? & Purpose: to test the safety logic for turnout derail scenario                                      \\ \midrule
-			Precondition                                                                 & Turnout T5, T1 is in straight state and a train is on the segment S13                              \\
-			Input                                                                        & Move the train to segment S15 from segment S13 through the path of S13, S8, T5, S11, T1, S15.      \\
-			Expected result                                                              & Before T1 turnout the whole railway system is disabled by the safety logic to avoid turnout derail \\ \bottomrule
+			System test case ID: 2-1 & Purpose: to test the safety logic for turnout derail scenario  \newline Priority: am \newline Tracing: FS-6/1.2 \\ \midrule
+			Precondition             & Turnout T5, T1 is in straight state and a train is on the segment S13                                           \\
+			Input                    & Move the train to segment S15 from segment S13 through the path of S13, S8, T5, S11, T1, S15.                   \\
+			Expected result          & Before T1 turnout the whole railway system is disabled by the safety logic to avoid turnout derail              \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
@@ -590,8 +573,6 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 \end{center}
 \end{table}
 
-\section{Test Status Report}
-
-\todo[inline]{Describe Code coverage and test measures for GPIO Manager}
-
-\todo[inline]{for all test plans should be created a test status report?}
+\section{Test Environment Readiness Requirement}
+\paragraph{Hardware} The demonstrator railway system hardware elements are fixed to 2 tables, which have all the necessary layout and electronic dependencies already set up. Before starting the demonstrator table, the 2 parts must be properly connected. 
+\paragraph{Software} To build the Java language elements of the code base, you have to install Gradle and Java 8 SDK. For C++ it is advised to use minGW with Visual Studio. The deployment prerequisite is the Ansible tool, which only available for unix-based system.
