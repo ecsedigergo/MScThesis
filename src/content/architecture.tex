@@ -39,14 +39,13 @@ Any model train can be used with the demonstrator system, which can be moved on 
 \paragraph{Command Station} \label{basics:CS}
 Supply power source for the sections which provides tension for the trains on the track. Although an off-the-shelf microcontroller consumes 5V DC, the command station supplies 12V DC. Therefore we have to convert down the power source to match the microcontroller's needs. (For more details see \autoref{par:BBBcape})
 
-\todo[inline]{footnote is ok? move it out to the bibs?}
+
 \paragraph{Controller}
 In connection with the \textit{Command Station} an XPressNet protocol \footnote{More details about XPressNet Protocol \url{http://www.lenzusa.com/1newsite1/Manuals/xpressnet.pdf}} based controller is attached to the system. This component's purpose is setting the direction and speed for each train on the track.
+\todo[inline]{footnote is ok? move it out to the bibs?}
 
 \section{Hardware extensions}
-The basic hardware environment is not sufficient for controlling and analyzing purposes, therefore additional hardware elements have been designed to satisfy these requirements. In this section these platforms will be described in details. (The \ref{appendix:HWPictures} appendix contains pictures about the elements.)
-\todo[inline]{Check if these infos are necessary and where to put them}
-For modeling purposes I have used MagicDraw with Sysml plugin \cite{SysML}.
+The basic hardware environment is not sufficient for controlling and analyzing purposes, therefore additional hardware elements have been designed to satisfy these requirements. In this section these platforms will be described in details. (The \ref{appendix:HWPictures} appendix contains pictures about the elements.) For modeling purposes I have used MagicDraw with Sysml plugin \cite{SysML}.
 
 \subsection{Data processing units}
 \begin{figure}[ht]
@@ -185,7 +184,7 @@ The camera notification is communicated on that topic, which is received only by
 For this specific topic all the components in the system are subscribed, and information about train controlling and \textit{Command Station} related messages are shared.
 
 \subsection{Communication messages}
-\todo[inline]{some intro needed}
+The following table (\autoref{table:MessageTypes}) describes the possible message types with their information details also, which is used on all the communication topics.
 \begin{table}[ht]
 	\caption{Message types}
 	\label{table:MessageTypes}
@@ -197,7 +196,7 @@ For this specific topic all the components in the system are subscribed, and inf
 			\toprule
 			Message Name                  & Details                                                                           \\ \midrule
 			                                      \multicolumn{2}{c}{Command messages}                                        \\
-			SendAllStatus                 & Every receiver should send back their information about everything they store   \\
+			SendAllStatus                 & Every receiver should send back their information about everything they store     \\
 			DCCOperationCommand           & sent via XPressNet protocol by the digital command control (DCC)                  \\
 			SegmentCommand                & to enable or disable a specific segment                                           \\
 			TrainReferenceSpeedCommand    & to set the speed and direction for a specific train with DCC                      \\

@@ -73,7 +73,7 @@ The class structure of the Occupancy Query component is shown in \autoref{fig:oc
 \paragraph{FS-4: Safety Logic} The component level implementation of the Safety Logic is consist of high level model based validators, from which a Java code was generated. In addition there is no need to test the glue code for these generated models. The system level Safety Logic also relies on generated Java code from the EMF model, nevertheless the decision-making logic is written in Xtend. This implementation also follows the previously described application and communication bridge architecture, but have a purely separated track refreshing algorithm. There are several shutdown strategies, which can be tested with this algorithm together. In addition this component also have dependencies to the SendAllStatus, SegmentOccupancy, TurnoutState, SegmentState and ComputerVisionObjectPositions messages with the communication services also.
 
 \paragraph{FS-5: DashBoard} This feature set and component is responsible for controlling and visualizing the status of the track elements. Therefore it is handling mainly message communication and there was no need to implement test cases for this component.
-\todo[inline]{there was no need to test this}
+\todo[inline]{verify motivation: there was no need to test this}
 
 \subsection{Integration tests}
 There is separate component for the integration test purposes, which shows an example how to initialize and send messages to communication topics through the network. This component was not further extended for the integration test cases.
@@ -151,6 +151,8 @@ For each component the requirement was to achieve an 80\% code coverage. It is u
 \section{Incident report}
 
 During the system test, between the 2 test attempt, it was inevitable to restart the whole table, which solved the problem of unreachable/disabled segments.
+\todo[inline]{fill out the template}
 
 \section{Test Status Report}
-\todo[inline]{future work}
+
+

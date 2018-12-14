@@ -370,17 +370,15 @@ In the (\ref{table:Feature-Sets-integration}) table the components of the demons
 			to 1.0 \textwidth
 			{  X[0.7,c] X[1.5, c] X[3.0, c] X[0.7,c] X[c] X[2.0,c] }
 			\toprule
-			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                        & Priority & Approach & Traceability                                                                                                  \\ \midrule
-			ID    & Name                                  &                                                                                                              &          &          &                                                                                                               \\ \midrule
-			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       &          & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                                               \\
-			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       &          & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2}                                                                \\
-			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages              & H        &          & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ} \\
-			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller by network command messages           & H        &          & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2}                 \\ \bottomrule
+			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                        & Priority & Approach         & Traceability                                                                                                  \\ \midrule
+			ID    & Name                                  &                                                                                                              &          &                  &                                                                                                               \\ \midrule
+			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       & Use Case Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                                               \\
+			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       & Use Case Testing & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2}                                             \\
+			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages              & H        & Use Case Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ} \\
+			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller by network command messages           & H        & Use Case Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2}                 \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
-
-\todo[inline]{Do I need FSI-3 and FSI-4 feature sets? (both?)}
 
 \subsection{Test Conditions and coverage items}
 The test condition and coverage items for the integration tests can be defined with the same aspects as the specific component in the unit test plan.
@@ -391,8 +389,6 @@ The following enumeration is showing a mapping between the integration and unit 
 	\item Safety Logic interaction (FSI-3) - Occupancy detection (FS-3) (\ref{table:TC-FS-2})
 	\item Safety logic intervention (FSI-4) - Safety Logic (FS-4) (\ref{table:TC-FS-4})
 \end{enumerate}
-\todo[inline]{Make sure this enumeration isn't cutted into 2 half}
-\todo[inline]{do we lost now traceability from test cases to test condition and coverage items ?} 
 
 \subsection{Test cases}
 \paragraph{Occupancy message (FSI-1) text cases} The occupancy related test cases are verifying the network message sent by the Occupancy Query software element.
@@ -415,7 +411,6 @@ The following enumeration is showing a mapping between the integration and unit 
 
 
 \paragraph{Track element controller instructions (FSI-2) test cases}\label{p:TEC-ITC} The main focus in the following test cases is to send segment and turnout command messages to the Track element controller. We can further observer the file output for the supervised GPIOs.
-\todo[inline]{should these testcases be concrete for a segment? }
 \begin{table}[H]
 	\caption{Integration test case 2-1}
 	\label{table:TCase-FSI2-01}
@@ -434,9 +429,6 @@ The following enumeration is showing a mapping between the integration and unit 
 \end{table} 
 \subsection{Test procedure} 
 In the integration test plan all the FSI-1 feature set related test cases requires hardware components during test execution. Apart from that all other test cases are purely software component tests, therefore they can be executed separately.
-
-\todo[inline]{table with columns: test case name | actual results | test result ?}
-
 
 \section{Test Design Specification for System Test Plan}
 
@@ -576,3 +568,19 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 \section{Test Environment Readiness Requirement}
 \paragraph{Hardware} The demonstrator railway system hardware elements are fixed to 2 tables, which have all the necessary layout and electronic dependencies already set up. Before starting the demonstrator table, the 2 parts must be properly connected. 
 \paragraph{Software} To build the Java language elements of the code base, you have to install Gradle and Java 8 SDK. For C++ it is advised to use minGW with Visual Studio. The deployment prerequisite is the Ansible tool, which only available for unix-based system.
+
+\section{Test Incident Report} Any problem in the MoDeS$^3$ project, must be addressed as a github issue. A template for this purpose is shown below
+\begin{table}[H]
+	\caption{System test result for procedure FSS-1}
+	\label{table:SystemTestProcedure-1-Result}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{ X[c] X[c] X[c] X[c] }
+			\toprule
+			Issue title                 & Severity            & How to reproduce                                      & Description                                                           \\ \midrule
+			Brief summary for the issue & Low / Medium / High & Give a few steps, when and how the issue is appearing & Long description and assumptions about the root cause if there is any \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table}
