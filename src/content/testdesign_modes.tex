@@ -69,7 +69,6 @@ For the railway system project, the following test sub-processes are defined:
 	\item Integration test (see in \autoref{ssection:ITP})
 	\item System test (see in \autoref{ssection:STP})
 \end{itemize}
-\todo[inline]{verify them for all sub-processes}
 In addition for all sub-processes the following documents must be delivered:
 \begin{itemize}
 	\item Test sub-process plan
@@ -88,7 +87,7 @@ The test design techniques, test completion criteria and test data must be appli
 \end{itemize}
 \paragraph{Test activities and estimates:} These are confirmed personally and aligned with university studies.
 \paragraph{Stuffing:} The actual team and roles are highly dependent with the MoDeS$^3$ team in every semester.
-\paragraph{Retesting and regression testing:} This is specified for each test sub-process. \todo[inline]{Do not forget!}
+\paragraph{Retesting and regression testing:} This is specified for each test sub-process.
 
 \subsection{Unit Test Plan}\label{ssection:UTP}
 \paragraph{Scope:} The aim for this Test Plan is to verify each software component's functionality in the system. This plan is derived from a Master Test Plan (detailed the \autoref{section:MTP} for Master Test Plan). 
@@ -123,13 +122,13 @@ The test design techniques, test completion criteria and test data must be appli
 			to 1.0 \textwidth
 			{  X[0.7, c] X[2.0, c] X[3.0, c] X[0.5,c] X[2.0, c] X[2.0, c] }
 			\toprule
-			\multicolumn{2}{c}{Feature Set} & Scope                                                                                             & Priority & Approach               & Traceability                                                                   \\ \midrule
-			ID   & Name                     &                                                                                                   &          &                        &                                                                                \\ \midrule
-			FS-1 & GPIO handling            & To test GPIO pin handling                                                                         & Am       & Use Case Testing       & \ref{req:GPIO-1}, \ref{req:GPIO-2}                                             \\
-			FS-2 & Occupancy detection      & To test the occupancy related functionalities in the system, including state and change detection & H        & Decision Table Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
-			FS-3 & Track element controller & To test segment availability and turnout direction setting                                        & Am       & Use Case Testing       & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
-			FS-4 & Safety Logic             & To test railway system's safety logic                                                             & H        & Use Case Testing       & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
-			FS-5 & Dashboard                & To test Dashboard capabilities                                                                    & L        & Use Case Testing       & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
+			\multicolumn{2}{c}{Feature Set} & Scope                                                                                             & Priority & Approach                                             & Traceability                                                                   \\ \midrule
+			ID   & Name                     &                                                                                                   &          &                                                      &                                                                                \\ \midrule
+			FS-1 & GPIO handling            & To test GPIO pin handling                                                                         & Am       & Scenario Testing with Equivalence Class Partitioning & \ref{req:GPIO-1}, \ref{req:GPIO-2}                                             \\
+			FS-2 & Occupancy detection      & To test the occupancy related functionalities in the system, including state and change detection & H        & Decision Table Testing                               & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                \\
+			FS-3 & Track element controller & To test segment availability and turnout direction setting                                        & Am       & Scenario Testing                                     & \ref{req:TEC-1}, \ref{req:TEC-2}                                               \\
+			FS-4 & Safety Logic             & To test railway system's safety logic                                                             & H        & Scenario Testing                                     & \ref{req:SL-1}, \ref{req:SL-2} , \ref{req:SL-3}, \ref{req:SL-4}                \\
+			FS-5 & Dashboard                & To test Dashboard capabilities                                                                    & L        & Scenario Testing                                     & \ref{req:DB-1}, \ref{req:DB-2}, \ref{req:DB-3}, \ref{req:DB-4}, \ref{req:DB-5} \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -313,7 +312,6 @@ In this section I will describe the test cases defined by test conditions and co
 \end{table}
 
 \paragraph{Safety logic (FS-4) test cases} The following test cases are related to system level safety logic feature set.
-\todo[inline]{extend it with figures?}
 \begin{table}[H]
 	\caption{Test case 4-1}
 	\label{table:TCase-FS4-01}
@@ -352,8 +350,6 @@ In this section I will describe the test cases defined by test conditions and co
 \subsection{Test Procedure Specification}
 In this Unit Test Plan, each feature set is derived from a custom software component in the demonstrator railway system. Regarding this property each test set can involve a group of test cases which are related for that feature set. A unit test must be a fast, isolated, repeatable, self-validated execution, therefore test set's ordering should not influence the test results. Consequently we can execute them independently and parallel but we can also give an order, for example as the test cases ordered in the Test case definition section (described in \autoref{section:UnitTestCases}) and one test procedure can contain one test set. 
 
-\todo[inline]{Create tables for 5 test procedures, which lists the test cases grouped by components -> table with columns: test case name | actual results | test result?}
-
 \section{Test Design Specification for Integration Test Plan}
 
 \paragraph{Purpose:} The aim of the following test specification is to give instructions about setting up and executing integration tests. These tests will verify two or more component's behavior together.
@@ -372,10 +368,10 @@ In the (\ref{table:Feature-Sets-integration}) table the components of the demons
 			\toprule
 			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                        & Priority & Approach         & Traceability                                                                                                  \\ \midrule
 			ID    & Name                                  &                                                                                                              &          &                  &                                                                                                               \\ \midrule
-			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       & Use Case Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                                               \\
-			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       & Use Case Testing & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2}                                             \\
-			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages              & H        & Use Case Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ} \\
-			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller by network command messages           & H        & Use Case Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2}                 \\ \bottomrule
+			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       & Scenario Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                                               \\
+			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       & Scenario Testing & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2}                                             \\
+			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages              & H        & Scenario Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ} \\
+			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller by network command messages           & H        & Scenario Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2}                 \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -448,17 +444,17 @@ In the integration test plan all the FSI-1 feature set related test cases requir
 			to 1.0 \textwidth
 			{  X[0.8, c] X[1.5, c] X[3.0, c] X[0.7,c] X[c] X[2.0,c] }
 			\toprule
-			        \multicolumn{2}{c}{Feature Set}         & Scope                                                        & Priority & Approach & Traceability                                                               \\ \midrule
-			ID    & Name                                    &                                                              &          &          &                                                                            \\ \midrule
-			FSS-1 & Track element availability verification & To test the railway system track element's proper operations & Am       &          & \ref{req:DB-1} \ref{req:DB-2} \ref{req:DB-3} \ref{req:DB-4} \ref{req:DB-5} \\
-			FSS-2 & Safety logic verification               & To test the safety logic functionalities                     & H        &          & \ref{req:SL-1} \ref{req:SL-2} \ref{req:SL-3} \ref{req:SL-4}                \\ \bottomrule
+			        \multicolumn{2}{c}{Feature Set}         & Scope                                                        & Priority & Approach            & Traceability                                                               \\ \midrule
+			ID    & Name                                    &                                                              &          &                     &                                                                            \\ \midrule
+			FSS-1 & Track element availability verification & To test the railway system track element's proper operations & Am       & Scenario Testing & \ref{req:DB-1} \ref{req:DB-2} \ref{req:DB-3} \ref{req:DB-4} \ref{req:DB-5} \\
+			FSS-2 & Safety logic verification               & To test the safety logic functionalities                     & H        & Scenario Testing & \ref{req:SL-1} \ref{req:SL-2} \ref{req:SL-3} \ref{req:SL-4}                \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
 
 \subsection{Test condition and coverage items}
 From the previously described (\ref{table:Feature-Sets-System}) feature sets the test condition and coverage items can be derived, which are detailed in the following sections.
-\paragraph{Track element availability verification (FSS-1)} The purpose of this test condition is to verify all segment and turnout availability with a fast functional test. 
+\paragraph{Track element availability verification (FSS-1)} The purpose of this test condition is to verify that all segments and turnouts are available with a fast functional test. 
 \begin{table}[H]
 	\caption{Train detection test conditions}
 	\label{table:TC-FSS-1}
@@ -473,8 +469,8 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 			FSS-1/2        &                            & Segment      \\ \bottomrule
 		\end{tabu}
 	\end{center}
-\end{table} 
-\paragraph{Safety logic verification (FSS-2)} The system level safety logic verification the test conditions are the same it was previously shown for unit tests in \autoref{table:TC-FS-4}. To summarize that, the conditions can be divided into turnout derail and train collision scenarios. 
+\end{table}
+\paragraph{Safety logic verification (FSS-2)} The system level \textit{safety logic verification} the test conditions are the same as it was previously shown for unit tests in \autoref{table:TC-FS-4}. To summarize that, the conditions can be divided into turnout derail and train collision scenarios.
 
 \subsection{Test cases}
 \paragraph{Track element availability verification (FSS-1)} The following test cases will use network segment and turnout command messages as previously described in \autoref{p:TEC-ITC} integration test case. 

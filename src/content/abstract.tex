@@ -1,5 +1,3 @@
-% !TeX spellcheck = hu_HU
-
 \pagenumbering{roman}
 \setcounter{page}{1}
 
@@ -10,10 +8,15 @@
 %----------------------------------------------------------------------------
 \chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
 
-Egy hardver és szoftver elemekből álló összetett alkalmazás esetén a meghibásodások számos komponensből eredhetnek, ráadásul egy ilyen többrétegű rendszerben a hiba okának feltárása és hibás működés elhárítása is komoly feladat. A biztonságkritikus rendszerekben mindenképpen meg kell előzni a végzetes, akár emberi életekbe kerülő hibák előfordulását. Az ilyen komplex rendszerek tesztelését érdemes részletesen megtervezni és dokumentálni a céljainknak megfelelően.
+Egy többrétegű, hardver és szoftver elemekből álló összetett alkalmazás esetén a meghibásodások számos komponensből eredhetnek. Ráadásul egy ilyen rendszerben a hiba okának feltárása és a hiba elhárítása is komoly kihívás lehet, amely erőforrás is időigényes. A biztonságkritikus rendszerekben mindenképpen meg kell előzni a végzetes, akár emberi életekbe kerülő hibák előfordulását. Az ilyen tulajdonságokkal rendelkező rendszerek során manapság elterjedt ellenőrzési technika a tesztelés.
 
-Munkám során a Méréstechnika és Információs Rendszerek Tanszéken folyamatosan fejlesztett modellvasutakra épülő demonstrátort vettem alapul mint többrétegű biztonságkritikus kiberfizikai rendszert. Az eddigi teszt megvalósítások a keretrendszer gyors fejlődése miatt hamar elavultak és nehezen karbantarthatók lettek.  A különböző fejlesztési módszerekhez és eszközökhöz akár teljesen eltérő tesztelési stratégiákat kell alkalmaznunk, hogy megbizonyosodjunk minden réteg hibamentes és biztonságos működéséről. Az ideális tesztelési stratégia kialakításához meg kell ismernünk a tesztelendő rendszer architektúráját és felhasznált technológiákat, hogy meg tudjuk határozni azokat a pontokat ahol érdemes teszteket a rendszerbe illeszteni.
-\todo[inline]{include goals and achivements}
+A Méréstechnika és Információs Rendszerek Tanszéken folyamatosan fejlesztés alatt van egy modellvasútra épülő, többrétegű biztonságkritikus demonstrátor rendszer. A projekt célja a modell vezérelt és verifikációs technológiák bemutatása. Az eddigi teszt megvalósítások a keretrendszer gyors fejlődése miatt hamar elavultak és nehezen karbantarthatóak lettek. A rendszerben számos egyedi megvalósítású hardver és szoftver elem van kapcsolatban egymással. Ahhoz hogy megbizonyosodjunk minden réteg hibamentes és biztonságos működéséről részletesen megtervezett tesztelési stratégiára van szükségünk.
+
+Diplomamunkám során elsődleges célom egy szisztematikus, részletes és könnyen karbantartható teszt keretrendszer és dokumentáció megalkotása a demonstrátor ellenőrzésére. Elsősorban meg kell határozni a rendszer szintű követelményeket és megismerni modellvasút és egyedileg készített elemek tulajdonságait. A következő lépés a tesztelési lehetőségek felderítése a hasonlóan komplex rendszerek esetén. Végezetül egy a hibadetektálására alkalmas teszt keretrendszer megvalósítása és tesztek végrehajtása a feladatom.
+
+A demonstrátor rendszer felderítése során elkerülhetetlen az egyes mikrokontrollerek megismerése (Rapsberry PI, BeagleBone Black, Arduino), valamint számos különböző megoldásokat alkalmazó szoftver technológia használata. Ebből kifolyólag a tesztelési folyamatot is több módszerrel és különböző rétegekben kell végrehajtani. Egy szabványos tesztelési dokumentációt követve, megvizsgáltam és megvalósítottam a szoftver komponensek tesztelési stratégiáit mint egység, integrációs és rendszer szinten egyaránt.
+
+A megvalósított tesztek a demonstrátor rendszerbe is integrálva lettek, mely során egyes szoftver komponenst is módosítani kellett a tesztelhetőség érdekében. A demonstrátor biztonságkritikus funkcióinak ellenőrzéseként rendszerszintű tesztek lettek meghatározva, amelyek a későbbiekben is használhatóak az egyes bemutatók előtt.
 
 \vfill
 \selectenglish
@@ -24,9 +27,15 @@ Munkám során a Méréstechnika és Információs Rendszerek Tanszéken folyama
 %----------------------------------------------------------------------------
 \chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
 
-In a complex system, where hardware and software  elements met and interact with each other, a system failure can propagate from different components and even from different components. These failures are unacceptable in a safety-critical system, like in a railway system. Through all the development phases we can add verification steps to improve the whole system failure rate.
+A multi-layered complex system, where hardware and software elements interact with each other, many component can cause system failures. In addition finding the root cause in these systems can be difficult and time-consuming. However these failures are unacceptable in a safety-critical system, like in a railway system, where human life can be in a risk. Nowadays the most common verification method to avoid these situations is testing.
 
-My thesis work is based on a railway demonstrator system developed by the students of Measurement and Information Systems department, which simulates a safety-critical railway track. Aim of the system is to demonstrate the model driven and verification techniques through the development life cycle. To satisfy this purpose custom made and off-the-shelf products have been added in hardware and software level also. For different development techniques there must be different verification approaches to be sure that our safety-critical system will be stable and highly reliable. The current state of the demonstrator satisfy this approach, therefore I have investigated and designed test approaches for improving the demonstrator reliability in component, integration and system level.
+In the department of Measurement and Information Systems, the students are developing a railway demonstrator system, which simulates a safety-critical railway system. Aim of this project is to demonstrate the model driven development and model verification techniques. Because of the frequently changed software and hardware components all the test implementations became outdated and were hardly maintainable. In addition there are several custom hardware and software units in the system, which need to be tested. Therefore a systematic, detailed test design is required to verify the demonstrator. 
+
+The aim of my thesis is to create a test framework to detect failures and bugs in the demonstrator system, which is maintainable and covers the safety-critical aspects. First the system requirements have to be defined and then the demonstrator architecture must be assigned in details. Next step is to analyze the test design possibilities and approaches for such a multi-layered system. The final step is to create a test framework which is capable of safety-critical error detection in the demonstrator.
+
+During the demonstrator architecture investigation, it is inevitable to get to know several hardware (like Rapsberry PI, BeagleBone Black, Arduino) and software technologies. Therefore the test strategy must cover different aspects in several layers to verify each component functionalities separately. Following a standard test documentation approach, I have designed and implemented test cases for custom software component for unit, integration and system level also.
+
+Finally the implemented tests were integrated into the demonstrator system with some code restructuring of several components. Furthermore the system-level test cases were defined and can be a useful strategy before any system demonstration.
 
 
 \vfill

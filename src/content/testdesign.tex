@@ -3,12 +3,12 @@
 %----------------------------------------------------------------------------
 \section{Test design techniques}
 
-The MoDeS$^3$ is a multi-layered, safety-critical application, which consist of off-the-self and custom made components also. As a complex system it is crucial to have a well-designed testing process and documentation which helps determine any problem in the system. For this purpose in the following chapter I will examine the possible and most suitable test approaches with a detailed test documentation.
+The MoDeS$^3$ is a multi-layered, safety-critical application, which consist of off-the-self and custom made components also. As a complex system it is crucial to have a well-designed testing process and documentation which helps determine any problem in the system. For this purpose in the following chapter I will examine the possible and most suitable test approaches.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=150mm]{figures/testDesign/V_model.png}
-	\caption{V-model}
+	\includegraphics[width=150mm]{figures/testDesign/V_model1.png}
+	\caption{V-model levels overview. Adapted from \cite{V-model}}
 	\label{fig:vModel}
 \end{figure}
 
@@ -16,20 +16,24 @@ The MoDeS$^3$ is a multi-layered, safety-critical application, which consist of 
 Nowadays one of the most popular software development methodology is the V-model \cite{Vmodel} (shown on figure \ref{fig:vModel}), which defines four stages during the development and four verification steps accordingly (each step is shown with rectangles on the figure). In addition for making the development more effective for error-detection, there are four more steps defined for verifying our system's correctness, called test levels \cite{TestLevels} (shown with ellipses). While the development starts with an abstract \textbf{requirement analysis}, which declares the aim of our application, later on each step contains more detailed information. The second phase is about understanding the abstract user requirements and define the system's \textbf{functional specification} by the developers. During this phase our verification is based on \textbf{Model-in-the-Loop (MiL) testing}. The third phase contains all the low-level design and specific information about the application. From these design decisions, the \textbf{implementation} should be quite straight-forward or even it can be generated. During the \textbf{Software-in-the-Loop (SiL) testing}, the implementation will be verified for a subset of functionalities, which is depending on the system's purpose and requirements.
 As of now our implementation is done and our design decisions are verified, we make sure with \textbf{unit tests} that our functions are serving their exact purposes. \textbf{Processor-in-the-Loop (PiL)} testing ensures that the computing processor at the bottom of the V-model works as expected. Then moving up in the V-model with \textbf{integration tests}, we are focusing on more abstract and complex components. In this phase we consider software and hardware elements also, completed with \textbf{Hardware-in-the-Loop (HiL)} testing. The last step is about verifying the complete system in real environment and check the high-level requirements.
 
-\todo[inline]{give details about the used test design techniques}
-\subsection{Specification based testing techniques}
-\paragraph{Use Case Testing}
-\paragraph{Equivalence Class Partitioning}
-\paragraph{Decision Table Testing}
+\subsection{Specification-based testing techniques}
+During the test design process and implementation phases, the conception can be a quite complex and difficult task. Nevertheless the test design techniques can be useful in these situations. The commonly used approaches are described in this section, which are used during the MoDeS$^3$ test design process, based on \cite{IEEE13}. These methods can be divided into 3 branches, which are specification-based, structure-based and experience-based techniques. The first is deriving the tests from the system specification details. In opposite to that the structure-based approach is based on the system architecture (in software systems the implementation architecture). The third branch is a way to test a system, which is lack of structure and specification documentation. 
+
+The following paragraphs are details 3 design technique, which are belongs to the specification-based area.
+\paragraph{Scenario Testing} The first technique is consists of specifying the interactions between the test items and the intervened system, which is usually a user. Therefore this technique is also called use-case testing. 
+
+\paragraph{Equivalence Class Partitioning} The key point in the equivalence class partitioning is to categorize the test item inputs and outputs into classes, which are similar in these aspects. In addition these partitions can cover valid and invalid inputs or outputs also. 
+
+\paragraph{Decision Table Testing} If the test items can be identified with a logical relationship between the input and output values where these values can have only 2 partitions, then during the test design the decision table testing can be used.
 
 \section{Test documentation}
 During the test design phases of the MoDeS$^3$ I will follow a subset of the ISO 291119 standard \cite{IEEE13}.
-First I will describe the documents in general, which will be later used in the MoDeS$^3$ test documentation process in section \autoref{TestDoc:MODES}. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those. In the following sections, I will subtract the documentations into 3 phases, called Organizational, Test Management and Dynamic Test Documentation. 
+First this section describes the documents in general, which will be later used in the MoDeS$^3$ test documentation process in section \autoref{TestDoc:MODES}. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those. In the following sections, I will subtract the documentations into 3 phases, called Organizational, Test Management and Dynamic Test Documentation. 
 \todo[inline]{redraw figure to something similar}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/TestDoc.png}
-	\caption{test Documentation Overview}
+	\caption{Test Documentation Overview. Adapted from \cite{IEEE13}}
 	\label{fig:TestDocOverview}
 \end{figure}
 
@@ -41,8 +45,6 @@ Throughout the test development a Test Policy must contain the test principles a
 
 \paragraph{Test Strategy}
 A Test Strategy must define a proper guideline on how testing should be performed for all projects in the organization. In our case one Test Strategy is sufficient, but for an organization which have projects in different technical areas, can have a Test Strategy for each area. In latter case, the organization can define separate Test sub-processes to satisfy any special need for an area or project.
-
-\todo[inline]{Do I need more details about test sub-processes?}
 
 %\begin{enumerate}
 %	\item Organizational Test Strategy
