@@ -387,6 +387,7 @@ The following enumeration is showing a mapping between the integration and unit 
 \end{enumerate}
 
 \subsection{Test cases}
+The following test cases are a subset of all integration test cases, which are fully detail in \autoref{appendix:IntTC}.
 \paragraph{Occupancy message (FSI-1) text cases} The occupancy related test cases are verifying the network message sent by the Occupancy Query software element.
 \begin{table}[H]
 	\caption{Integration test case 1-1}
@@ -472,7 +473,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 \end{table}
 \paragraph{Safety logic verification (FSS-2)} The system level \textit{safety logic verification} the test conditions are the same as it was previously shown for unit tests in \autoref{table:TC-FS-4}. To summarize that, the conditions can be divided into turnout derail and train collision scenarios.
 
-\subsection{Test cases}
+\subsection{Test cases} All test cases details can be found in \autoref{appendix:SystemTC}.
 \paragraph{Track element availability verification (FSS-1)} The following test cases will use network segment and turnout command messages as previously described in \autoref{p:TEC-ITC} integration test case. 
 \begin{table}[H]
 	\caption{System test case 1-1}
@@ -511,7 +512,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 	\end{center}
 \end{table}
 
-\subsection{Test procedure} 
+\subsection{Test procedure}
 %1) STC 1-1, 1-2, 1-3
 %2) STC 2-1, 2-2
 \paragraph{System test procedure for FSS-1} The following procedure is focusing on verifying the track element controller functionalities. 
@@ -565,10 +566,10 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 \paragraph{Hardware} The demonstrator railway system hardware elements are fixed to 2 tables, which have all the necessary layout and electronic dependencies already set up. Before starting the demonstrator table, the 2 parts must be properly connected. 
 \paragraph{Software} To build the Java language elements of the code base, you have to install Gradle and Java 8 SDK. For C++ it is advised to use minGW with Visual Studio. The deployment prerequisite is the Ansible tool, which only available for unix-based system.
 
-\section{Test Incident Report} Any problem in the MoDeS$^3$ project, must be addressed as a github issue. A template for this purpose is shown below
+\section{Test Incident Report} Any problem in the MoDeS$^3$ project, must be addressed as a github issue. A template for this purpose is shown below on \autoref{table:Incident-template}.
 \begin{table}[H]
 	\caption{System test result for procedure FSS-1}
-	\label{table:SystemTestProcedure-1-Result}
+	\label{table:Incident-template}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
 		\begin{tabu} 

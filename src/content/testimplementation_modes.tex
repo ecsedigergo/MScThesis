@@ -6,7 +6,7 @@
 \paragraph{Hardware} The entire table have been properly set up in a university laboratory.
 \paragraph{Software} The Eclipse Photon (4.8.0) have been set up with the necessary dependencies (Gradle, Java, Viatra, Xtend, Xtext, E(fx)clipse) and for deployment purposes a linux-subsystem for windows have been accepted.
 
-\section{Test Implementation}
+\section{Test Implementation details}
 This section describes the technical details of test implementation and execution for each test plans of MoDeS$^3$ project.
 \paragraph{Deploying} For implementation and testing purposes it is not recommended to use the real microcontrollers (BBB, Pi or Arduino itself). During my thesis work, I have used Windows 10 operating system with Eclipse and Visual Studio Code (which are available also for Unix and Mac systems), but for deploying purposes the MoDeS$^3$ team uses Ansible\footnote{For more info visit \url{https://www.ansible.com/} site.}, which is not available for Windows systems. Fortunately there is an option to create unix subsystem inside a Windows operating system, where from I have managed to deploy the necessary components to the BBB.
 
@@ -57,7 +57,6 @@ public class GpioManagerTest{
 
 Naturally a unit test should cover only one class, consequently if we consider the previously described structure (shown in \autoref{fig:gpiomanagerClass}), 6 unit test classes should be created (note that Level and Direction objects are only enumerables). Although there is no need to test basic file operation functions, provided by the Java framework in the GpioWriter and GpioReader classes and in addition there is no advantage to test the Main and GpioProvider classes, because there is no such a complex logic which should be verified by a test.
 
-
 \paragraph{FS-2: Occupancy detection} The occupancy information handling components are the Section Occupancy Query (in C++ language) and the Occupancy Query elements (written in Xtend). The information flow between these components is based on S88 serial port connection. In this case this test implementation requires an S88 connection to the Arduino hardware element, because there is no virtual serial port simulators for Windows available on the market. Otherwise the C++ component can be separately verified that, it is collecting all the informations from the sections with Google Test. The Occupancy Query component runs on Java Virtual Machine, so JUnit 5 can be used without a problem. 
 
 \begin{figure}[ht]
@@ -72,15 +71,72 @@ The class structure of the Occupancy Query component is shown in \autoref{fig:oc
 
 \paragraph{FS-4: Safety Logic} The component level implementation of the Safety Logic consists of high level model based validators, from which a Java code was generated. In addition there is no need to test the glue code for these generated models. The system level Safety Logic also relies on generated Java code from the EMF model, nevertheless the decision-making logic is written in Xtend. This implementation also follows the previously described application and communication bridge architecture, but have a purely separated track refreshing algorithm. There are several shutdown strategies, which can be tested with this algorithm together. In addition this component also have dependencies to the SendAllStatus, SegmentOccupancy, TurnoutState, SegmentState and ComputerVisionObjectPositions messages with the communication services also.
 
-\paragraph{FS-5: DashBoard} This feature set and component is responsible for controlling and visualizing the status of the track elements. Therefore it is handling mainly message communication and there was no need to implement test cases for this component.
-\todo[inline]{verify motivation: there was no need to test this}
+\paragraph{FS-5: DashBoard} This feature set and component is responsible for controlling and visualizing the status of the track elements. Therefore it is handling mainly message communication and there is no safety-critical responsibility.
 
 \subsection{Integration tests}
-There is separate component for the integration test purposes, which shows an example how to initialize and send messages to communication topics through the network. 
-\todo[inline]{details about how to send msgs and implement a component for that}
+Through the messaging service every component can be controlled and observed, therefore in an integration test cases sending a specific message to the topic (to which the observed component is subscribed) can give an input to the observed component. For example to create an input for the Barrier component (which moves a physical barrier up or down on the track, if the supervised sections are occupied), a SegmentOccupancyChanged message must be sent to the topic of the supervised sections (15th or 24th). The component must implement ISegmentOccupancyChangedListener interface to get notification about a segment occupancy change event and handle every action. The following code shows the interface for a segment occupancy change and and example for subscribing mechanism.
+
+\begin{lstlisting}[language = Java]
+enum SegmentOccupancy {
+	FREE,
+	OCCUPIED
+}
+
+interface ISegmentOccupancyChangeListener {
+	def void onSegmentOccupancyChange(int id, SegmentOccupancy oldValue, SegmentOccupancy newValue)
+}
+
+@Data
+class SegmentOccupancyMessage extends InternalMessage {
+	int segmentId
+	SegmentOccupancy state
+}
+
+// subscribing to the 15th and 24th segment topics
+val supervisedSections = #{15, 24}
+val occupancyTopics = TopicFactory::createSegmentTopics(supervisedSections, #{SegmentOccupancyMessage}).toSet
+\end{lstlisting}
+
+A messaging dispatcher component, called TrackCommunicationServiceLocator provides an opportunity to send a specific message to the predefined topic which can be used by any component with the inheritance of AbstractCommunicationComponent abstract class. For example it is possible to send a SegmentOccupancy message to the subscribers through the trackElementCommander field, which is shown in the next code snippet.
+
+\begin{lstlisting}[language = Java]
+abstract class AbstractCommunicationComponent implements Runnable {
+	protected val TrackCommunicationServiceLocator locator
+}
+
+class TrackCommunicationServiceLocator {
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrackElementStateSender trackElementStateSender
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrackElementCommander trackElementCommander
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrainCommander trainCommander
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val IDccCommander dccCommander
+	
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrackElementCommandCallback trackElementCommandCallback
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrackElementStateRegistry trackElementStateRegistry
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ITrainSpeedStateRegistry trainSpeedStateRegistry
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val ISendAllStatusCommandCallback sendAllStatusCallback
+	@Accessors(PUBLIC_GETTER, PRIVATE_SETTER) val IComputerVisionCallback computerVisionCallback
+}
+
+class TrackElementCommander implements ITrackElementCommander {
+	var protected MessagingService mms
+	
+	/**
+	* Send a command to a segment, denoted by its ID.
+	*/
+	override sendSegmentCommand(int id, SegmentState state) {
+		mms.sendMessage(new SegmentCommand(id, state))
+	}
+}
+
+class SampleOccupancySender extends AbstractCommunicationComponent {
+	override sendSegmentOccupation(int id, SegmentOccupancy state) {
+		locator.trackElementStateSender.sendSegmentOccupation(id, state)
+	}
+}
+\end{lstlisting}
 
 \subsection{System tests}
-In order to execute system tests the demonstrator table must be started properly with the safety logic also. To start when the table is switched on, the BBB, PI and Arduino hardware elements are configured to start automatically with the basic services. These are the SectionOccupancyQuery, OccupancyQuery, TrackElementController and Dashboard components. The Safety Logic implementations prerequisites are to have these services already running on the network. Therefore after every automatically starting service is up, the component level safety logic service can be started on every BBB.\footnote{More information about starting the demonstrator system can be found here: \url{https://github.com/FTSRG/BME-MODES3/wiki/Starting-the-demonstrator}}
+In order to execute system tests the demonstrator table must be started properly with the safety logic also. To start when the table is switched on, the BBB, PI and Arduino hardware elements are configured to start automatically with the basic services. These are the SectionOccupancyQuery, OccupancyQuery, TrackElementController and Dashboard components. The Safety Logic implementations prerequisites are to have these services already running on the network. Therefore after every automatically starting service is up, the component level safety logic service can be started on every BBB.
 
 \section{Test Results}
 \begin{figure}[ht]
@@ -89,7 +145,7 @@ In order to execute system tests the demonstrator table must be started properly
 	\caption{Implemented test cases for GPIO Manager component}
 	\label{fig:gpiomanagerTests}
 \end{figure}
-Thus I have implemented unit test classes for Gpio and GpioManager separately (shown as "Tests for GPIO API" and "GpioManagerTest" groups on \autoref{fig:gpiomanagerTests}), then test cases for verifying the GpioManager with Gpio together. The GpioScenariosTest is stands for running an initialization test with all the components together in the final environment (in Debian operating system on the BBB). All the previous test classes are parameterized with more than one GPIO pin and all (in and out) directions.
+\paragraph{Unit test results} Thus I have implemented unit test classes for Gpio and GpioManager separately (shown as "Tests for GPIO API" and "GpioManagerTest" groups on \autoref{fig:gpiomanagerTests}), then test cases for verifying the GpioManager with Gpio together. The GpioScenariosTest is stands for running an initialization test with all the components together in the final environment (in Debian operating system on the BBB). All the previous test classes are parameterized with more than one GPIO pin and all (in and out) directions.
 
 \begin{figure}[ht]
 	\centering
@@ -99,9 +155,9 @@ Thus I have implemented unit test classes for Gpio and GpioManager separately (s
 \end{figure}
 For each component the requirement was to achieve an 80\% code coverage. It is unnecessary to test classes without any business logic, so the Main, GpioWriter, GpioReader, GpioNotConfiguredException, GpioProvider and Logger classes have been skipped. The GpioManager code coverage is 93.6\% which is acceptable, but for the Gpio class it is 66.0\% which is below the required percentage. The root cause for the low rate is that there are hardly reachable error handling branches in the algorithm, which is not covered by any test.
 
-\paragraph{System test results} The first attempt was failed, because of the wrong initialization of 2 segments. The second attempt was successful without any issue. 
+\paragraph{System test results} The first attempt was failed, because of the wrong initialization of 2 segments. An issue is assigned with the title of: "Failed initialization during startup for section 8, 15".
 \begin{table}[ht]
-	\caption{System test result for procedure FSS-1}
+	\caption{System test result for procedure FSS-1 (1)}
 	\label{table:SystemTestProcedure-1-Result1}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
@@ -116,8 +172,11 @@ For each component the requirement was to achieve an 80\% code coverage. It is u
 		\end{tabu}
 	\end{center}
 \end{table}
+
+The second attempt was successful without any issue, therefore changing all turnout states from the dashboard was successful as well as segment availability change. In case of a disabled segment, a train have stopped on that exact segment, verifying that the change was effective and there was no power supply on the segment.
+ 
 \begin{table}[ht]
-	\caption{System test result for test procedure FSS-1}
+	\caption{System test result for test procedure FSS-1 (2)}
 	\label{table:SystemTestProcedure-1-Result2}
 	\begin{center}
 		\renewcommand{\arraystretch}{1.8}
@@ -150,10 +209,19 @@ For each component the requirement was to achieve an 80\% code coverage. It is u
 \end{table}
 
 \section{Incident report}
-
-During the system test, between the 2 test attempt, it was inevitable to restart the whole table, which solved the problem of unreachable/disabled segments.
-\todo[inline]{fill out the template}
-
-\section{Test Status Report}
-
+One problem was found during the system test, which is assigned by the following \autoref{table:incident-1}
+\begin{table}[H]
+	\caption{System test result for procedure FSS-1}
+	\label{table:incident-1}
+	\begin{center}
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabu} 
+			to 0.9 \textwidth
+			{ X[c] X[c] X[c] X[c] }
+			\toprule
+			Issue title                                            & Severity & How to reproduce                                                                                & Description                                                                                                                      \\ \midrule
+			Failed initialization during startup for section 8, 15 & Low      & The first startup of the demonstrator table ends in a state of 2 failed section initialization. & A possible workaround is to restart the whole table in less then a few minute. Because in this case it is initialized correctly. \\ \bottomrule
+		\end{tabu}
+	\end{center}
+\end{table}
 
