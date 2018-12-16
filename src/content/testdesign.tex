@@ -29,10 +29,10 @@ The following paragraphs are details 3 design technique, which are belongs to th
 \section{Test documentation}
 During the test design phases of the MoDeS$^3$ I will follow a subset of the ISO 291119 standard \cite{IEEE13}.
 First this section describes the documents in general, which will be later used in the MoDeS$^3$ test documentation process in section \autoref{TestDoc:MODES}. As of now the organizational and role details are irrelevant for this project, I will just give a short example for those. In the following sections, I will subtract the documentations into 3 phases, called Organizational, Test Management and Dynamic Test Documentation. 
-\todo[inline]{redraw figure to something similar}
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/TestDoc.png}
+	\includegraphics[width=150mm, keepaspectratio]{figures/testDesign/TestDoc1.png}
 	\caption{Test Documentation Overview. Adapted from \cite{IEEE13}}
 	\label{fig:TestDocOverview}
 \end{figure}
@@ -146,14 +146,11 @@ Describes the required test environment properties, which are setting the test i
 \paragraph{Test Environment Readiness Report}
 Lists the fulfillment of Test Environment Requirements.
 
-\paragraph{Actual Results}
-After executing the selected test procedures, each test case's actual result (output state or behavior after the input actions) should be recorded. It may require full recording of the process with an automated tool also.
+\paragraph{Actual Results and Test Results}
+After executing the selected test procedures, each test case's actual result (output state or behavior after the input actions) should be recorded. It may require full recording of the process with an automated tool also. Each Test Result determines if the actual results are corresponding to the expected results with the specified deviation or not. It is usually recorded as passed or failed, along with the actual results.
 
-\paragraph{Test Result}
-Determines if the actual results are corresponding to the expected results with the specified deviation or not. It is usually recorded as passed or failed, along with the actual results.
-
-\paragraph{Test Execution Log}
+\paragraph{Test Execution Report}
 Detailed documentation of one or more test procedure's execution. Can be represented in a list or table with measuring times and events of the test execution.
 
-\paragraph{Test Incident Reporting}
+\paragraph{Test Incident Report}
 If there is any deviation between the actual and expected results after each test procedure execution, we should create a dedicated Incident Report detailing the problems. These reports could contain a description of the problem with severity, date and possible risk information.

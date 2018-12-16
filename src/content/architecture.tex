@@ -116,7 +116,6 @@ For usage, the Arduino has 2 input and 2 output pins connected to the expander c
 \section{Software components}\label{section:CustomSW}
 In general the following software components were implemented in java and c++ languages and deploying separation is shown in \autoref{fig:Modes3Deployment}. Mainly each BBB microcontroller have TrackElementController deployed involving the GPIO, PhysicalSegmentController and PhysicalTurnoutController components. The Rapsberry Pi serves the Dashboard, Touchboard, Messaging and OccupancyQuery components and the Arduino microcontroller is dedicated for SectionOccupancyQuery functionality.
 
-\todo[inline]{delete physical controllers? add xpressnet controller? update figure to be nicer and add componentlevel SL}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=150mm]{figures/modes3/MoDeS3_Deployment.png}
@@ -205,14 +204,10 @@ The following table (\autoref{table:MessageTypes}) describes the possible messag
 \end{table}
 
 \subsection{Complementary elements}
-\paragraph{Barrier} 
-Handle commands to open/close the barrier via the network.
-\paragraph{Computer vision}
-Calculates the coordinates of each elements which have a marker like trains. The position information can be used by the \textit{Safet Logic} to avoid safety-critical scenarios.
+\paragraph{Barrier} Handle commands to open/close the barrier via the network. It is closed if one of the supervised segment are occupied and opened if the supervised segments are free.
+\paragraph{Computer vision} Calculates the coordinates of each elements which have a marker like trains. The position information can be used by the \textit{Safet Logic} to avoid safety-critical scenarios.
 
 \section{Safety-critical functionalities}\label{section:SC-Functionalities}
-
-\todo[inline]{Maybe a figure of the Sw-Hw sysml for each paragraph}
 
 \paragraph{Occupancy detection}\label{par:FunctionOccupancyDetection}
 In order to know where are the trains on the track, we first must know which track element (section or turnout) is occupied. This attribute can be determined whether the specific section has power consumption or not, because of a train . The actual detection is made by the \textit{DigiSens-8-S88} sensing element. The demonstration railway system have four sensing elements, and they are connected to an \textit{Arduino} through S88 port. This microcontroller computes basic calculations by \textit{Section Occupancy Query} C++ software component and forwards the 32-bit occupancy vector information (current state of every track element) to the \textit{Occupancy Query} via USB connection. The \textit{Occupancy Query} Java component compares the new occupancy states with the previous one and sends a \textit{SegmentOccupancy} message to the \textit{Segment Occupancy} topic about the change.
@@ -232,7 +227,6 @@ In the demonstrator architecture we can distinguish two different safety logic i
 \end{enumerate}
 
 \section{Safety-critical scenarios}
-\todo[inline]{redraw?}
 \paragraph{Train collision scenarios} 
 To avoid any train collision on a track, it is necessary to measure the distance between the trains. In the demonstrator railway system, we can measure the position so as well the distance between to trains by using the segment occupation information or with the \textit{Computer Vision} component. 
 
@@ -254,9 +248,7 @@ It is an unsafe situation, if train is approaching a turnout from the straight/d
 \end{figure}
 
 \section{MoDeS$^3$ Requirements}\label{section:REQ}
-In this section I want to collect the requirements for the above described software and hardware extension elements in the system, not considering market products. I have categorized them into functional and component groups.
-
-\todo[inline]{Create sysml diagrams for better overview}
+The following section describes the requirements for the software and hardware extensions of the demonstrator system. The requirements are grouped by functional purpose and involve all the custom components developed for the MoDeS$^3$ system. Each requirement have a unique identifier determining the component and useful for traceability. 	
 
 \paragraph{Hardware extensions}
 \begin{enumerate}[label=REQ-BBB-\arabic*, leftmargin=*, format=\small]

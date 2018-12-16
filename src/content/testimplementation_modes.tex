@@ -16,7 +16,7 @@ The first task is to set up the proper environment in Eclipse with Gradle and JU
 
 For the C++ language based Section Occupancy Query component it is advised to use Visual Studio Code with PlatformIO extension\footnote{Detailes about the framework are available here: \url{https://platformio.org/}}. The tests can be implemented for this component in the Google Test framework\footnote{Introduction can be found here:\url{https://github.com/google/googletest}}.
 
-\paragraph{FS-1: GPIO Handling} The handling of GPIO pins is based on the GPIO sysfs interface\footnote{Interface is explained here in details: \url{https://www.kernel.org/doc/Documentation/gpio/sysfs.txt}}, which provides a file based GPIO controlling with \textit{/sys/class/gpio/} root folder for unix systems. Therefore the GPIO Manager Java component must handle file operations in the specific folders. In order to test the logic regarding GPIO handling, the file writing and reading operations must be extracted into separate classes.
+\paragraph{FS-1: GPIO Handling} The handling of GPIO pins is based on the GPIO sysfs interface, which provides a file based GPIO controlling with \textit{/sys/class/gpio/} root folder for unix systems. Therefore the GPIO Manager Java component must handle file operations in the specific folders. In order to test the logic regarding GPIO handling, the file writing and reading operations must be extracted into separate classes.
 
 \begin{figure}[ht]
 	\centering
@@ -27,16 +27,14 @@ For the C++ language based Section Occupancy Query component it is advised to us
 On \autoref{fig:gpiomanagerClass}, a class diagram shows the re-factored structure of the component. This structure gives an advantage that the file operation dependencies are extracted into interfaces, which we can be easily mocked. The following code snippet shows how a fake object can be created and verified. 
 
 \begin{lstlisting}[language = Java]
-private static final String GPIOFOLDER = "/sys/class/gpio/";
 // Create a fake class which behaves as any ICommandWriter class
 @Mock
 private ICommandWriter writer = Mockito.mock(ICommandWriter.class);
-// Verify that the 'writer' fake object have been called 
-// with 1 time during the execution with these exact parameters
-Mockito.verify(writer, Mockito.times(1)).executeCommand(String.valueOf(67), GPIOFOLDER + "export");
+// Verify that the 'writer' fake object have been called once with these exact parameters
+Mockito.verify(writer,Mockito.times(1)).executeCommand(String.valueOf(67),"/sys/class/gpio/export");
 \end{lstlisting}
 
-As explained before the static methods can only be mocked with PowerMock, thus the following example shows how to make the GpioProvider to return a fake Gpio instance when the \textit{getGpioInstance} method is called with parameters: 86, Gpio.Direction.IN. Therefore in any further tests we can examine the mGpio instance as explained before.
+As explained before the static methods can only be mocked with PowerMock, thus the following example shows how to make the GpioProvider to return a fake Gpio instance when the \textit{getGpioInstance} method is called with parameters: 86, Gpio.Direction.IN.
 
 \begin{lstlisting}
 @RunWith(PowerMockRunner.class)
@@ -44,7 +42,6 @@ As explained before the static methods can only be mocked with PowerMock, thus t
 public class GpioManagerTest{
 	@Mock
 	private Gpio mGpio = Mockito.mock(Gpio.class);
-	
 	@Before
 	public void initEnv(){
 		// Setup powermockito for static GpioProvider mocking

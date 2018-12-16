@@ -80,10 +80,8 @@ The test design techniques, test completion criteria and test data must be appli
 \begin{itemize}
 	\item Eclipse Photon where applicable
 	\item Visual Studio Code where applicable
-	\item JUnit Jupiter for Java base components
+	\item JUnit Jupiter for Java base components and GoogleTest for components written in C++
 	\item Mockito with PowerMockito for components written in Java
-	\item GTest for components written in C++
-	\item Railway track elements
 \end{itemize}
 \paragraph{Test activities and estimates:} These are confirmed personally and aligned with university studies.
 \paragraph{Stuffing:} The actual team and roles are highly dependent with the MoDeS$^3$ team in every semester.
@@ -239,8 +237,6 @@ A full use case coverage is aimed for the Dashboard which can be defined by the 
 \end{table} 
 
 \subsection{Test coverage items}
-
-\todo[inline]{create diagrams for each test coverage item}
 \paragraph{Safety Logic: Train collision test coverage items (FS-4/1.0)}
 \begin{enumerate}[label=FS-5/1.0-\arabic*, leftmargin=*, format=\small]
 	\item 1 Train is moving to a segment where there is an other train
@@ -491,8 +487,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 \end{table}
 
 
-\paragraph{Safety logic verification (FSS-2)} The below detailed safety logic test cases instead of checking the whole table, will just verify the safety logic decisions in the most problematic scenarios. 
-\todo[inline]{Mention good figures about the layout here}
+\paragraph{Safety logic verification (FSS-2)} The below detailed safety logic test cases instead of checking the whole table, will just verify the safety logic decisions in the most problematic scenarios.
 \begin{table}[H]
 	\caption{System test case 2-1}
 	\label{table:TCase-FSS2-01}
