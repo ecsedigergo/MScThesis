@@ -1,24 +1,17 @@
 %----------------------------------------------------------------------------
 \chapter{Railway demonstrator system architecture}\label{chapter:RailwaySystem}
 %----------------------------------------------------------------------------
-First of all this section describes the railway demonstrator system architecture as it is the system under test.(A top overview of the demonstrator system is shown in \autoref{fig:overview}.) This system's purpose is to simulate a real-life safety critical railway system, with basic functionalities and with a safety logic. The demonstrator is based on a railway model stub which is extended with custom and off-the-shelf hardware and software components. Naturally the system is also capable of moving and stopping the trains on them, nevertheless with the safety logic it can avoid safety-critical scenarios like train collision or train derail. In the following chapter I will further discuss the system architecture with their components and describe the requirements for them.
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=150mm, keepaspectratio, angle = 180]{figures/modes3/overview.jpg}
-	\caption{Railway system top view}
-	\label{fig:overview}
-\end{figure}
-
-\section{Railway system basic components}
-I will introduce the physical components and the basic process of the railway systems stub in the following section. Basically there are 31 sections, with one blind track and 7 turnouts. \autoref{fig:layout} shows the layout of railway elements with the corresponding segment ids. In the following, the abbreviation of S is stands for sections and T is for turnouts.
-\todo[inline]{Create more visible figure about layout?}
+First of all this section describes the railway demonstrator system architecture as it is the system under test. This system's purpose is to simulate a real-life safety critical railway system, with basic functionalities and with a safety logic. The demonstrator is based on a railway model stub which is extended with custom and off-the-shelf hardware and software components. Naturally the system is also capable of moving and stopping the trains on them, nevertheless with the safety logic it can avoid safety-critical scenarios like train collision or train derail. In the following chapter I will further discuss the system architecture with their components and describe the requirements for them.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=150mm, keepaspectratio]{figures/modes3/layoutBigsmall.png}
-	\caption{Railway layout}
+	\caption{Railway layout with segment IDs}
 	\label{fig:layout}
 \end{figure}
+
+\section{Railway system basic components}
+I will introduce the physical components and the basic process of the railway systems stub in the following section. Basically there are 31 sections, with one blind track and 7 turnouts. \autoref{fig:layout} shows the layout of railway elements with the corresponding segment ids. In the following, the abbreviation of S is stands for sections and T is for turnouts.
 
 \paragraph{Section} 
 First principal element is a 30-65 cm long railroad. Each section is connected to 2 other segments (except the S22 blind section) and wired to a command station, which gives them sufficient power source for moving the trains on them. On \autoref{fig:layout}, these sections are identified by \textit{SXX} strings, where \textit{XX} is two unique digits for this layout. Furthermore these numerals determine which bit shows this section's occupancy in the occupancy vector (see section \ref{section:OccupancyDetection} for more information). After the identifier each section lengths are shown with responsible BeagleBone Black ids.
@@ -42,7 +35,6 @@ Supply power source for the sections which provides tension for the trains on th
 
 \paragraph{Controller}
 In connection with the \textit{Command Station} an XPressNet protocol \footnote{More details about XPressNet Protocol \url{http://www.lenzusa.com/1newsite1/Manuals/xpressnet.pdf}} based controller is attached to the system. This component's purpose is setting the direction and speed for each train on the track.
-\todo[inline]{footnote is ok? move it out to the bibs?}
 
 \section{Hardware extensions}
 The basic hardware environment is not sufficient for controlling and analyzing purposes, therefore additional hardware elements have been designed to satisfy these requirements. In this section these platforms will be described in details. (The \ref{appendix:HWPictures} appendix contains pictures about the elements.) For modeling purposes I have used MagicDraw with Sysml plugin \cite{SysML}.
@@ -127,7 +119,7 @@ In general the following software components were implemented in java and c++ la
 \todo[inline]{delete physical controllers? add xpressnet controller? update figure to be nicer and add componentlevel SL}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=150mm]{figures/modes3/MoDeS3_Deployment1.png}
+	\includegraphics[width=150mm]{figures/modes3/MoDeS3_Deployment.png}
 	\caption{Software components deployment to hardware elements}
 	\label{fig:Modes3Deployment}
 \end{figure}
@@ -153,7 +145,6 @@ Model railway track dashboard implementation, where we can manipulate the track 
 Dashboard for the model railway track, with focus on touchable elements, that can be controlled. This touch board is attached to the demonstrator table itself and start automatically with the Dashboard on the Raspberry Pi microcontroller.
 \paragraph{Safety Logic}
 In the MODES$^3$ safety-critical project we want to avoid the collision of model trains and the turnout derail scenarios, therefore the safety logic software component detects these critical scenarios by Viatra Query \cite{Viatra} patterns and act the necessary action (for example disable a section or the whole track). The component level safety logic is a light-weight implementation with Gamma Statechart Composition Framework \cite{Gamma}, that also serves this purpose and deployed to each BBB separately.
-\todo[inline]{make bib references for viatra, yakindu}
 
 \subsection{Communication topics}
 Each software component share informations about the railroad system through the messaging software element, which is based on protobuf messages and provides high-level designed API with MQTT connection for this purpose. 

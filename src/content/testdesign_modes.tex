@@ -366,12 +366,10 @@ In the (\ref{table:Feature-Sets-integration}) table the components of the demons
 			to 1.0 \textwidth
 			{  X[0.7,c] X[1.5, c] X[3.0, c] X[0.7,c] X[c] X[2.0,c] }
 			\toprule
-			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                        & Priority & Approach         & Traceability                                                                                                  \\ \midrule
-			ID    & Name                                  &                                                                                                              &          &                  &                                                                                                               \\ \midrule
-			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       & Scenario Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                                                               \\
-			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       & Scenario Testing & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2}                                             \\
-			FSI-3 & Safety logic interaction              & To test the occupancy detections with safety logic reactions and their network command messages              & H        & Scenario Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ} \\
-			FSI-4 & Safety logic intervention             & To test the safety logic intervention through Track element controller by network command messages           & H        & Scenario Testing & \ref{req:SL-1} \ref{req:SL-2}  \ref{req:SL-3}  \ref{req:SL-4} \ref{req:TEC-1} \ref{req:TEC-2}                 \\ \bottomrule
+			       \multicolumn{2}{c}{Feature Set}        & Scope                                                                                                        & Priority & Approach         & Traceability                                                      \\ \midrule
+			ID    & Name                                  &                                                                                                              &          &                  &                                                                   \\ \midrule
+			FSI-1 & Occupancy message                     & To test the occupancy network messages sent out by the occupancy components                                  & Am       & Scenario Testing & \ref{req:OCQ-1}, \ref{req:OCQ-2}, \ref{req:SOQ}                   \\
+			FSI-2 & Track element controller instructions & To test Track element controller and GPIO handling functionalities, manipulating by network command messages & Am       & Scenario Testing & \ref{req:TEC-1} \ref{req:TEC-2} \ref{req:GPIO-1} \ref{req:GPIO-2} \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table} 
@@ -507,7 +505,7 @@ From the previously described (\ref{table:Feature-Sets-System}) feature sets the
 			System test case ID: 2-1 & Purpose: to test the safety logic for turnout derail scenario  \newline Priority: am \newline Tracing: FS-6/1.2 \\ \midrule
 			Precondition             & Turnout T5, T1 is in straight state and a train is on the segment S13                                           \\
 			Input                    & Move the train to segment S15 from segment S13 through the path of S13, S8, T5, S11, T1, S15.                   \\
-			Expected result          & Before T1 turnout the whole railway system is disabled by the safety logic to avoid turnout derail              \\ \bottomrule
+			Expected result          & Before T1 turnout S11 segment is disabled by the safety logic to avoid turnout derail                           \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}

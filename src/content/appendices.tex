@@ -682,7 +682,7 @@
 			System test case ID: 2-1 & Purpose: to test the safety logic for turnout derail scenario   \newline Priority: am \newline Tracing: FS-6/1.2 \\ \midrule
 			Precondition             & Turnout T5, T1 is in straight state and a train is on the segment S13                                            \\
 			Input                    & Move the train to segment S15 from segment S13 through the path of S13, S8, T5, S11, T1, S15.                    \\
-			Expected result          & Before T1 turnout the whole railway system is disabled by the safety logic to avoid turnout derail               \\ \bottomrule
+			Expected result          & Before T1 turnout S11 segment is disabled by the safety logic to avoid turnout derail               \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
@@ -699,7 +699,7 @@
 			System test case ID: 2-2 & Purpose: to test the safety logic for train collision scenario \newline Priority: am \newline Tracing: FS-6/1.2   \\ \midrule
 			Precondition             & Turnout T5 is in straight state, turnout T1 is in divergent state and 2 trains are on the segments of S13 and S15 \\
 			Input                    & Move the first train to segment S15 from segment S13 through the path of S13, S8, T5, S11, T1, S15.               \\
-			Expected result          & Before segment S15 the whole railway system is disabled by the safety logic to avoid train collision              \\ \bottomrule
+			Expected result          & Segment S11 is disabled by the safety logic to avoid train collision                                              \\ \bottomrule
 		\end{tabu}
 	\end{center}
 \end{table}
