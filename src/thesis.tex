@@ -45,7 +45,7 @@
 
 \selectthesislanguage
 
-\includepdf[noautoscale]{content/Feladatkiiras.pdf}
+%\includepdf[noautoscale]{content/Feladatkiiras.pdf}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \include{include/titlepage}		   % Szakdolgozat/Diplomaterv címlap
@@ -60,9 +60,11 @@
 
 % Declaration and Abstract
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\include{include/declaration} 
-\include{content/abstract}    
 
+\include{include/declaration} 
+\newpage\null\thispagestyle{empty}\newpage
+\include{content/abstract}    
+\newpage\null\thispagestyle{empty}\newpage
 
 % The main part of the thesis
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
